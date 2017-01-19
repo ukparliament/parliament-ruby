@@ -27,19 +27,19 @@
 
 ## Requirements
 [parliament-ruby][parliament-ruby] requires the following:
-* [Ruby][ruby]  
+* [Ruby][ruby] - [click here][ruby-version] for the exact version
 * [Bundler][bundler]
 
 
 ## Installation
 This gem is currently not available on RubyGems. To use it in an application, install it directly from GitHub via your Gemfile
 ```bash
-gem 'parliament', git: 'https://github.com/parliament-ruby.git', branch: 'master'
+gem 'parliament', git: 'https://github.com/ukparliament/parliament-ruby.git', branch: 'master'
 ```
 
 
 ## Usage
-This gem's main function is fetching an ntripple file from a remote server and converting it into linked ruby objects.
+This gem's main function is fetching an n-triple file from a remote server and converting it into linked ruby objects.
 
 ### Setting up a connection
 In order to connect to a remote server, we first need to set a base_url value, from which we will build an 'endpoint'. The base_url should be the beginning of a url without the trailing slash. For example `http://example.com` instead of `http://example.com/`.
@@ -72,7 +72,7 @@ Parliament::Request.new.base_url #=> 'http://example.com'
 ### Building an 'endpoint'
 Now that we have a `base_url` set, we will want to build an 'endpoint' such as: `http://test.com/parties/current.nt`.
 
-An endpoint is effectively just a full URL to an ntripple file on a remote server.
+An endpoint is effectively just a full URL to an n-triple file on a remote server.
 
 Building an endpoint is simple, once you have a Parliament::Request object, you do something like this:
 ```ruby
@@ -103,7 +103,7 @@ bundle install
 ### Running the tests
 We use [RSpec][rspec] as our testing framework and tests can be run using:
 ```bash
-bundle exec rspec
+bundle exec rake
 ```
 
 
@@ -111,20 +111,22 @@ bundle exec rspec
 If you wish to submit a bug fix or feature, you can create a pull request and it will be merged pending a code review.
 
 1. Fork the repository
-2. Create your feature branch (`git checkout -b my-new-feature`)
-3. Commit your changes (`git commit -am 'Add some feature'`)
-4. Push to the branch (`git push origin my-new-feature`)
-5. Create a new Pull Request
+1. Create your feature branch (`git checkout -b my-new-feature`)
+1. Commit your changes (`git commit -am 'Add some feature'`)
+1. Push to the branch (`git push origin my-new-feature`)
+1. Ensure your changes are tested using [Rspec][rspec]
+1. Create a new Pull Request
 
 
 ## License
 [parliament-ruby][parliament-ruby] is licensed under the [Open Parliament Licence][info-license].
 
-[ruby]:           https://www.ruby-lang.org/en/
-[bundler]:        http://bundler.io
-[rspec]:          http://rspec.info
+[ruby]:            https://www.ruby-lang.org/en/
+[bundler]:         http://bundler.io
+[rspec]:           http://rspec.info
 [parliament-ruby]: https://github.com/ukparliament/parliament-ruby
-[pds]: https://www.parliament.uk/mps-lords-and-offices/offices/bicameral/parliamentary-digital-service/
+[pds]:             https://www.parliament.uk/mps-lords-and-offices/offices/bicameral/parliamentary-digital-service/
+[ruby-version]:    https://github.com/ukparliament/parliament-ruby/blob/master/.ruby-version
 
 [info-license]:   http://www.parliament.uk/site-information/copyright/open-parliament-licence/
 [shield-license]: https://img.shields.io/badge/license-Open%20Parliament%20Licence-blue.svg
