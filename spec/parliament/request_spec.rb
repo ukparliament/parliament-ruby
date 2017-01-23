@@ -63,9 +63,27 @@ describe Parliament::Request, vcr: true do
   end
 
   describe '#get' do
-    subject { Parliament::Request.new(base_url: 'http://localhost:3030') }
-    it 'returns a Net::HTTP Object' do
-      expect(subject.parties.current.get).to be_a(String)
+    subject { Parliament::Request.new(base_url: 'http://localhost:3030').parties.current.get }
+
+    it 'returns a Parliament::Response' do
+      expect(subject).to be_a(Parliament::Response)
+    end
+
+    it 'returns 27 objects' do
+      expect(subject.size).to eq(27)
+    end
+
+    it 'returns an array of Grom::Node objects' do
+      subject.each do |object|
+        expect(object).to be_a(Grom::Node)
+      end
+    end
+
+    # NOTE: ensure all fixtures use anonymised data
+    it 'returns linked objects where links are in the data' do
+      linked_objects = Parliament::Request.new(base_url: 'http://localhost:3030').people.members.current.get
+
+      expect(linked_objects.first.sittings.first.constituencies.first.constituencyName).to eq('Constituency 1 - name')
     end
   end
 end

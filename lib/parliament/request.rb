@@ -22,7 +22,9 @@ module Parliament
     end
 
     def get
-      Net::HTTP.get(URI(api_endpoint))
+      data = Net::HTTP.get(URI(api_endpoint))
+
+      Parliament::Response.new(Grom::Reader.new(data).objects)
     end
 
     private
