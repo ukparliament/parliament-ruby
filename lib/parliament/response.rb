@@ -12,11 +12,10 @@ module Parliament
     end
 
     def filter(*types)
-      filtered_objects = Array.new(types.size, [])
+      filtered_objects = Array.new(types.size) { [] }
 
       @nodes.each do |node|
         type_index = types.index(node.type)
-
         filtered_objects[type_index] << node unless type_index.nil?
       end
 
