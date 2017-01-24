@@ -22,7 +22,6 @@ module Parliament
     end
 
     def get
-
       response = Net::HTTP.get_response(URI(api_endpoint))
 
       if response.is_a?(Net::HTTPClientError)
