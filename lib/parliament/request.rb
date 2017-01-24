@@ -22,9 +22,16 @@ module Parliament
     end
 
     def get
-      data = Net::HTTP.get(URI(api_endpoint))
 
-      Parliament::Response.new(Grom::Reader.new(data).objects)
+      response = Net::HTTP.get_response(URI(api_endpoint))
+
+      if response.is_a?(Net::HTTPClientError)
+        raise StandardError, 'This is a HTTPClientError'
+      elsif response.is_a?(Net::HTTPServerError)
+        raise StandardError, 'This is a HTTPServerError'
+      else
+        Parliament::Response.new(Grom::Reader.new(response.body).objects)
+      end
     end
 
     private

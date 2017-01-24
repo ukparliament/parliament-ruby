@@ -1,4 +1,5 @@
 require_relative '../spec_helper'
+require 'pry'
 
 describe Parliament::Request, vcr: true do
   context 'with endpoint set via an initializer' do
@@ -63,27 +64,48 @@ describe Parliament::Request, vcr: true do
   end
 
   describe '#get' do
-    subject { Parliament::Request.new(base_url: 'http://localhost:3030').parties.current.get }
 
-    it 'returns a Parliament::Response' do
-      expect(subject).to be_a(Parliament::Response)
-    end
 
-    it 'returns 27 objects' do
-      expect(subject.size).to eq(27)
-    end
+    context 'it returns a status code of 200 and ..' do
+      subject { Parliament::Request.new(base_url: 'http://localhost:3030').parties.current.get }
 
-    it 'returns an array of Grom::Node objects' do
-      subject.each do |object|
-        expect(object).to be_a(Grom::Node)
+      it 'returns a Parliament::Response' do
+        expect(subject).to be_a(Parliament::Response)
+      end
+
+      it 'returns 27 objects' do
+        expect(subject.size).to eq(27)
+      end
+
+      it 'returns an array of Grom::Node objects' do
+        subject.each do |object|
+          expect(object).to be_a(Grom::Node)
+        end
+      end
+
+      # NOTE: ensure all fixtures use anonymised data
+      it 'returns linked objects where links are in the data' do
+        linked_objects = Parliament::Request.new(base_url: 'http://localhost:3030').people.members.current.get
+
+        expect(linked_objects.first.sittings.first.constituencies.first.constituencyName).to eq('Constituency 1 - name')
       end
     end
 
-    # NOTE: ensure all fixtures use anonymised data
-    it 'returns linked objects where links are in the data' do
-      linked_objects = Parliament::Request.new(base_url: 'http://localhost:3030').people.members.current.get
+    context 'it returns any other status code than a 200' do
 
-      expect(linked_objects.first.sittings.first.constituencies.first.constituencyName).to eq('Constituency 1 - name')
+      #stub_request(:get, 'http://localhost:3030/dogs/cats.nt').to_raise(StandardError)
+
+      it 'and raises client error when status is within the 400 range' do
+        stub_request(:get, 'http://localhost:3030/dogs/cats.nt').to_return(status: 400)
+        expect{Parliament::Request.new(base_url: 'http://localhost:3030').dogs.cats.get}.to raise_error(StandardError, 'This is a HTTPClientError')
+
+      end
+
+      it 'and raises server error when status is within the 500 range' do
+        stub_request(:get, 'http://localhost:3030/parties/current.nt').to_return(status: 500)
+        expect{Parliament::Request.new(base_url: 'http://localhost:3030').parties.current.get}.to raise_error(StandardError, 'This is a HTTPServerError')
+
+      end
     end
   end
 end
