@@ -4,3 +4,6 @@ gem 'grom', git: 'https://github.com/mattrayner/grom.git', branch: 'mattrayner/n
 
 # Specify your gem's dependencies in parliament.gemspec
 gemspec
+
+# Include coveralls for CI coverage reports
+gem 'coveralls', require: false
