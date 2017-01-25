@@ -12,7 +12,7 @@ Gem::Specification.new do |spec|
   spec.description   = %q{Internal parliamentary data API wrapper for ruby}
   spec.homepage      = 'http://github.com/ukparliament/parliament_ruby'
   spec.license       = 'Open Parliament License'
-  
+
 
   spec.files         = `git ls-files -z`.split("\x0").reject do |f|
     f.match(%r{^(test|spec|features)/})
