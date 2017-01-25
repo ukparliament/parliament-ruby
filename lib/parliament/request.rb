@@ -24,13 +24,10 @@ module Parliament
     def get
       response = Net::HTTP.get_response(URI(api_endpoint))
 
-      if response.is_a?(Net::HTTPClientError)
-        raise StandardError, 'This is a HTTPClientError'
-      elsif response.is_a?(Net::HTTPServerError)
-        raise StandardError, 'This is a HTTPServerError'
-      else
-        Parliament::Response.new(Grom::Reader.new(response.body).objects)
-      end
+      raise StandardError, 'This is a HTTPClientError' if response.is_a?(Net::HTTPClientError)
+      raise StandardError, 'This is a HTTPServerError' if response.is_a?(Net::HTTPServerError)
+
+      Parliament::Response.new(Grom::Reader.new(response.body).objects)
     end
 
     private
