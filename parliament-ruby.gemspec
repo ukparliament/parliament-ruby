@@ -4,7 +4,7 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'parliament/version'
 
 Gem::Specification.new do |spec|
-  spec.name          = 'parliament'
+  spec.name          = 'parliament-ruby'
   spec.version       = Parliament::VERSION
   spec.authors       = ['Matt Rayner']
   spec.email         = ['mattrayner1@gmail.com']
