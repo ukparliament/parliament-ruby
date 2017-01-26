@@ -5,7 +5,7 @@ require 'grom'
 require 'parliament/version'
 require 'parliament/request'
 require 'parliament/response'
-require 'parliament/person'
+require 'parliament/decorators/person'
 
 module Parliament
   # Your code goes here...

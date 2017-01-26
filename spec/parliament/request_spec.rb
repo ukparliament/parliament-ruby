@@ -92,13 +92,44 @@ describe Parliament::Request, vcr: true do
     context 'it returns any other status code than a 200' do
       it 'and raises client error when status is within the 400 range' do
         stub_request(:get, 'http://localhost:3030/dogs/cats.nt').to_return(status: 400)
-        expect { Parliament::Request.new(base_url: 'http://localhost:3030').dogs.cats.get }.to raise_error(StandardError, 'This is a HTTPClientError')
+        expect do
+          Parliament::Request.new(base_url: 'http://localhost:3030').dogs.cats.get
+        end.to raise_error(StandardError, 'This is a HTTPClientError')
       end
 
       it 'and raises server error when status is within the 500 range' do
         stub_request(:get, 'http://localhost:3030/parties/current.nt').to_return(status: 500)
-        expect { Parliament::Request.new(base_url: 'http://localhost:3030').parties.current.get }.to raise_error(StandardError, 'This is a HTTPServerError')
+        expect do
+          Parliament::Request.new(base_url: 'http://localhost:3030').parties.current.get
+        end.to raise_error(StandardError, 'This is a HTTPServerError')
       end
+    end
+  end
+
+  describe '#assign_decorator' do
+    subject { Parliament::Request.new(base_url: 'http://test.com') }
+
+    let(:person_statements) do
+      [RDF::Statement.new(RDF::URI.new('http://example.com/123'), RDF.type, 'http://id.example.com/Person')]
+    end
+
+    let(:sitting_statements) do
+      [RDF::Statement.new(RDF::URI.new('http://example.com/3'), RDF.type, 'http://id.example.com/Sitting')]
+    end
+
+    it 'returns an object which has been decorated if a decorator is defined' do
+      node = Grom::Node.new(person_statements)
+      result = subject.assign_decorator(node)
+
+      expect(result).to respond_to(:houses)
+    end
+
+    # TODO: think of a better way to test whether a node has not been decorated
+    it 'returns an object which has not been decorated if a decorator is not defined' do
+      node = Grom::Node.new(sitting_statements)
+      result = subject.assign_decorator(node)
+
+      expect(result).not_to respond_to(:houses)
     end
   end
 end
