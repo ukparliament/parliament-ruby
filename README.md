@@ -1,7 +1,7 @@
 # Parliament Data API Wrapper (Ruby)
 [parliament-ruby][parliament-ruby] is a gem created by the [Parliamentary Digital Service][pds] to allow easy communication with the internal parliament data api.
 
-[![License][shield-license]][info-license]
+[![Build Status][shield-travis]][info-travis] [![Test Coverage][shield-coveralls]][info-coveralls] [![License][shield-license]][info-license]
 
 > **NOTE:** This gem is in active development and is likely to change at short notice. It is not recommended that you use this in any production environment.
 
@@ -127,6 +127,12 @@ If you wish to submit a bug fix or feature, you can create a pull request and it
 [parliament-ruby]: https://github.com/ukparliament/parliament-ruby
 [pds]:             https://www.parliament.uk/mps-lords-and-offices/offices/bicameral/parliamentary-digital-service/
 [ruby-version]:    https://github.com/ukparliament/parliament-ruby/blob/master/.ruby-version
+
+[info-travis]:   https://travis-ci.org/ukparliament/parliament-ruby
+[shield-travis]: https://img.shields.io/travis/ukparliament/parliament-ruby.svg
+
+[info-coveralls]:   https://coveralls.io/github/ukparliament/parliament-ruby
+[shield-coveralls]: https://img.shields.io/coveralls/ukparliament/parliament-ruby.svg
 
 [info-license]:   http://www.parliament.uk/site-information/copyright/open-parliament-licence/
 [shield-license]: https://img.shields.io/badge/license-Open%20Parliament%20Licence-blue.svg
