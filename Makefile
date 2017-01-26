@@ -1,5 +1,5 @@
 test:
-	bundle exec rspec spec
+	bundle exec rake
 
 build:
 	gem build parliament-ruby.gemspec
