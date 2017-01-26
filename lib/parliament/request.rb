@@ -27,7 +27,14 @@ module Parliament
       raise StandardError, 'This is a HTTPClientError' if response.is_a?(Net::HTTPClientError)
       raise StandardError, 'This is a HTTPServerError' if response.is_a?(Net::HTTPServerError)
 
-      Parliament::Response.new(Grom::Reader.new(response.body).objects)
+      objects = Grom::Reader.new(response.body).objects
+      objects.map do |object|
+        object_type = Grom::Helper.get_id(object.type)
+        decorator_module = Object.const_get("Parliament::#{object_type}")
+        object.extend(Object.const_get(decorator_module)) if Parliament.constants.include?(object_type.to_sym)
+      end
+
+      Parliament::Response.new(objects)
     end
 
     private
