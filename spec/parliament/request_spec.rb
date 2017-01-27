@@ -84,8 +84,8 @@ describe Parliament::Request, vcr: true do
       # NOTE: ensure all fixtures use anonymised data
       it 'returns linked objects where links are in the data' do
         linked_objects = Parliament::Request.new(base_url: 'http://localhost:3030').people.members.current.get
-
-        expect(linked_objects.first.sittings.first.constituencies.first.constituencyName).to eq('Constituency 1 - name')
+        p linked_objects.first
+        expect(linked_objects.first.personHasSitting.first.sittingHasConstituency.first.constituencyName).to eq('Constituency 1 - name')
       end
     end
 

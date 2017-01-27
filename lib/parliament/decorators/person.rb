@@ -2,7 +2,7 @@ module Parliament
   module Decorators
     module Person
       def houses
-        respond_to?(:sittings) ? sittings.first.houses : []
+        respond_to?(:personHasSitting) ? personHasSitting.first.sittingHasHouse : []
       end
     end
   end
