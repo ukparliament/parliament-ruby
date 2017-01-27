@@ -40,6 +40,10 @@ describe Parliament::Response, vcr: true do
     it 'should respond to length' do
       expect(subject).to respond_to(:length)
     end
+
+    it 'should respond to []' do
+      expect(subject).to respond_to(:[])
+    end
   end
 
   describe '#filter' do
