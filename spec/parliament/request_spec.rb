@@ -1,5 +1,4 @@
 require_relative '../spec_helper'
-require 'pry'
 
 describe Parliament::Request, vcr: true do
   context 'with endpoint set via an initializer' do
