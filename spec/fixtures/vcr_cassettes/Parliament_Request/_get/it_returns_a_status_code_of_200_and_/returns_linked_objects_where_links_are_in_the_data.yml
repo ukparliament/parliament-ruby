@@ -44,6 +44,7 @@ http_interactions:
         <http://id.ukpds.org/cea89432-e046-4013-a9ba-e93d0468d186> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://id.ukpds.org/schema/Person> .
         <http://id.ukpds.org/cea89432-e046-4013-a9ba-e93d0468d186> <http://id.ukpds.org/schema/forename> "Person 1 - forename" .
         <http://id.ukpds.org/cea89432-e046-4013-a9ba-e93d0468d186> <http://id.ukpds.org/schema/surname> "Person 1 - surname" .
+        <http://id.ukpds.org/cea89432-e046-4013-a9ba-e93d0468d186> <http://id.ukpds.org/schema/sittings> <http://id.ukpds.org/6569ce56-020e-4c43-a36e-ca5bf3e576b7> .
         <http://id.ukpds.org/HouseOfCommons> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://id.ukpds.org/schema/House> .
         <http://id.ukpds.org/HouseOfCommons> <http://id.ukpds.org/schema/connect> <http://id.ukpds.org/6569ce56-020e-4c43-a36e-ca5bf3e576b7> .
         <http://id.ukpds.org/4ef6c7b7-a5c8-4dde-a5a5-29c9f80d8a27> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://id.ukpds.org/schema/Constituency> .
@@ -57,6 +58,7 @@ http_interactions:
         <http://id.ukpds.org/6569ce56-020e-4c43-a36e-ca5bf3e576b7> <http://id.ukpds.org/schema/connect> <http://id.ukpds.org/4ef6c7b7-a5c8-4dde-a5a5-29c9f80d8a27> .
         <http://id.ukpds.org/6569ce56-020e-4c43-a36e-ca5bf3e576b7> <http://id.ukpds.org/schema/connect> <http://id.ukpds.org/HouseOfCommons> .
         <http://id.ukpds.org/6569ce56-020e-4c43-a36e-ca5bf3e576b7> <http://id.ukpds.org/schema/connect> <http://id.ukpds.org/cea89432-e046-4013-a9ba-e93d0468d186> .
+        <http://id.ukpds.org/6569ce56-020e-4c43-a36e-ca5bf3e576b7> <http://id.ukpds.org/schema/constituencies> <http://id.ukpds.org/4ef6c7b7-a5c8-4dde-a5a5-29c9f80d8a27> .
         <http://id.ukpds.org/b40f3248-3f53-4af5-8349-024db28d2636> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://id.ukpds.org/schema/PartyMembership> .
         <http://id.ukpds.org/b40f3248-3f53-4af5-8349-024db28d2636> <http://id.ukpds.org/schema/partyMembershipStartDate> "2016-05-03"^^<http://www.w3.org/2001/XMLSchema#date> .
         <http://id.ukpds.org/b40f3248-3f53-4af5-8349-024db28d2636> <http://id.ukpds.org/schema/connect> <http://id.ukpds.org/80234c90-f86a-4942-b6ae-d1e57a0b378d> .
