@@ -1,5 +1,4 @@
 require_relative '../spec_helper'
-require 'pry'
 
 describe Parliament::Response, vcr: true do
   let(:nodes) { [] }
