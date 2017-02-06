@@ -83,8 +83,9 @@ describe Parliament::Request, vcr: true do
       # NOTE: ensure all fixtures use anonymised data
       it 'returns linked objects where links are in the data' do
         linked_objects = Parliament::Request.new(base_url: 'http://localhost:3030').people.members.current.get
+        result = linked_objects.first.personHasSitting.first.sittingHasConstituency.first.constituencyName
 
-        expect(linked_objects.first.sittings.first.constituencies.first.constituencyName).to eq('Constituency 1 - name')
+        expect(result).to eq('Constituency 1 - name')
       end
     end
 
@@ -104,6 +105,26 @@ describe Parliament::Request, vcr: true do
           Parliament::Request.new(base_url: 'http://localhost:3030').parties.current.get
         end.to raise_error(StandardError, 'This is a HTTPServerError')
       end
+    end
+  end
+
+  describe '#assign_decorator' do
+    # TODO: think of a way to test whether a node has not been decorated
+
+    before(:each) do
+      @response = Parliament::Request.new(base_url: 'http://localhost:3030').people.members.current.get
+    end
+
+    it 'returns an object which has been decorated if a decorator is defined' do
+      person = @response.select { |node| node.type == 'http://id.ukpds.org/schema/Person' }.first
+
+      expect(person).to respond_to(:houses)
+    end
+
+    it 'decorates nested objects' do
+      person = @response.select { |node| node.type == 'http://id.ukpds.org/schema/Person' }.first
+
+      expect(person.sittings.first).to respond_to(:houses)
     end
   end
 end

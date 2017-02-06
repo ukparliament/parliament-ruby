@@ -29,13 +29,13 @@ http_interactions:
       Content-Type:
       - application/n-triples; charset=utf-8
       Etag:
-      - W/"fa950a6e269562ab5979350ba2595602"
+      - W/"34264810604fc0dad2923a98d02fad24"
       Cache-Control:
       - max-age=0, private, must-revalidate
       X-Request-Id:
-      - 7d3c7e04-fd8d-483d-aa03-3edaea7cdab4
+      - e463a84a-c753-471f-a90f-659ab05f04a7
       X-Runtime:
-      - '0.643812'
+      - '0.964436'
       Transfer-Encoding:
       - chunked
     body:
@@ -44,7 +44,6 @@ http_interactions:
         <http://id.ukpds.org/cea89432-e046-4013-a9ba-e93d0468d186> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://id.ukpds.org/schema/Person> .
         <http://id.ukpds.org/cea89432-e046-4013-a9ba-e93d0468d186> <http://id.ukpds.org/schema/forename> "Person 1 - forename" .
         <http://id.ukpds.org/cea89432-e046-4013-a9ba-e93d0468d186> <http://id.ukpds.org/schema/surname> "Person 1 - surname" .
-        <http://id.ukpds.org/cea89432-e046-4013-a9ba-e93d0468d186> <http://id.ukpds.org/schema/sittings> <http://id.ukpds.org/6569ce56-020e-4c43-a36e-ca5bf3e576b7> .
         <http://id.ukpds.org/HouseOfCommons> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://id.ukpds.org/schema/House> .
         <http://id.ukpds.org/HouseOfCommons> <http://id.ukpds.org/schema/houseHasSitting> <http://id.ukpds.org/6569ce56-020e-4c43-a36e-ca5bf3e576b7> .
         <http://id.ukpds.org/4ef6c7b7-a5c8-4dde-a5a5-29c9f80d8a27> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://id.ukpds.org/schema/Constituency> .
@@ -85,5 +84,5 @@ http_interactions:
         <http://id.ukpds.org/68f804c8-c16b-4a77-8403-ae04d90e3a9d> <http://id.ukpds.org/schema/forename> "Person 3 - forename" .
         <http://id.ukpds.org/68f804c8-c16b-4a77-8403-ae04d90e3a9d> <http://id.ukpds.org/schema/surname> "Person 3 - surname" .
     http_version: 
-  recorded_at: Mon, 23 Jan 2017 16:19:23 GMT
+  recorded_at: Fri, 27 Jan 2017 12:24:10 GMT
 recorded_with: VCR 3.0.3
