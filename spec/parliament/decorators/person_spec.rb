@@ -19,7 +19,7 @@ describe Parliament::Decorators::Person do
       end
     end
 
-    context 'Grom::Node has no sittings' do
+    context 'Grom::Node has no houses' do
       it 'returns an empty array' do
         person_node = @person_nodes[2]
         person_node.extend(Parliament::Decorators::Person)
@@ -35,7 +35,7 @@ describe Parliament::Decorators::Person do
     end
 
     context 'Grom::Node has all the required objects' do
-      it 'returns the houses for a Grom::Node objects of type Person' do
+      it 'returns the sittings for a Grom::Node objects of type Person' do
         person_node = @person_nodes.first
         person_node.extend(Parliament::Decorators::Person)
 
@@ -50,6 +50,54 @@ describe Parliament::Decorators::Person do
         person_node.extend(Parliament::Decorators::Person)
 
         expect(person_node.sittings).to eq([])
+      end
+    end
+  end
+
+  describe '#given_name' do
+    before(:each) do
+      @person_nodes = objects.select { |object| object.type == 'http://id.ukpds.org/schema/Person' }
+    end
+
+    context 'Grom::Node has all the required objects' do
+      it 'returns the given name for a Grom::Node objects of type Person' do
+        person_node = @person_nodes.first
+        person_node.extend(Parliament::Decorators::Person)
+
+        expect(person_node.given_name).to eq('Person 1 - personGivenName')
+      end
+    end
+
+    context 'Grom::Node has no personGivenName' do
+      it 'returns an empty string' do
+        person_node = @person_nodes[2]
+        person_node.extend(Parliament::Decorators::Person)
+
+        expect(person_node.given_name).to eq('')
+      end
+    end
+  end
+
+  describe '#family_name' do
+    before(:each) do
+      @person_nodes = objects.select { |object| object.type == 'http://id.ukpds.org/schema/Person' }
+    end
+
+    context 'Grom::Node has all the required objects' do
+      it 'returns the given name for a Grom::Node objects of type Person' do
+        person_node = @person_nodes.first
+        person_node.extend(Parliament::Decorators::Person)
+
+        expect(person_node.family_name).to eq('Person 1 - personFamilyName')
+      end
+    end
+
+    context 'Grom::Node has no personGivenName' do
+      it 'returns an empty string' do
+        person_node = @person_nodes[2]
+        person_node.extend(Parliament::Decorators::Person)
+
+        expect(person_node.family_name).to eq('')
       end
     end
   end

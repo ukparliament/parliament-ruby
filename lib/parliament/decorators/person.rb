@@ -8,6 +8,14 @@ module Parliament
       def sittings
         respond_to?(:personHasSitting) ? personHasSitting : []
       end
+
+      def given_name
+        respond_to?(:personGivenName) ? personGivenName : ''
+      end
+
+      def family_name
+        respond_to?(:personFamilyName) ? personFamilyName : ''
+      end
     end
   end
 end
