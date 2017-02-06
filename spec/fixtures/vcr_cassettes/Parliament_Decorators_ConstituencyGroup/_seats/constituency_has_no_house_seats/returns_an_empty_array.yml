@@ -77,6 +77,6 @@ http_interactions:
         <http://id.ukpds.org/64fdf6e9-c716-4297-9625-7387e631ff83> <http://id.ukpds.org/schema/personGivenName> "David" .
         <http://id.ukpds.org/64fdf6e9-c716-4297-9625-7387e631ff83> <http://id.ukpds.org/schema/personFamilyName> "Blunkett" .
         <http://id.ukpds.org/123456789> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://id.ukpds.org/schema/ConstituencyGroup> .
-    http_version: 
+    http_version:
   recorded_at: Mon, 06 Feb 2017 15:38:26 GMT
 recorded_with: VCR 3.0.3

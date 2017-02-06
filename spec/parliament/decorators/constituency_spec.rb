@@ -1,13 +1,12 @@
 require_relative '../../spec_helper'
 
-describe Parliament::Decorators::Constituency, vcr: true do
+describe Parliament::Decorators::ConstituencyGroup, vcr: true do
   let(:response) { Parliament::Request.new(base_url: 'http://localhost:3030').constituencies('a2ce856d-ba0a-4508-9dd0-62feb54d3894').get }
 
   describe '#name' do
     context 'constituency has a name' do
       it 'returns the name of the constituency' do
         constituency_node = response.filter('http://id.ukpds.org/schema/ConstituencyGroup').first[0]
-        constituency_node.extend(Parliament::Decorators::Constituency)
 
         expect(constituency_node).to respond_to(:name)
         expect(constituency_node.name).to eq 'Sheffield, Brightside and Hillsborough'
@@ -17,7 +16,6 @@ describe Parliament::Decorators::Constituency, vcr: true do
     context 'constituency has no name' do
       it 'returns an empty string' do
         constituency_node = response.filter('http://id.ukpds.org/schema/ConstituencyGroup').first[1]
-        constituency_node.extend(Parliament::Decorators::Constituency)
 
         expect(constituency_node).to respond_to(:name)
         expect(constituency_node.name).to eq ''
@@ -27,9 +25,8 @@ describe Parliament::Decorators::Constituency, vcr: true do
 
   describe '#start_date' do
     context 'constituency has a start date' do
-      it 'returns the name of the constituency' do
+      it 'returns the start date of the constituency' do
         constituency_node = response.filter('http://id.ukpds.org/schema/ConstituencyGroup').first[0]
-        constituency_node.extend(Parliament::Decorators::Constituency)
 
         expect(constituency_node).to respond_to(:start_date)
         expect(constituency_node.start_date).to eq '2010-05-06'
@@ -39,7 +36,6 @@ describe Parliament::Decorators::Constituency, vcr: true do
     context 'constituency has no start date' do
       it 'returns an empty string' do
         constituency_node = response.filter('http://id.ukpds.org/schema/ConstituencyGroup').first[1]
-        constituency_node.extend(Parliament::Decorators::Constituency)
 
         expect(constituency_node).to respond_to(:start_date)
         expect(constituency_node.start_date).to eq ''
@@ -48,23 +44,42 @@ describe Parliament::Decorators::Constituency, vcr: true do
   end
 
   describe '#end_date' do
-    context 'constituency has a start date' do
-      it 'returns the name of the constituency' do
+    context 'constituency has an end date' do
+      it 'returns the end date of the constituency' do
         constituency_node = response.filter('http://id.ukpds.org/schema/ConstituencyGroup').first[0]
-        constituency_node.extend(Parliament::Decorators::Constituency)
 
         expect(constituency_node).to respond_to(:end_date)
         expect(constituency_node.end_date).to eq '2011-05-06'
       end
     end
 
-    context 'constituency has no start date' do
+    context 'constituency has no end date' do
       it 'returns an empty string' do
         constituency_node = response.filter('http://id.ukpds.org/schema/ConstituencyGroup').first[1]
-        constituency_node.extend(Parliament::Decorators::Constituency)
 
         expect(constituency_node).to respond_to(:end_date)
         expect(constituency_node.start_date).to eq ''
+      end
+    end
+  end
+
+  describe '#seats' do
+    context 'constituency has house seats' do
+      it 'returns an array of house seats' do
+        constituency_node = response.filter('http://id.ukpds.org/schema/ConstituencyGroup').first[0]
+
+        expect(constituency_node).to respond_to(:seats)
+        expect(constituency_node.seats.size).to eq 1
+        expect(constituency_node.seats.first.type).to eq 'http://id.ukpds.org/schema/HouseSeat'
+      end
+    end
+
+    context 'constituency has no house seats' do
+      it 'returns an empty array' do
+        constituency_node = response.filter('http://id.ukpds.org/schema/ConstituencyGroup').first[1]
+
+        expect(constituency_node).to respond_to(:seats)
+        expect(constituency_node.seats).to eq []
       end
     end
   end

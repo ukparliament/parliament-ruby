@@ -5,7 +5,7 @@ require 'parliament/version'
 require 'parliament/request'
 require 'parliament/response'
 require 'parliament/decorators/person'
-require 'parliament/decorators/constituency'
+require 'parliament/decorators/constituency_group'
 require 'parliament/decorators/seat_incumbency'
 require 'parliament/decorators/house_seat'
 

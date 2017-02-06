@@ -1,6 +1,6 @@
 module Parliament
   module Decorators
-    module Constituency
+    module ConstituencyGroup
       def name
         respond_to?(:constituencyGroupName) ? constituencyGroupName : ''
       end
@@ -11,6 +11,10 @@ module Parliament
 
       def end_date
         respond_to?(:constituencyGroupEndDate) ? constituencyGroupEndDate : ''
+      end
+
+      def seats
+        respond_to?(:constituencyGroupHasHouseSeat) ? constituencyGroupHasHouseSeat : []
       end
     end
   end
