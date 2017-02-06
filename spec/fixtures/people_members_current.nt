@@ -18,7 +18,7 @@
 <http://id.ukpds.org/b40f3248-3f53-4af5-8349-024db28d2636> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://id.ukpds.org/schema/PartyMembership> .
 <http://id.ukpds.org/b40f3248-3f53-4af5-8349-024db28d2636> <http://id.ukpds.org/schema/partyMembershipStartDate> "2016-05-03"^^<http://www.w3.org/2001/XMLSchema#date> .
 <http://id.ukpds.org/b40f3248-3f53-4af5-8349-024db28d2636> <http://id.ukpds.org/schema/partyMembershipHasParty> <http://id.ukpds.org/80234c90-f86a-4942-b6ae-d1e57a0b378d> .
-<http://id.ukpds.org/b40f3248-3f53-4af5-8349-024db28d2636> <http://id.ukpds.org/schema/partyMembershipHasPerson> <http://id.ukpds.org/cea89432-e046-4013-a9ba-e93d0468d186> .
+<http://id.ukpds.org/cea89432-e046-4013-a9ba-e93d0468d186> <http://id.ukpds.org/schema/partyMemberHasPartyMembership> <http://id.ukpds.org/b40f3248-3f53-4af5-8349-024db28d2636> .
 <http://id.ukpds.org/0e67b03f-9d7a-4793-9902-60d977647494> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://id.ukpds.org/schema/Person> .
 <http://id.ukpds.org/0e67b03f-9d7a-4793-9902-60d977647494> <http://id.ukpds.org/schema/personGivenName> "Person 2 - personGivenName" .
 <http://id.ukpds.org/0e67b03f-9d7a-4793-9902-60d977647494> <http://id.ukpds.org/schema/personFamilyName> "Person 2 - personFamilyName" .

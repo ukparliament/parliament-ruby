@@ -143,4 +143,29 @@ describe Parliament::Decorators::Person do
       end
     end
   end
+
+  describe '#parties' do
+    before(:each) do
+      @person_nodes = objects.select { |object| object.type == 'http://id.ukpds.org/schema/Person' }
+    end
+
+    context 'Grom::Node has all the required objects' do
+      it 'returns the parties for a Grom::Node objects of type Person' do
+        person_node = @person_nodes.first
+        person_node.extend(Parliament::Decorators::Person)
+
+        expect(person_node.parties.size).to eq(1)
+        expect(person_node.parties.first.type).to eq('http://id.ukpds.org/schema/Party')
+      end
+    end
+
+    context 'Grom::Node has no parties' do
+      it 'returns an empty array' do
+        person_node = @person_nodes[4]
+        person_node.extend(Parliament::Decorators::Person)
+
+        expect(person_node.parties).to eq([])
+      end
+    end
+  end
 end

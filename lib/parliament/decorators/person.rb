@@ -23,6 +23,10 @@ module Parliament
         full_name += respond_to?(:personFamilyName) ? personFamilyName : ''
         full_name.rstrip
       end
+
+      def parties
+        respond_to?(:partyMemberHasPartyMembership) ? partyMemberHasPartyMembership.first.partyMembershipHasParty : []
+      end
     end
   end
 end
