@@ -92,6 +92,7 @@ describe Parliament::Request, vcr: true do
     context 'it returns any other status code than a 200' do
       it 'and raises client error when status is within the 400 range' do
         stub_request(:get, 'http://localhost:3030/dogs/cats.nt').to_return(status: 400)
+
         expect do
           Parliament::Request.new(base_url: 'http://localhost:3030').dogs.cats.get
         end.to raise_error(StandardError, 'This is a HTTPClientError')
@@ -99,6 +100,7 @@ describe Parliament::Request, vcr: true do
 
       it 'and raises server error when status is within the 500 range' do
         stub_request(:get, 'http://localhost:3030/parties/current.nt').to_return(status: 500)
+
         expect do
           Parliament::Request.new(base_url: 'http://localhost:3030').parties.current.get
         end.to raise_error(StandardError, 'This is a HTTPServerError')
