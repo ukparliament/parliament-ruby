@@ -19,29 +19,4 @@ describe Parliament::Decorators::Constituency do
     end
   end
 
-  # describe '#houses' do
-  #   before(:each) do
-  #     @constituency_node = objects.select { |object| object.type == 'http://id.ukpds.org/schema/ConstituencyGroup' }
-  #   end
-  #
-  #   context 'Grom::Node has all the required objects' do
-  #     it 'returns the houses for a Grom::Node objects of type Person' do
-  #       person_node = @person_nodes.first
-  #       person_node.extend(Parliament::Decorators::Person)
-  #
-  #       expect(person_node.houses.size).to eq(1)
-  #       expect(person_node.houses.first.type).to eq('http://id.ukpds.org/schema/House')
-  #     end
-  #   end
-  #
-  #   context 'Grom::Node has no sittings' do
-  #     it 'returns an empty array' do
-  #       person_node = @person_nodes[2]
-  #       person_node.extend(Parliament::Decorators::Person)
-  #
-  #       expect(person_node.houses).to eq([])
-  #     end
-  #   end
-  # end
-
 end
