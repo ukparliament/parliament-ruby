@@ -4,7 +4,6 @@ describe Parliament::Decorators::Constituency, vcr: true do
   let(:response) { Parliament::Request.new(base_url: 'http://localhost:3030').constituencies('a2ce856d-ba0a-4508-9dd0-62feb54d3894').get }
 
   describe '#name' do
-
     context 'constituency has a name' do
       it 'returns the name of the constituency' do
         constituency_node = response.filter('http://id.ukpds.org/schema/ConstituencyGroup').first[0]
@@ -27,7 +26,6 @@ describe Parliament::Decorators::Constituency, vcr: true do
   end
 
   describe '#start_date' do
-
     context 'constituency has a start date' do
       it 'returns the name of the constituency' do
         constituency_node = response.filter('http://id.ukpds.org/schema/ConstituencyGroup').first[0]
@@ -50,7 +48,6 @@ describe Parliament::Decorators::Constituency, vcr: true do
   end
 
   describe '#end_date' do
-
     context 'constituency has a start date' do
       it 'returns the name of the constituency' do
         constituency_node = response.filter('http://id.ukpds.org/schema/ConstituencyGroup').first[0]
@@ -71,5 +68,4 @@ describe Parliament::Decorators::Constituency, vcr: true do
       end
     end
   end
-
 end
