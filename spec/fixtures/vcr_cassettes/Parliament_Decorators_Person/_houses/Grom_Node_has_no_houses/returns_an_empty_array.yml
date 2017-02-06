@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: http://localhost:3030/people/members/current.nt
+    uri: http://localhost:3030/people/626b57f9-6ef0-475a-ae12-40a44aca7eff.nt
     body:
       encoding: US-ASCII
       string: ''
@@ -29,19 +29,19 @@ http_interactions:
       Content-Type:
       - application/n-triples; charset=utf-8
       Etag:
-      - W/"34264810604fc0dad2923a98d02fad24"
+      - W/"0d1204977f2acac07c059d95380c652e"
       Cache-Control:
       - max-age=0, private, must-revalidate
       X-Request-Id:
-      - e463a84a-c753-471f-a90f-659ab05f04a7
+      - 768eb85a-156b-4e95-98d8-3a7841f68bab
       X-Runtime:
-      - '0.964436'
+      - '0.062884'
       Transfer-Encoding:
       - chunked
     body:
       encoding: UTF-8
       string: |
-        <http://id.ukpds.org/626b57f9-6ef0-475a-ae12-40a44aca7eff> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://id.ukpds.org/schema/Person> .
+       <http://id.ukpds.org/626b57f9-6ef0-475a-ae12-40a44aca7eff> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://id.ukpds.org/schema/Person> .
                       <http://id.ukpds.org/626b57f9-6ef0-475a-ae12-40a44aca7eff> <http://id.ukpds.org/schema/personDateOfBirth> "1947-09-17"^^<http://www.w3.org/2001/XMLSchema#date> .
                       <http://id.ukpds.org/626b57f9-6ef0-475a-ae12-40a44aca7eff> <http://id.ukpds.org/schema/personGivenName> "Person 1 - givenName" .
                       <http://id.ukpds.org/626b57f9-6ef0-475a-ae12-40a44aca7eff> <http://id.ukpds.org/schema/personFamilyName> "Person 1 - familyName" .
@@ -105,5 +105,5 @@ http_interactions:
                       <http://id.ukpds.org/9647ee95-850b-432b-ba95-79b2a9517bcc> <http://id.ukpds.org/schema/houseSeatHasHouse> <http://id.ukpds.org/c2d41b82-d4df-4f50-b0f9-f52b84a6a788> .
                       <http://id.ukpds.org/626b57f9-6ef0-475a-ae12-40a44aca7123> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://id.ukpds.org/schema/Person> .
     http_version: 
-  recorded_at: Fri, 27 Jan 2017 12:24:10 GMT
+  recorded_at: Mon, 06 Feb 2017 15:22:23 GMT
 recorded_with: VCR 3.0.3
