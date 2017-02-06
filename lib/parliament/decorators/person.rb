@@ -16,6 +16,13 @@ module Parliament
       def family_name
         respond_to?(:personFamilyName) ? personFamilyName : ''
       end
+
+      def full_name
+        full_name = ''
+        full_name += respond_to?(:personGivenName) ? personGivenName + ' ' : ''
+        full_name += respond_to?(:personFamilyName) ? personFamilyName : ''
+        full_name.rstrip
+      end
     end
   end
 end

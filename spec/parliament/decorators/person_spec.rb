@@ -70,7 +70,7 @@ describe Parliament::Decorators::Person do
 
     context 'Grom::Node has no personGivenName' do
       it 'returns an empty string' do
-        person_node = @person_nodes[2]
+        person_node = @person_nodes[4]
         person_node.extend(Parliament::Decorators::Person)
 
         expect(person_node.given_name).to eq('')
@@ -94,10 +94,52 @@ describe Parliament::Decorators::Person do
 
     context 'Grom::Node has no personGivenName' do
       it 'returns an empty string' do
-        person_node = @person_nodes[2]
+        person_node = @person_nodes[4]
         person_node.extend(Parliament::Decorators::Person)
 
         expect(person_node.family_name).to eq('')
+      end
+    end
+  end
+
+  describe '#full_name' do
+    before(:each) do
+      @person_nodes = objects.select { |object| object.type == 'http://id.ukpds.org/schema/Person' }
+    end
+
+    context 'Grom::Node has all the required objects' do
+      it 'returns the full name for a Grom::Node objects of type Person' do
+        person_node = @person_nodes.first
+        person_node.extend(Parliament::Decorators::Person)
+
+        expect(person_node.full_name).to eq('Person 1 - personGivenName Person 1 - personFamilyName')
+      end
+    end
+
+    context 'Grom::Node has no personGivenName' do
+      it 'returns a full name with just personFamilyName' do
+        person_node = @person_nodes[2]
+        person_node.extend(Parliament::Decorators::Person)
+
+        expect(person_node.full_name).to eq('Person 3 - personFamilyName')
+      end
+    end
+
+    context 'Grom::Node has no personFamilyName' do
+      it 'returns a full name with just personGivenName' do
+        person_node = @person_nodes[3]
+        person_node.extend(Parliament::Decorators::Person)
+
+        expect(person_node.full_name).to eq('Person 4 - personGivenName')
+      end
+    end
+
+    context 'Grom::Node has no personGivenName or personFamilyName' do
+      it 'returns an empty string' do
+        person_node = @person_nodes[4]
+        person_node.extend(Parliament::Decorators::Person)
+
+        expect(person_node.full_name).to eq('')
       end
     end
   end

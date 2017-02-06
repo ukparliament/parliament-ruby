@@ -37,3 +37,9 @@
 <http://id.ukpds.org/fa0e1545-9158-4fd6-93a3-5d5af509c920> <http://id.ukpds.org/schema/partyMembershipHasParty> <http://id.ukpds.org/80234c90-f86a-4942-b6ae-d1e57a0b378d> .
 <http://id.ukpds.org/fa0e1545-9158-4fd6-93a3-5d5af509c920> <http://id.ukpds.org/schema/partyMembershipHasPerson> <http://id.ukpds.org/0e67b03f-9d7a-4793-9902-60d977647494> .
 <http://id.ukpds.org/68f804c8-c16b-4a77-8403-ae04d90e3a9d> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://id.ukpds.org/schema/Person> .
+<http://id.ukpds.org/68f804c8-c16b-4a77-8403-ae04d90e3a9d> <http://id.ukpds.org/schema/personFamilyName> "Person 3 - personFamilyName" .
+
+<http://id.ukpds.org/68f804c8-c16b-4a77-8403-ae04d90e3abc> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://id.ukpds.org/schema/Person> .
+<http://id.ukpds.org/68f804c8-c16b-4a77-8403-ae04d90e3abc> <http://id.ukpds.org/schema/personGivenName> "Person 4 - personGivenName" .
+
+<http://id.ukpds.org/68f804c8-c16b-4a77-8403-ae04d90e3123> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://id.ukpds.org/schema/Person> .
