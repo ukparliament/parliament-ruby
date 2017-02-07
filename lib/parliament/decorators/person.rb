@@ -25,7 +25,7 @@ module Parliament
 
         seats = []
         seat_incumbencies.each do |seat_incumbency|
-          seats << seat_incumbency.seats
+          seats << seat_incumbency.seat
         end
 
         @seats = seats.flatten.uniq
@@ -36,7 +36,7 @@ module Parliament
 
         houses = []
         seats.each do |seat|
-          houses << seat.houses
+          houses << seat.house
         end
 
         @houses = houses.flatten.uniq
@@ -47,7 +47,7 @@ module Parliament
 
         constituencies = []
         seats.each do |seat|
-          constituencies << seat.constituencies
+          constituencies << seat.constituency
         end
 
         @constituencies = constituencies.flatten.uniq

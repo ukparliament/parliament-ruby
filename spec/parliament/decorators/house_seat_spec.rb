@@ -9,40 +9,38 @@ describe Parliament::Decorators::HouseSeat, vcr: true do
     @seat_nodes = response.filter('http://id.ukpds.org/schema/HouseSeat').first
   end
 
-  describe '#houses' do
+  describe '#house' do
     context 'Grom::Node has all the required objects' do
-      it 'returns the houses for a Grom::Node object of type HouseSeat' do
+      it 'returns the house for a Grom::Node object of type HouseSeat' do
         seat_node = @seat_nodes.first
 
-        expect(seat_node.houses.size).to eq(1)
-        expect(seat_node.houses.first.type).to eq('http://id.ukpds.org/schema/House')
+        expect(seat_node.house.type).to eq('http://id.ukpds.org/schema/House')
       end
     end
 
-    context 'Grom::Node has no houses' do
-      it 'returns an empty array' do
+    context 'Grom::Node has no house' do
+      it 'returns nil' do
         seat_node = @seat_nodes[1]
 
-        expect(seat_node.houses).to eq([])
+        expect(seat_node.house).to be(nil)
       end
     end
   end
 
-  describe '#constituencies' do
+  describe '#constituency' do
     context 'Grom::Node has all the required objects' do
-      it 'returns the houses for a Grom::Node object of type ConstituencyGroup' do
+      it 'returns the constituency for a Grom::Node object of type HouseSeat' do
         seat_node = @seat_nodes.first
 
-        expect(seat_node.constituencies.size).to eq(1)
-        expect(seat_node.constituencies.first.type).to eq('http://id.ukpds.org/schema/ConstituencyGroup')
+        expect(seat_node.constituency.type).to eq('http://id.ukpds.org/schema/ConstituencyGroup')
       end
     end
 
-    context 'Grom::Node has no constituencies' do
-      it 'returns an empty array' do
+    context 'Grom::Node has no constituency' do
+      it 'returns nil' do
         seat_node = @seat_nodes[1]
 
-        expect(seat_node.constituencies).to eq([])
+        expect(seat_node.constituency).to be(nil)
       end
     end
   end
