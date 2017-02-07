@@ -8,6 +8,10 @@ module Parliament
       def constituencies
         respond_to?(:houseSeatHasConstituencyGroup) ? houseSeatHasConstituencyGroup : []
       end
+
+      def seat_incumbencies
+        respond_to?(:houseSeatHasSeatIncumbency) ? houseSeatHasSeatIncumbency : []
+      end
     end
   end
 end

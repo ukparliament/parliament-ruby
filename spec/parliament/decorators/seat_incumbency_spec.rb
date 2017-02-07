@@ -9,6 +9,46 @@ describe Parliament::Decorators::SeatIncumbency, vcr: true do
     @seat_incumbency_nodes = response.filter('http://id.ukpds.org/schema/SeatIncumbency').first
   end
 
+  describe '#start_date' do
+    context 'seat incumbency has a start date' do
+      it 'returns the start date of the seat incumbency' do
+        seat_incumbency_node = @seat_incumbency_nodes.first
+
+        expect(seat_incumbency_node).to respond_to(:start_date)
+        expect(seat_incumbency_node.start_date).to eq '1992-04-09'
+      end
+    end
+
+    context 'seat incumbency has no start date' do
+      it 'returns an empty string' do
+        seat_incumbency_node = @seat_incumbency_nodes[1]
+
+        expect(seat_incumbency_node).to respond_to(:start_date)
+        expect(seat_incumbency_node.start_date).to eq ''
+      end
+    end
+  end
+
+  describe '#end_date' do
+    context 'seat incumbency has an end date' do
+      it 'returns the end date of the seat incumbency' do
+        seat_incumbency_node = @seat_incumbency_nodes.first
+
+        expect(seat_incumbency_node).to respond_to(:end_date)
+        expect(seat_incumbency_node.end_date).to eq '1997-05-01'
+      end
+    end
+
+    context 'seat incumbency has no end date' do
+      it 'returns an empty string' do
+        seat_incumbency_node = @seat_incumbency_nodes[1]
+
+        expect(seat_incumbency_node).to respond_to(:end_date)
+        expect(seat_incumbency_node.end_date).to eq ''
+      end
+    end
+  end
+
   describe '#seats' do
     context 'Grom::Node has all the required objects' do
       it 'returns the seats for a Grom::Node object of type SeatIncumbency' do
@@ -24,6 +64,25 @@ describe Parliament::Decorators::SeatIncumbency, vcr: true do
         seat_incumbency_node = @seat_incumbency_nodes[1]
 
         expect(seat_incumbency_node.seats).to eq([])
+      end
+    end
+  end
+
+  describe '#members' do
+    context 'Grom::Node has all the required objects' do
+      it 'returns the members for a Grom::Node object of type SeatIncumbency' do
+        seat_incumbency_node = @seat_incumbency_nodes.first
+
+        expect(seat_incumbency_node.members.size).to eq(1)
+        expect(seat_incumbency_node.members.first.type).to eq('http://id.ukpds.org/schema/Person')
+      end
+    end
+
+    context 'Grom::Node has no members' do
+      it 'returns an empty array' do
+        seat_incumbency_node = @seat_incumbency_nodes[1]
+
+        expect(seat_incumbency_node.members).to eq([])
       end
     end
   end

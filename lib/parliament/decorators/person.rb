@@ -42,7 +42,6 @@ module Parliament
         @houses = houses.flatten.uniq
       end
 
-
       def constituencies
         return @constituencies unless @constituencies.nil?
 

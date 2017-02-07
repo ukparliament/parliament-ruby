@@ -46,4 +46,27 @@ describe Parliament::Decorators::HouseSeat, vcr: true do
       end
     end
   end
+
+  describe '#seat_incumbencies' do
+    before(:each) do
+      @seat_nodes = response.filter('http://id.ukpds.org/schema/HouseSeat').first
+    end
+
+    context 'Grom::Node has all the required objects' do
+      it 'returns the seat incumbencies for a Grom::Node object of type HouseSeat' do
+        seat_node = @seat_nodes.first
+
+        expect(seat_node.seat_incumbencies.size).to eq(1)
+        expect(seat_node.seat_incumbencies.first.type).to eq('http://id.ukpds.org/schema/SeatIncumbency')
+      end
+    end
+
+    context 'Grom::Node has no seat incumbencies' do
+      it 'returns an empty array' do
+        seat_node = @seat_nodes[1]
+
+        expect(seat_node.seat_incumbencies).to eq([])
+      end
+    end
+  end
 end
