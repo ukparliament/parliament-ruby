@@ -33,7 +33,7 @@ module Parliament
 
         members = []
         seat_incumbencies.each do |seat_incumbency|
-          members << seat_incumbency.members
+          members << seat_incumbency.member
         end
 
         @members = members.flatten.uniq

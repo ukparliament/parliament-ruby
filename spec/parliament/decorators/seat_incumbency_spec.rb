@@ -103,21 +103,20 @@ describe Parliament::Decorators::SeatIncumbency, vcr: true do
     end
   end
 
-  describe '#members' do
+  describe '#member' do
     context 'Grom::Node has all the required objects' do
-      it 'returns the members for a Grom::Node object of type SeatIncumbency' do
+      it 'returns the member for a Grom::Node object of type SeatIncumbency' do
         seat_incumbency_node = @seat_incumbency_nodes.first
 
-        expect(seat_incumbency_node.members.size).to eq(1)
-        expect(seat_incumbency_node.members.first.type).to eq('http://id.ukpds.org/schema/Person')
+        expect(seat_incumbency_node.member.type).to eq('http://id.ukpds.org/schema/Person')
       end
     end
 
-    context 'Grom::Node has no members' do
-      it 'returns an empty array' do
+    context 'Grom::Node has no member' do
+      it 'returns nil' do
         seat_incumbency_node = @seat_incumbency_nodes[1]
 
-        expect(seat_incumbency_node.members).to eq([])
+        expect(seat_incumbency_node.member).to be_nil
       end
     end
   end

@@ -13,8 +13,8 @@ module Parliament
         respond_to?(:seatIncumbencyHasHouseSeat) ? seatIncumbencyHasHouseSeat.first : nil
       end
 
-      def members
-        respond_to?(:seatIncumbencyHasMember) ? seatIncumbencyHasMember : []
+      def member
+        respond_to?(:seatIncumbencyHasMember) ? seatIncumbencyHasMember.first : nil
       end
 
       def current?
