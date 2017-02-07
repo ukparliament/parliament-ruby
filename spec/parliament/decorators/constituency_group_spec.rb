@@ -58,7 +58,7 @@ describe Parliament::Decorators::ConstituencyGroup, vcr: true do
         constituency_node = response.filter('http://id.ukpds.org/schema/ConstituencyGroup').first[1]
 
         expect(constituency_node).to respond_to(:end_date)
-        expect(constituency_node.start_date).to eq ''
+        expect(constituency_node.end_date).to eq ''
       end
     end
   end

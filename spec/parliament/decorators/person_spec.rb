@@ -175,5 +175,4 @@ describe Parliament::Decorators::Person, vcr: true do
       end
     end
   end
-
 end
