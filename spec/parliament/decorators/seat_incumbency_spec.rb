@@ -1,7 +1,9 @@
 require_relative '../../spec_helper'
 
 describe Parliament::Decorators::SeatIncumbency, vcr: true do
-  let(:response) { Parliament::Request.new(base_url: 'http://localhost:3030').people('626b57f9-6ef0-475a-ae12-40a44aca7eff').get }
+  let(:response) do
+    Parliament::Request.new(base_url: 'http://localhost:3030').people('626b57f9-6ef0-475a-ae12-40a44aca7eff').get
+  end
 
   before(:each) do
     @seat_incumbency_nodes = response.filter('http://id.ukpds.org/schema/SeatIncumbency').first
@@ -28,7 +30,7 @@ describe Parliament::Decorators::SeatIncumbency, vcr: true do
 
   describe '#current?' do
     it 'Grom::Node returns the correct value for a current or non current seat incumbency' do
-      seat_incumbency_results = @seat_incumbency_nodes.map{ |seat_incumbency| seat_incumbency.current? }
+      seat_incumbency_results = @seat_incumbency_nodes.map(&:current?)
 
       expect(seat_incumbency_results).to eq([true, false, false, false, false])
     end

@@ -42,9 +42,9 @@ http_interactions:
       encoding: UTF-8
       string: |
         <http://id.ukpds.org/626b57f9-6ef0-475a-ae12-40a44aca7eff> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://id.ukpds.org/schema/Person> .
-        <http://id.ukpds.org/626b57f9-6ef0-475a-ae12-40a44aca7eff> <http://id.ukpds.org/schema/personDateOfBirth> "1947-09-17"^^<http://www.w3.org/2001/XMLSchema#date> .
-        <http://id.ukpds.org/626b57f9-6ef0-475a-ae12-40a44aca7eff> <http://id.ukpds.org/schema/personGivenName> "Tessa" .
-        <http://id.ukpds.org/626b57f9-6ef0-475a-ae12-40a44aca7eff> <http://id.ukpds.org/schema/personFamilyName> "Jowell" .
+        <http://id.ukpds.org/626b57f9-6ef0-475a-ae12-40a44aca7eff> <http://id.ukpds.org/schema/personDateOfBirth> "1950-10-17"^^<http://www.w3.org/2001/XMLSchema#date> .
+        <http://id.ukpds.org/626b57f9-6ef0-475a-ae12-40a44aca7eff> <http://id.ukpds.org/schema/personGivenName> "Person 1 - givenName" .
+        <http://id.ukpds.org/626b57f9-6ef0-475a-ae12-40a44aca7eff> <http://id.ukpds.org/schema/personFamilyName> "Person 1 - familyName" .
         <http://id.ukpds.org/626b57f9-6ef0-475a-ae12-40a44aca7eff> <http://id.ukpds.org/schema/personHasGenderIdentity> <http://id.ukpds.org/663afc3b-5a8e-4534-bd02-4a28e5af47cc> .
         <http://id.ukpds.org/626b57f9-6ef0-475a-ae12-40a44aca7eff> <http://id.ukpds.org/schema/partyMemberHasPartyMembership> <http://id.ukpds.org/8cce290a-fff4-4d2a-ab5d-05a4cc745d09> .
         <http://id.ukpds.org/626b57f9-6ef0-475a-ae12-40a44aca7eff> <http://id.ukpds.org/schema/memberHasSeatIncumbency> <http://id.ukpds.org/af098235-f250-4325-8ad9-20593f98aa0c> .
