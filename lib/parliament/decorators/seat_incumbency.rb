@@ -9,8 +9,8 @@ module Parliament
         respond_to?(:seatIncumbencyEndDate) ? seatIncumbencyEndDate : ''
       end
 
-      def seats
-        respond_to?(:seatIncumbencyHasHouseSeat) ? seatIncumbencyHasHouseSeat : []
+      def seat
+        respond_to?(:seatIncumbencyHasHouseSeat) ? seatIncumbencyHasHouseSeat.first : nil
       end
 
       def member
@@ -21,6 +21,14 @@ module Parliament
         has_end_date = respond_to?(:seatIncumbencyEndDate)
 
         !has_end_date
+      end
+
+      def house
+        seat.nil? ? nil : seat.house
+      end
+
+      def constituency
+        seat.nil? ? nil : seat.constituency
       end
     end
   end

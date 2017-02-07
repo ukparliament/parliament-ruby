@@ -1,6 +1,29 @@
 module Parliament
   module Decorators
     module Person
+      def given_name
+        respond_to?(:personGivenName) ? personGivenName : ''
+      end
+
+      def family_name
+        respond_to?(:personFamilyName) ? personFamilyName : ''
+      end
+
+      def other_name
+        respond_to?(:personOtherNames) ? personOtherNames : ''
+      end
+
+      def date_of_birth
+        respond_to?(:personDateOfBirth) ? personDateOfBirth : ''
+      end
+
+      def full_name
+        full_name = ''
+        full_name += respond_to?(:personGivenName) ? personGivenName + ' ' : ''
+        full_name += respond_to?(:personFamilyName) ? personFamilyName : ''
+        full_name.rstrip
+      end
+
       def seat_incumbencies
         respond_to?(:memberHasSeatIncumbency) ? memberHasSeatIncumbency : []
       end
@@ -10,7 +33,7 @@ module Parliament
 
         seats = []
         seat_incumbencies.each do |seat_incumbency|
-          seats << seat_incumbency.seats
+          seats << seat_incumbency.seat
         end
 
         @seats = seats.flatten.uniq
@@ -21,32 +44,49 @@ module Parliament
 
         houses = []
         seats.each do |seat|
-          houses << seat.houses
+          houses << seat.house
         end
 
         @houses = houses.flatten.uniq
       end
 
-      def given_name
-        respond_to?(:personGivenName) ? personGivenName : ''
+      def constituencies
+        return @constituencies unless @constituencies.nil?
+
+        constituencies = []
+        seats.each do |seat|
+          constituencies << seat.constituency
+        end
+
+        @constituencies = constituencies.flatten.uniq
       end
 
-      def family_name
-        respond_to?(:personFamilyName) ? personFamilyName : ''
-      end
-
-      def full_name
-        full_name = ''
-        full_name += respond_to?(:personGivenName) ? personGivenName + ' ' : ''
-        full_name += respond_to?(:personFamilyName) ? personFamilyName : ''
-        full_name.rstrip
+      def party_memberships
+        respond_to?(:partyMemberHasPartyMembership) ? partyMemberHasPartyMembership : []
       end
 
       def parties
-        respond_to?(:partyMemberHasPartyMembership) ? partyMemberHasPartyMembership.first.partyMembershipHasParty : []
+        return @parties unless @parties.nil?
+
+        parties = []
+        party_memberships.each do |party_membership|
+          parties << party_membership.party
+        end
+
+        @parties = parties.flatten.uniq.compact
       end
 
-      # this needs to change to get all parties, not the one based on first party membership
+      def contact_points
+        respond_to?(:personHasContactPoint) ? personHasContactPoint : []
+      end
+
+      def gender_identities
+        respond_to?(:personHasGenderIdentity) ? personHasGenderIdentity : []
+      end
+
+      def gender
+        gender_identities.empty? ? nil : gender_identities.first.gender
+      end
     end
   end
 end

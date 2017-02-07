@@ -1,8 +1,12 @@
 module Parliament
   module Decorators
     module HouseSeat
-      def houses
-        respond_to?(:houseSeatHasHouse) ? houseSeatHasHouse : []
+      def house
+        respond_to?(:houseSeatHasHouse) ? houseSeatHasHouse.first : nil
+      end
+
+      def constituency
+        respond_to?(:houseSeatHasConstituencyGroup) ? houseSeatHasConstituencyGroup.first : nil
       end
 
       def seat_incumbencies

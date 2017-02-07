@@ -1,7 +1,9 @@
 require_relative '../../spec_helper'
 
 describe Parliament::Decorators::SeatIncumbency, vcr: true do
-  let(:response) { Parliament::Request.new(base_url: 'http://localhost:3030').people('626b57f9-6ef0-475a-ae12-40a44aca7eff').get }
+  let(:response) do
+    Parliament::Request.new(base_url: 'http://localhost:3030').people('626b57f9-6ef0-475a-ae12-40a44aca7eff').get
+  end
 
   before(:each) do
     @seat_incumbency_nodes = response.filter('http://id.ukpds.org/schema/SeatIncumbency').first
@@ -47,13 +49,12 @@ describe Parliament::Decorators::SeatIncumbency, vcr: true do
     end
   end
 
-  describe '#seats' do
+  describe '#seat' do
     context 'Grom::Node has all the required objects' do
-      it 'returns the seats for a Grom::Node object of type SeatIncumbency' do
+      it 'returns the seat for a Grom::Node object of type SeatIncumbency' do
         seat_incumbency_node = @seat_incumbency_nodes.first
 
-        expect(seat_incumbency_node.seats.size).to eq(1)
-        expect(seat_incumbency_node.seats.first.type).to eq('http://id.ukpds.org/schema/HouseSeat')
+        expect(seat_incumbency_node.seat.type).to eq('http://id.ukpds.org/schema/HouseSeat')
       end
     end
 
@@ -61,7 +62,43 @@ describe Parliament::Decorators::SeatIncumbency, vcr: true do
       it 'returns an empty array' do
         seat_incumbency_node = @seat_incumbency_nodes[1]
 
-        expect(seat_incumbency_node.seats).to eq([])
+        expect(seat_incumbency_node.seat).to be(nil)
+      end
+    end
+  end
+
+  describe '#house' do
+    context 'Grom::Node has all the required objects' do
+      it 'returns the house for a Grom::Node object of type SeatIncumbency' do
+        seat_incumbency_node = @seat_incumbency_nodes.first
+
+        expect(seat_incumbency_node.house.type).to eq('http://id.ukpds.org/schema/House')
+      end
+    end
+
+    context 'Grom::Node has no house' do
+      it 'returns nil' do
+        seat_incumbency_node = @seat_incumbency_nodes[1]
+
+        expect(seat_incumbency_node.house).to be(nil)
+      end
+    end
+  end
+
+  describe '#constituency' do
+    context 'Grom::Node has all the required objects' do
+      it 'returns the constituency for a Grom::Node object of type SeatIncumbency' do
+        seat_incumbency_node = @seat_incumbency_nodes.first
+
+        expect(seat_incumbency_node.constituency.type).to eq('http://id.ukpds.org/schema/ConstituencyGroup')
+      end
+    end
+
+    context 'Grom::Node has no constituency' do
+      it 'returns nil' do
+        seat_incumbency_node = @seat_incumbency_nodes[1]
+
+        expect(seat_incumbency_node.constituency).to be(nil)
       end
     end
   end

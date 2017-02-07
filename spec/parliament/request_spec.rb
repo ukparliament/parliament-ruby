@@ -124,7 +124,7 @@ describe Parliament::Request, vcr: true do
     it 'decorates nested objects' do
       person = @response.select { |node| node.type == 'http://id.ukpds.org/schema/Person' }.first
 
-      expect(person.memberHasSeatIncumbency.first).to respond_to(:seats)
+      expect(person.memberHasSeatIncumbency.first).to respond_to(:seat)
     end
   end
 end
