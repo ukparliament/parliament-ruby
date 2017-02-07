@@ -9,6 +9,7 @@ SimpleCov.start
 $LOAD_PATH.unshift File.expand_path('../../lib', __FILE__)
 require 'parliament'
 require 'webmock/rspec'
+require_relative '../lib/parliament/decorators/party'
 
 require 'vcr'
 
