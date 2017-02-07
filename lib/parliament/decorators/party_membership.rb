@@ -1,8 +1,8 @@
 module Parliament
   module Decorators
     module PartyMembership
-      def parties
-        respond_to?(:partyMembershipHasParty) ? partyMembershipHasParty : []
+      def party
+        respond_to?(:partyMembershipHasParty) ? partyMembershipHasParty.first : nil
       end
 
       def start_date

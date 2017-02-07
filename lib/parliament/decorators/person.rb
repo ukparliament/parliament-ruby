@@ -62,10 +62,10 @@ module Parliament
 
         parties = []
         party_memberships.each do |party_membership|
-          parties << party_membership.parties
+          parties << party_membership.party
         end
 
-        @parties = parties.flatten.uniq
+        @parties = parties.flatten.uniq.compact
       end
 
       def contact_points

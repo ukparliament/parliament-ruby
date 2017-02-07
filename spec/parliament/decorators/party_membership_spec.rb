@@ -9,21 +9,22 @@ describe Parliament::Decorators::PartyMembership, vcr: true do
     @party_membership_nodes = response.filter('http://id.ukpds.org/schema/PartyMembership').first
   end
 
-  describe '#houses' do
+  describe '#party' do
     context 'Grom::Node has all the required objects' do
-      it 'returns the parties for a Grom::Node object of type PartyMembership' do
+      it 'returns the party for a Grom::Node object of type PartyMembership' do
         party_membership_node = @party_membership_nodes.first
 
-        expect(party_membership_node.parties.size).to eq(1)
-        expect(party_membership_node.parties.first.type).to eq('http://id.ukpds.org/schema/Party')
+        expect(party_membership_node.party.name).to eq('Labour')
+        expect(party_membership_node.party.type).to eq('http://id.ukpds.org/schema/Party')
       end
     end
 
     context 'Grom::Node has no parties' do
       it 'returns an empty array' do
         party_membership_node = @party_membership_nodes[1]
+        p party_membership_node
 
-        expect(party_membership_node.parties).to eq([])
+        expect(party_membership_node.party).to be(nil)
       end
     end
   end
