@@ -12,6 +12,7 @@ require 'parliament/decorators/party_membership'
 require 'parliament/decorators/contact_point'
 require 'parliament/decorators/gender_identity'
 require 'parliament/decorators/gender'
+require 'parliament/decorators/party'
 
 module Parliament
   # Your code goes here...

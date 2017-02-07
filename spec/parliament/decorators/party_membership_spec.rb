@@ -22,7 +22,6 @@ describe Parliament::Decorators::PartyMembership, vcr: true do
     context 'Grom::Node has no parties' do
       it 'returns an empty array' do
         party_membership_node = @party_membership_nodes[1]
-        p party_membership_node
 
         expect(party_membership_node.party).to be(nil)
       end
