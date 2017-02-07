@@ -38,6 +38,10 @@ module Parliament
 
         @members = members.flatten.uniq
       end
+
+      def area
+        respond_to?(:constituencyGroupHasConstituencyArea) ? constituencyGroupHasConstituencyArea.first : []
+      end
     end
   end
 end

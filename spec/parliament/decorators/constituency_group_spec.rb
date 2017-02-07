@@ -125,4 +125,24 @@ describe Parliament::Decorators::ConstituencyGroup, vcr: true do
       end
     end
   end
+
+  describe '#area' do
+    context 'constituency has an area' do
+      it 'returns the area' do
+        constituency_node = response.filter('http://id.ukpds.org/schema/ConstituencyGroup').first[0]
+
+        expect(constituency_node).to respond_to(:area)
+        expect(constituency_node.area.type).to eq 'http://id.ukpds.org/schema/ConstituencyArea'
+      end
+    end
+
+    context 'constituency has no seat incumbencies' do
+      it 'returns an empty array' do
+        constituency_node = response.filter('http://id.ukpds.org/schema/ConstituencyGroup').first[1]
+
+        expect(constituency_node).to respond_to(:area)
+        expect(constituency_node.members).to eq []
+      end
+    end
+  end
 end
