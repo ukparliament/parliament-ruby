@@ -40,7 +40,7 @@ module Parliament
       end
 
       def area
-        respond_to?(:constituencyGroupHasConstituencyArea) ? constituencyGroupHasConstituencyArea.first : []
+        respond_to?(:constituencyGroupHasConstituencyArea) ? constituencyGroupHasConstituencyArea.first : nil
       end
     end
   end

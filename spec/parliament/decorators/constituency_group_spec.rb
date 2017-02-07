@@ -137,11 +137,11 @@ describe Parliament::Decorators::ConstituencyGroup, vcr: true do
     end
 
     context 'constituency has no seat incumbencies' do
-      it 'returns an empty array' do
+      it 'returns nil' do
         constituency_node = response.filter('http://id.ukpds.org/schema/ConstituencyGroup').first[1]
 
         expect(constituency_node).to respond_to(:area)
-        expect(constituency_node.members).to eq []
+        expect(constituency_node.area).to be_nil
       end
     end
   end
