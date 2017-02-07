@@ -9,6 +9,14 @@ module Parliament
         respond_to?(:personFamilyName) ? personFamilyName : ''
       end
 
+      def other_name
+        respond_to?(:personOtherNames) ? personOtherNames : ''
+      end
+
+      def date_of_birth
+        respond_to?(:personDateOfBirth) ? personDateOfBirth : ''
+      end
+
       def full_name
         full_name = ''
         full_name += respond_to?(:personGivenName) ? personGivenName + ' ' : ''
