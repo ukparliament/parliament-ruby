@@ -83,4 +83,46 @@ describe Parliament::Decorators::ConstituencyGroup, vcr: true do
       end
     end
   end
+
+  describe '#seat_incumbencies' do
+    context 'constituency has seat incumbencies' do
+      it 'returns an array of seat incumbencies' do
+        constituency_node = response.filter('http://id.ukpds.org/schema/ConstituencyGroup').first[0]
+
+        expect(constituency_node).to respond_to(:seat_incumbencies)
+        expect(constituency_node.seat_incumbencies.size).to eq 3
+        expect(constituency_node.seat_incumbencies.first.type).to eq 'http://id.ukpds.org/schema/SeatIncumbency'
+      end
+    end
+
+    context 'constituency has no seat incumbencies' do
+      it 'returns an empty array' do
+        constituency_node = response.filter('http://id.ukpds.org/schema/ConstituencyGroup').first[1]
+
+        expect(constituency_node).to respond_to(:seat_incumbencies)
+        expect(constituency_node.seat_incumbencies).to eq []
+      end
+    end
+  end
+
+  describe '#members' do
+    context 'constituency has members' do
+      it 'returns an array of members' do
+        constituency_node = response.filter('http://id.ukpds.org/schema/ConstituencyGroup').first[0]
+
+        expect(constituency_node).to respond_to(:members)
+        expect(constituency_node.members.size).to eq 3
+        expect(constituency_node.members.first.type).to eq 'http://id.ukpds.org/schema/Person'
+      end
+    end
+
+    context 'constituency has no seat incumbencies' do
+      it 'returns an empty array' do
+        constituency_node = response.filter('http://id.ukpds.org/schema/ConstituencyGroup').first[1]
+
+        expect(constituency_node).to respond_to(:members)
+        expect(constituency_node.members).to eq []
+      end
+    end
+  end
 end
