@@ -12,7 +12,7 @@ describe Parliament::Decorators::Person, vcr: true do
       it 'returns the houses for a Grom::Node object of type Person' do
         person_node = @people_nodes.first
 
-        expect(person_node.houses.size).to eq(5)
+        expect(person_node.houses.size).to eq(1)
         expect(person_node.houses.first.type).to eq('http://id.ukpds.org/schema/House')
       end
     end
@@ -22,6 +22,51 @@ describe Parliament::Decorators::Person, vcr: true do
         person_node = @people_nodes[1]
 
         expect(person_node.houses).to eq([])
+      end
+    end
+  end
+
+  describe '#seat_incumbencies' do
+    before(:each) do
+      @people_nodes = response.filter('http://id.ukpds.org/schema/Person').first
+    end
+
+    context 'Grom::Node has all the required objects' do
+      it 'returns the seat incumbencies for a Grom::Node object of type Person' do
+        person_node = @people_nodes.first
+
+        expect(person_node.seat_incumbencies.size).to eq(5)
+        expect(person_node.seat_incumbencies.first.type).to eq('http://id.ukpds.org/schema/SeatIncumbency')
+      end
+    end
+
+    context 'Grom::Node has no seat incumbencies' do
+      it 'returns an empty array' do
+        person_node = @people_nodes[1]
+
+        expect(person_node.seat_incumbencies).to eq([])
+      end
+    end
+  end
+
+  describe '#seats' do
+    before(:each) do
+      @people_nodes = response.filter('http://id.ukpds.org/schema/Person').first
+    end
+
+    context 'Grom::Node has all the required objects' do
+      it 'returns the seats for a Grom::Node object of type Person' do
+        person_node = @people_nodes.first
+        expect(person_node.seats.size).to eq(3)
+        expect(person_node.seats.first.type).to eq('http://id.ukpds.org/schema/HouseSeat')
+      end
+    end
+
+    context 'Grom::Node has no seats' do
+      it 'returns an empty array' do
+        person_node = @people_nodes[1]
+
+        expect(person_node.seats).to eq([])
       end
     end
   end
@@ -108,15 +153,14 @@ describe Parliament::Decorators::Person, vcr: true do
     end
   end
 
-  xdescribe '#parties' do
+  describe '#parties' do
     before(:each) do
-      @person_nodes = objects.select { |object| object.type == 'http://id.ukpds.org/schema/Person' }
+      @people_nodes = response.filter('http://id.ukpds.org/schema/Person').first
     end
 
     context 'Grom::Node has all the required objects' do
       it 'returns the parties for a Grom::Node objects of type Person' do
-        person_node = @person_nodes.first
-        person_node.extend(Parliament::Decorators::Person)
+        person_node = @people_nodes.first
 
         expect(person_node.parties.size).to eq(1)
         expect(person_node.parties.first.type).to eq('http://id.ukpds.org/schema/Party')
@@ -125,8 +169,7 @@ describe Parliament::Decorators::Person, vcr: true do
 
     context 'Grom::Node has no parties' do
       it 'returns an empty array' do
-        person_node = @person_nodes[4]
-        person_node.extend(Parliament::Decorators::Person)
+        person_node = @people_nodes[1]
 
         expect(person_node.parties).to eq([])
       end
