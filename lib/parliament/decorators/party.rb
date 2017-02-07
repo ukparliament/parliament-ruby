@@ -6,7 +6,7 @@ module Parliament
         respond_to?(:partyName) ? partyName : ''
       end
 
-      def party_membership
+      def party_memberships
         respond_to?(:partyHasPartyMembership) ? partyHasPartyMembership : []
       end
     end
