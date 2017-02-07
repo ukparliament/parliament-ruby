@@ -13,7 +13,7 @@ module Parliament
           seats << seat_incumbency.seats
         end
 
-        @seats = seats.flatten
+        @seats = seats.flatten.uniq
       end
 
       def houses
@@ -24,7 +24,7 @@ module Parliament
           houses << seat.houses
         end
 
-        @houses = houses.flatten
+        @houses = houses.flatten.uniq
       end
 
       def given_name
@@ -45,6 +45,8 @@ module Parliament
       def parties
         respond_to?(:partyMemberHasPartyMembership) ? partyMemberHasPartyMembership.first.partyMembershipHasParty : []
       end
+
+      # this needs to change to get all parties, not the one based on first party membership
     end
   end
 end
