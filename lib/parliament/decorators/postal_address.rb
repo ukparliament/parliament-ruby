@@ -2,7 +2,7 @@ module Parliament
   module Decorators
     module PostalAddress
       def full_address
-        address_array.join('</br>').html_safe
+        address_array.join('</br>')
       end
 
       private

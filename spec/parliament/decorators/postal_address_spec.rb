@@ -13,7 +13,7 @@ describe Parliament::Decorators::PostalAddress, vcr: true do
         postal_address_node = @postal_address_nodes.first
 
         expect(postal_address_node).to respond_to(:full_address)
-        expected_full_address = "House of Commons\nLondon\nSW1A 0AA"
+        expected_full_address = 'House of Commons</br>London</br>SW1A 0AA'
         expect(postal_address_node.full_address).to eq(expected_full_address)
       end
     end
