@@ -128,4 +128,25 @@ describe Parliament::Decorators::SeatIncumbency, vcr: true do
       expect(seat_incumbency_results).to eq([true, false, false, false, false])
     end
   end
+
+  describe '#contact_points' do
+    context 'seat incumbency has contact points' do
+      it 'returns an array of contact points' do
+        seat_incumbency_node = response.filter('http://id.ukpds.org/schema/SeatIncumbency').first[0]
+
+        expect(seat_incumbency_node).to respond_to(:contact_points)
+        expect(seat_incumbency_node.contact_points.size).to eq 1
+        expect(seat_incumbency_node.contact_points.first.type).to eq 'http://id.ukpds.org/schema/ContactPoint'
+      end
+    end
+
+    context 'constituency has no contact points' do
+      it 'returns an empty array' do
+        seat_incumbency_node = response.filter('http://id.ukpds.org/schema/SeatIncumbency').first[1]
+
+        expect(seat_incumbency_node).to respond_to(:contact_points)
+        expect(seat_incumbency_node.contact_points).to eq []
+      end
+    end
+  end
 end

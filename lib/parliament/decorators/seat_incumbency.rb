@@ -30,6 +30,10 @@ module Parliament
       def constituency
         seat.nil? ? nil : seat.constituency
       end
+
+      def contact_points
+        respond_to?(:seatIncumbencyHasContactPoint) ? seatIncumbencyHasContactPoint : []
+      end
     end
   end
 end
