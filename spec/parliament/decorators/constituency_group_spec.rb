@@ -1,7 +1,10 @@
 require_relative '../../spec_helper'
 
 describe Parliament::Decorators::ConstituencyGroup, vcr: true do
-  let(:response) { Parliament::Request.new(base_url: 'http://localhost:3030').constituencies('a2ce856d-ba0a-4508-9dd0-62feb54d3894').get }
+  let(:id) { 'a2ce856d-ba0a-4508-9dd0-62feb54d3894' }
+  let(:response) do
+    Parliament::Request.new(base_url: 'http://localhost:3030').constituencies(id).get
+  end
 
   describe '#name' do
     context 'constituency has a name' do

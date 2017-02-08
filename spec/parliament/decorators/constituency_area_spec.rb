@@ -1,7 +1,8 @@
 require_relative '../../spec_helper'
 
 describe Parliament::Decorators::ConstituencyArea, vcr: true do
-  let(:response) { Parliament::Request.new(base_url: 'http://localhost:3030').constituencies('a2ce856d-ba0a-4508-9dd0-62feb54d3894').get }
+  let(:id) { 'a2ce856d-ba0a-4508-9dd0-62feb54d3894' }
+  let(:response) { Parliament::Request.new(base_url: 'http://localhost:3030').constituencies(id).get }
 
   describe '#latitude' do
     context 'constituency has a latitude' do
