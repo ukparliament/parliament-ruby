@@ -29,7 +29,8 @@ describe Parliament::Decorators::House, vcr: true do
 
   describe '#seats' do
     before(:each) do
-      response = Parliament::Request.new(base_url: 'http://localhost:3030').people('ff75cd0c-1a8b-49ab-8292-f00d153588e5').houses.get
+      id = 'ff75cd0c-1a8b-49ab-8292-f00d153588e5'
+      response = Parliament::Request.new(base_url: 'http://localhost:3030').people(id).houses.get
       @house_nodes = response.filter('http://id.ukpds.org/schema/House').first
     end
 
