@@ -4,8 +4,9 @@ require 'grom'
 require 'parliament/version'
 require 'parliament/request'
 require 'parliament/response'
-require 'parliament/decorators/person'
-require 'parliament/decorators/sitting'
+
+# require all the decorators
+Dir[File.join(File.dirname(__FILE__), 'parliament/decorators', '*.rb')].each { |decorator| require decorator }
 
 module Parliament
   # Your code goes here...

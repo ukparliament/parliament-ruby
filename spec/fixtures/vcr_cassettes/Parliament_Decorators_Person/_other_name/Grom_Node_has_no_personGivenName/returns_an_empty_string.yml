@@ -1,0 +1,64 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: http://localhost:3030/people/08a3dfac-652a-44d6-8a43-00bb13c60e47.nt
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Host:
+      - localhost:3030
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Content-Type-Options:
+      - nosniff
+      Content-Type:
+      - application/n-triples; charset=utf-8
+      Etag:
+      - W/"43209a22ba8a13c96d18e0c42d035bf7"
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      X-Request-Id:
+      - 4c351ce0-8a27-4c8b-b0a0-16f406bfa40a
+      X-Runtime:
+      - '0.072279'
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: UTF-8
+      string: |
+        <http://id.ukpds.org/08a3dfac-652a-44d6-8a43-00bb13c60e47> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://id.ukpds.org/schema/Person> .
+        <http://id.ukpds.org/08a3dfac-652a-44d6-8a43-00bb13c60e47> <http://id.ukpds.org/schema/personDateOfBirth> "1938-12-08"^^<http://www.w3.org/2001/XMLSchema#date> .
+        <http://id.ukpds.org/08a3dfac-652a-44d6-8a43-00bb13c60e47> <http://id.ukpds.org/schema/personGivenName> "Person 1 - givenName" .
+        <http://id.ukpds.org/08a3dfac-652a-44d6-8a43-00bb13c60e47> <http://id.ukpds.org/schema/personOtherNames> "Person 1 - otherName" .
+        <http://id.ukpds.org/08a3dfac-652a-44d6-8a43-00bb13c60e47> <http://id.ukpds.org/schema/personFamilyName> "Person 1 - familyName" .
+        <http://id.ukpds.org/08a3dfac-652a-44d6-8a43-00bb13c60e47> <http://id.ukpds.org/schema/personHasGenderIdentity> <http://id.ukpds.org/bee50d04-bc5d-4005-8f02-d056ec7e9f7d> .
+        <http://id.ukpds.org/08a3dfac-652a-44d6-8a43-00bb13c60e47> <http://id.ukpds.org/schema/partyMemberHasPartyMembership> <http://id.ukpds.org/18cdd838-e4c6-4aec-b8ed-5e14d444d7a5> .
+        <http://id.ukpds.org/bee50d04-bc5d-4005-8f02-d056ec7e9f7d> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://id.ukpds.org/schema/GenderIdentity> .
+        <http://id.ukpds.org/bee50d04-bc5d-4005-8f02-d056ec7e9f7d> <http://id.ukpds.org/schema/genderIdentityHasGender> <http://id.ukpds.org/5f88cb6e-81d2-47ff-9918-253313f59a61> .
+        <http://id.ukpds.org/5f88cb6e-81d2-47ff-9918-253313f59a61> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://id.ukpds.org/schema/Gender> .
+        <http://id.ukpds.org/5f88cb6e-81d2-47ff-9918-253313f59a61> <http://id.ukpds.org/schema/genderName> "M" .
+        <http://id.ukpds.org/c9786f9e-1efc-40b2-857c-5e2957675991> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://id.ukpds.org/schema/Party> .
+        <http://id.ukpds.org/c9786f9e-1efc-40b2-857c-5e2957675991> <http://id.ukpds.org/schema/partyName> "Crossbench" .
+        <http://id.ukpds.org/18cdd838-e4c6-4aec-b8ed-5e14d444d7a5> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://id.ukpds.org/schema/PartyMembership> .
+        <http://id.ukpds.org/18cdd838-e4c6-4aec-b8ed-5e14d444d7a5> <http://id.ukpds.org/schema/partyMembershipStartDate> "1989-09-19"^^<http://www.w3.org/2001/XMLSchema#date> .
+        <http://id.ukpds.org/18cdd838-e4c6-4aec-b8ed-5e14d444d7a5> <http://id.ukpds.org/schema/partyMembershipHasParty> <http://id.ukpds.org/c9786f9e-1efc-40b2-857c-5e2957675991> .
+        <http://id.ukpds.org/08a3dfac-652a-44d6-8a43-00bb13c60123> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://id.ukpds.org/schema/Person> .
+
+    http_version: 
+  recorded_at: Tue, 07 Feb 2017 15:09:48 GMT
+recorded_with: VCR 3.0.3
