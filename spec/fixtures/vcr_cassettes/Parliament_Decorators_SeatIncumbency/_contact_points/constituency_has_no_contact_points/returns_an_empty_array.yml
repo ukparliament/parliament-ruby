@@ -1,7 +1,50 @@
- <http://id.ukpds.org/626b57f9-6ef0-475a-ae12-40a44aca7eff> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://id.ukpds.org/schema/Person> .
+---
+http_interactions:
+- request:
+    method: get
+    uri: http://localhost:3030/people/626b57f9-6ef0-475a-ae12-40a44aca7eff.nt
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Host:
+      - localhost:3030
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Content-Type-Options:
+      - nosniff
+      Content-Type:
+      - application/n-triples; charset=utf-8
+      Etag:
+      - W/"0d1204977f2acac07c059d95380c652e"
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      X-Request-Id:
+      - b2f793b7-ca88-49f3-9f72-7db5f0e06e32
+      X-Runtime:
+      - '0.059026'
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: UTF-8
+      string: |
+        <http://id.ukpds.org/626b57f9-6ef0-475a-ae12-40a44aca7eff> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://id.ukpds.org/schema/Person> .
         <http://id.ukpds.org/626b57f9-6ef0-475a-ae12-40a44aca7eff> <http://id.ukpds.org/schema/personDateOfBirth> "1947-09-17"^^<http://www.w3.org/2001/XMLSchema#date> .
-        <http://id.ukpds.org/626b57f9-6ef0-475a-ae12-40a44aca7eff> <http://id.ukpds.org/schema/personGivenName> "Person 1 - givenName" .
-        <http://id.ukpds.org/626b57f9-6ef0-475a-ae12-40a44aca7eff> <http://id.ukpds.org/schema/personFamilyName> "Person 1 - familyName" .
+        <http://id.ukpds.org/626b57f9-6ef0-475a-ae12-40a44aca7eff> <http://id.ukpds.org/schema/personGivenName> "Tessa" .
+        <http://id.ukpds.org/626b57f9-6ef0-475a-ae12-40a44aca7eff> <http://id.ukpds.org/schema/personFamilyName> "Jowell" .
         <http://id.ukpds.org/626b57f9-6ef0-475a-ae12-40a44aca7eff> <http://id.ukpds.org/schema/personHasGenderIdentity> <http://id.ukpds.org/663afc3b-5a8e-4534-bd02-4a28e5af47cc> .
         <http://id.ukpds.org/626b57f9-6ef0-475a-ae12-40a44aca7eff> <http://id.ukpds.org/schema/partyMemberHasPartyMembership> <http://id.ukpds.org/8cce290a-fff4-4d2a-ab5d-05a4cc745d09> .
         <http://id.ukpds.org/626b57f9-6ef0-475a-ae12-40a44aca7eff> <http://id.ukpds.org/schema/memberHasSeatIncumbency> <http://id.ukpds.org/af098235-f250-4325-8ad9-20593f98aa0c> .
@@ -60,3 +103,6 @@
         <http://id.ukpds.org/9647ee95-850b-432b-ba95-79b2a9517bcc> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://id.ukpds.org/schema/HouseSeat> .
         <http://id.ukpds.org/9647ee95-850b-432b-ba95-79b2a9517bcc> <http://id.ukpds.org/schema/houseSeatHasConstituencyGroup> <http://id.ukpds.org/b53e9a24-716e-483a-a743-2c5e88752e32> .
         <http://id.ukpds.org/9647ee95-850b-432b-ba95-79b2a9517bcc> <http://id.ukpds.org/schema/houseSeatHasHouse> <http://id.ukpds.org/c2d41b82-d4df-4f50-b0f9-f52b84a6a788> .
+    http_version: 
+  recorded_at: Wed, 08 Feb 2017 10:19:12 GMT
+recorded_with: VCR 3.0.3

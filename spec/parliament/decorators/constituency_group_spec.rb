@@ -1,7 +1,10 @@
 require_relative '../../spec_helper'
 
 describe Parliament::Decorators::ConstituencyGroup, vcr: true do
-  let(:response) { Parliament::Request.new(base_url: 'http://localhost:3030').constituencies('a2ce856d-ba0a-4508-9dd0-62feb54d3894').get }
+  let(:id) { 'a2ce856d-ba0a-4508-9dd0-62feb54d3894' }
+  let(:response) do
+    Parliament::Request.new(base_url: 'http://localhost:3030').constituencies(id).get
+  end
 
   describe '#name' do
     context 'constituency has a name' do
@@ -122,6 +125,47 @@ describe Parliament::Decorators::ConstituencyGroup, vcr: true do
 
         expect(constituency_node).to respond_to(:members)
         expect(constituency_node.members).to eq []
+      end
+    end
+  end
+
+  describe '#area' do
+    context 'constituency has an area' do
+      it 'returns the area' do
+        constituency_node = response.filter('http://id.ukpds.org/schema/ConstituencyGroup').first[0]
+
+        expect(constituency_node).to respond_to(:area)
+        expect(constituency_node.area.type).to eq 'http://id.ukpds.org/schema/ConstituencyArea'
+      end
+    end
+
+    context 'constituency has no seat incumbencies' do
+      it 'returns nil' do
+        constituency_node = response.filter('http://id.ukpds.org/schema/ConstituencyGroup').first[1]
+
+        expect(constituency_node).to respond_to(:area)
+        expect(constituency_node.area).to be_nil
+      end
+    end
+  end
+
+  describe '#contact_points' do
+    context 'constituency has contact points' do
+      it 'returns an array of contact points' do
+        constituency_node = response.filter('http://id.ukpds.org/schema/ConstituencyGroup').first[0]
+
+        expect(constituency_node).to respond_to(:contact_points)
+        expect(constituency_node.contact_points.size).to eq 1
+        expect(constituency_node.contact_points.first.type).to eq 'http://id.ukpds.org/schema/ContactPoint'
+      end
+    end
+
+    context 'constituency has no contact points' do
+      it 'returns an empty array' do
+        constituency_node = response.filter('http://id.ukpds.org/schema/ConstituencyGroup').first[1]
+
+        expect(constituency_node).to respond_to(:contact_points)
+        expect(constituency_node.contact_points).to eq []
       end
     end
   end

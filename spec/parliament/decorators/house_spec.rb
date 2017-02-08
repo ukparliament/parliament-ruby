@@ -75,3 +75,4 @@ describe Parliament::Decorators::House, vcr: true do
     end
   end
 end
+

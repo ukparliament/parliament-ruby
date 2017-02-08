@@ -1,8 +1,9 @@
 require_relative '../../spec_helper'
 
 describe Parliament::Decorators::Person, vcr: true do
+  let(:id) { '626b57f9-6ef0-475a-ae12-40a44aca7eff' }
   let(:response) do
-    Parliament::Request.new(base_url: 'http://localhost:3030').people('626b57f9-6ef0-475a-ae12-40a44aca7eff').get
+    Parliament::Request.new(base_url: 'http://localhost:3030').people(id).get
   end
 
   describe '#houses' do
@@ -141,7 +142,8 @@ describe Parliament::Decorators::Person, vcr: true do
 
   describe '#other_name' do
     before(:each) do
-      response = Parliament::Request.new(base_url: 'http://localhost:3030').people('08a3dfac-652a-44d6-8a43-00bb13c60e47').get
+      id = '08a3dfac-652a-44d6-8a43-00bb13c60e47'
+      response = Parliament::Request.new(base_url: 'http://localhost:3030').people(id).get
       @people_nodes = response.filter('http://id.ukpds.org/schema/Person').first
     end
 
@@ -271,7 +273,8 @@ describe Parliament::Decorators::Person, vcr: true do
 
   describe '#contact_points' do
     before(:each) do
-      response = Parliament::Request.new(base_url: 'http://localhost:3030').people('08a3dfac-652a-44d6-8a43-00bb13c60e47').get
+      id = '08a3dfac-652a-44d6-8a43-00bb13c60e47'
+      response = Parliament::Request.new(base_url: 'http://localhost:3030').people(id).get
       @people_with_contact_nodes = response.filter('http://id.ukpds.org/schema/Person').first
     end
 

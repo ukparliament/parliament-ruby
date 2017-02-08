@@ -18,7 +18,7 @@ module Parliament
       end
 
       def seat_incumbencies
-        return @seat_incumbencies unless @seat_incumbencies .nil?
+        return @seat_incumbencies unless @seat_incumbencies.nil?
 
         seat_incumbencies = []
         seats.each do |seat|
@@ -37,6 +37,21 @@ module Parliament
         end
 
         @members = members.flatten.uniq
+      end
+
+      def area
+        respond_to?(:constituencyGroupHasConstituencyArea) ? constituencyGroupHasConstituencyArea.first : nil
+      end
+
+      def contact_points
+        return @contact_points unless @contact_points.nil?
+
+        contact_points = []
+        seat_incumbencies.each do |seat_incumbency|
+          contact_points << seat_incumbency.contact_points
+        end
+
+        @contact_points = contact_points.flatten.uniq
       end
     end
   end
