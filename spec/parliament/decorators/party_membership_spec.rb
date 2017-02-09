@@ -33,15 +33,15 @@ describe Parliament::Decorators::PartyMembership, vcr: true do
       it 'returns the start date for a Grom::Node object of type PartyMembership' do
         party_membership_node = @party_membership_nodes.first
 
-        expect(party_membership_node.start_date).to eq('1992-04-09')
+        expect(party_membership_node.start_date).to eq(Time.new(1992, 4, 9))
       end
     end
 
     context 'Grom::Node has no start date' do
-      it 'returns an empty string' do
+      it 'returns nil' do
         party_membership_node = @party_membership_nodes[1]
 
-        expect(party_membership_node.start_date).to eq('')
+        expect(party_membership_node.start_date).to be(nil)
       end
     end
   end
@@ -51,15 +51,15 @@ describe Parliament::Decorators::PartyMembership, vcr: true do
       it 'returns the end date for a Grom::Node object of type PartyMembership' do
         party_membership_node = @party_membership_nodes.first
 
-        expect(party_membership_node.end_date).to eq('2015-03-30')
+        expect(party_membership_node.end_date).to eq(Time.new(2015, 3, 30))
       end
     end
 
     context 'Grom::Node has no end date' do
-      it 'returns an empty string' do
+      it 'returns nil' do
         party_membership_node = @party_membership_nodes[1]
 
-        expect(party_membership_node.end_date).to eq('')
+        expect(party_membership_node.end_date).to be(nil)
       end
     end
   end
