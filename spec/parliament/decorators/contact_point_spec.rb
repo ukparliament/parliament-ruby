@@ -27,4 +27,86 @@ describe Parliament::Decorators::ContactPoint, vcr: true do
       end
     end
   end
+
+  describe '#email' do
+    context 'Grom::Node has all the required objects' do
+      it 'returns the email for a Grom::Node object of type ContactPoint' do
+        contact_point_node = @contact_point_nodes.first
+
+        expect(contact_point_node).to respond_to(:email)
+        expect(contact_point_node.email).to eq('person@parliament.uk')
+      end
+    end
+
+    context 'Grom::Node has no email' do
+      it 'returns an empty string' do
+        contact_point_node = @contact_point_nodes[1]
+
+        expect(contact_point_node).to respond_to(:email)
+        expect(contact_point_node.email).to eq('')
+      end
+    end
+  end
+
+  describe '#phone_number' do
+    context 'Grom::Node has all the required objects' do
+      it 'returns the phone number for a Grom::Node object of type ContactPoint' do
+        contact_point_node = @contact_point_nodes.first
+
+        expect(contact_point_node).to respond_to(:phone_number)
+        expect(contact_point_node.phone_number).to eq('123456789')
+      end
+    end
+
+    context 'Grom::Node has no phone number' do
+      it 'returns an empty string' do
+        contact_point_node = @contact_point_nodes[1]
+
+        expect(contact_point_node).to respond_to(:phone_number)
+        expect(contact_point_node.phone_number).to eq('')
+      end
+    end
+  end
+
+  describe '#fax_number' do
+    context 'Grom::Node has all the required objects' do
+      it 'returns the fax number for a Grom::Node object of type ContactPoint' do
+        contact_point_node = @contact_point_nodes.first
+
+        expect(contact_point_node).to respond_to(:fax_number)
+        expect(contact_point_node.fax_number).to eq('123456789')
+      end
+    end
+
+    context 'Grom::Node has no fax number' do
+      it 'returns an empty string' do
+        contact_point_node = @contact_point_nodes[1]
+
+        expect(contact_point_node).to respond_to(:fax_number)
+        expect(contact_point_node.fax_number).to eq('')
+      end
+    end
+  end
+
+  describe '#person' do
+    context 'Grom::Node has all the required objects' do
+      it 'returns the object of type Person for a Grom::Node object of type ContactPoint' do
+        contact_point_node = @contact_point_nodes.first
+
+        expect(contact_point_node).to respond_to(:person)
+        expect(contact_point_node.person.first.type).to eq('http://id.ukpds.org/schema/Person')
+        expect(contact_point_node.person.first.given_name).to eq('given')
+        expect(contact_point_node.person.first.family_name).to eq('family')
+      end
+    end
+
+    context 'Grom::Node has no person associated with it' do
+      it 'returns an empty string' do
+        contact_point_node = @contact_point_nodes[1]
+
+        expect(contact_point_node).to respond_to(:person)
+        expect(contact_point_node.person.size).to eq(0)
+      end
+    end
+  end
 end
