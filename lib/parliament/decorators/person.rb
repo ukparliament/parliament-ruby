@@ -14,7 +14,7 @@ module Parliament
       end
 
       def date_of_birth
-        respond_to?(:personDateOfBirth) ? personDateOfBirth : ''
+        respond_to?(:personDateOfBirth) ? DateTime.parse(personDateOfBirth) : nil
       end
 
       def full_name

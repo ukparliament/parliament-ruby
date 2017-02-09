@@ -127,15 +127,15 @@ describe Parliament::Decorators::Person, vcr: true do
       it 'returns the date of birth for a Grom::Node objects of type Person' do
         person_node = @people_nodes.first
 
-        expect(person_node.date_of_birth).to eq('1950-10-17')
+        expect(person_node.date_of_birth).to eq(DateTime.new(1950, 10, 17))
       end
     end
 
     context 'Grom::Node has no personDateOfBirth' do
-      it 'returns an empty string' do
+      it 'returns nil' do
         person_node = @people_nodes[1]
 
-        expect(person_node.date_of_birth).to eq('')
+        expect(person_node.date_of_birth).to be(nil)
       end
     end
   end
