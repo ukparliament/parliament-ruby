@@ -16,16 +16,16 @@ describe Parliament::Decorators::SeatIncumbency, vcr: true do
         seat_incumbency_node = @seat_incumbency_nodes.first
 
         expect(seat_incumbency_node).to respond_to(:start_date)
-        expect(seat_incumbency_node.start_date).to eq '1992-04-09'
+        expect(seat_incumbency_node.start_date).to eq(DateTime.new(1992, 4, 9))
       end
     end
 
     context 'seat incumbency has no start date' do
-      it 'returns an empty string' do
+      it 'returns nil' do
         seat_incumbency_node = @seat_incumbency_nodes[1]
 
         expect(seat_incumbency_node).to respond_to(:start_date)
-        expect(seat_incumbency_node.start_date).to eq ''
+        expect(seat_incumbency_node.start_date).to be(nil)
       end
     end
   end
@@ -36,16 +36,16 @@ describe Parliament::Decorators::SeatIncumbency, vcr: true do
         seat_incumbency_node = @seat_incumbency_nodes.first
 
         expect(seat_incumbency_node).to respond_to(:end_date)
-        expect(seat_incumbency_node.end_date).to eq '1997-05-01'
+        expect(seat_incumbency_node.end_date).to eq(DateTime.new(1997, 5, 1))
       end
     end
 
     context 'seat incumbency has no end date' do
-      it 'returns an empty string' do
+      it 'returns nil' do
         seat_incumbency_node = @seat_incumbency_nodes[1]
 
         expect(seat_incumbency_node).to respond_to(:end_date)
-        expect(seat_incumbency_node.end_date).to eq ''
+        expect(seat_incumbency_node.end_date).to be(nil)
       end
     end
   end
