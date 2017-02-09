@@ -53,5 +53,5 @@ AllCops:
   Exclude:
     - '*.gemspec'
     - 'vendor/**/*'
-    - 'spec/fixtures/**/*'
+    - 'spec/**/*'
     - 'tmp/**/*'
