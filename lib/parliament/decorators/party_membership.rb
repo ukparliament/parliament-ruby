@@ -6,11 +6,11 @@ module Parliament
       end
 
       def start_date
-        respond_to?(:partyMembershipStartDate) ? Time.parse(partyMembershipStartDate) : nil
+        respond_to?(:partyMembershipStartDate) ? DateTime.parse(partyMembershipStartDate) : nil
       end
 
       def end_date
-        respond_to?(:partyMembershipEndDate) ? Time.parse(partyMembershipEndDate) : nil
+        respond_to?(:partyMembershipEndDate) ? DateTime.parse(partyMembershipEndDate) : nil
       end
     end
   end

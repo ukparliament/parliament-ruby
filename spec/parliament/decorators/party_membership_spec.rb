@@ -33,7 +33,7 @@ describe Parliament::Decorators::PartyMembership, vcr: true do
       it 'returns the start date for a Grom::Node object of type PartyMembership' do
         party_membership_node = @party_membership_nodes.first
 
-        expect(party_membership_node.start_date).to eq(Time.new(1992, 4, 9))
+        expect(party_membership_node.start_date).to eq(DateTime.new(1992, 4, 9))
       end
     end
 
@@ -51,7 +51,7 @@ describe Parliament::Decorators::PartyMembership, vcr: true do
       it 'returns the end date for a Grom::Node object of type PartyMembership' do
         party_membership_node = @party_membership_nodes.first
 
-        expect(party_membership_node.end_date).to eq(Time.new(2015, 3, 30))
+        expect(party_membership_node.end_date).to eq(DateTime.new(2015, 3, 30))
       end
     end
 

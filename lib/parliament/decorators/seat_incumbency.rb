@@ -2,11 +2,11 @@ module Parliament
   module Decorators
     module SeatIncumbency
       def start_date
-        respond_to?(:seatIncumbencyStartDate) ? Time.parse(seatIncumbencyStartDate) : nil
+        respond_to?(:seatIncumbencyStartDate) ? DateTime.parse(seatIncumbencyStartDate) : nil
       end
 
       def end_date
-        respond_to?(:seatIncumbencyEndDate) ? Time.parse(seatIncumbencyEndDate) : nil
+        respond_to?(:seatIncumbencyEndDate) ? DateTime.parse(seatIncumbencyEndDate) : nil
       end
 
       def seat

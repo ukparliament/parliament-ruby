@@ -16,7 +16,7 @@ describe Parliament::Decorators::SeatIncumbency, vcr: true do
         seat_incumbency_node = @seat_incumbency_nodes.first
 
         expect(seat_incumbency_node).to respond_to(:start_date)
-        expect(seat_incumbency_node.start_date).to eq(Time.new(1992, 4, 9))
+        expect(seat_incumbency_node.start_date).to eq(DateTime.new(1992, 4, 9))
       end
     end
 
@@ -36,7 +36,7 @@ describe Parliament::Decorators::SeatIncumbency, vcr: true do
         seat_incumbency_node = @seat_incumbency_nodes.first
 
         expect(seat_incumbency_node).to respond_to(:end_date)
-        expect(seat_incumbency_node.end_date).to eq(Time.new(1997, 5, 1))
+        expect(seat_incumbency_node.end_date).to eq(DateTime.new(1997, 5, 1))
       end
     end
 
