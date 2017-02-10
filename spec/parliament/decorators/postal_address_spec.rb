@@ -5,7 +5,7 @@ describe Parliament::Decorators::PostalAddress, vcr: true do
   let(:response) { Parliament::Request.new(base_url: 'http://localhost:3030').constituencies(id).contact_point.get }
 
   before(:each) do
-    @postal_address_nodes = response.filter('http://id.ukpds.org/schema/PostalAddress').first
+    @postal_address_nodes = response.filter('http://id.ukpds.org/schema/PostalAddress')
   end
 
   describe '#full_address' do

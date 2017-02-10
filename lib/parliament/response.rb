@@ -21,9 +21,18 @@ module Parliament
         end
       end
 
+      result = build_responses(filtered_objects)
+
+      types.size == 1 ? result.first : result
+    end
+
+    def build_responses(filtered_objects)
+      result = []
+
       filtered_objects.each do |objects|
-        Parliament::Response.new(objects)
+        result << Parliament::Response.new(objects)
       end
+      result
     end
   end
 end

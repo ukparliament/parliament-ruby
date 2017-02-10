@@ -6,7 +6,7 @@ describe Parliament::Decorators::PartyMembership, vcr: true do
   end
 
   before(:each) do
-    @party_membership_nodes = response.filter('http://id.ukpds.org/schema/PartyMembership').first
+    @party_membership_nodes = response.filter('http://id.ukpds.org/schema/PartyMembership')
   end
 
   describe '#party' do

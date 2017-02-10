@@ -6,7 +6,7 @@ describe Parliament::Decorators::HouseSeat, vcr: true do
   end
 
   before(:each) do
-    @seat_nodes = response.filter('http://id.ukpds.org/schema/HouseSeat').first
+    @seat_nodes = response.filter('http://id.ukpds.org/schema/HouseSeat')
   end
 
   describe '#house' do
@@ -47,7 +47,7 @@ describe Parliament::Decorators::HouseSeat, vcr: true do
 
   describe '#seat_incumbencies' do
     before(:each) do
-      @seat_nodes = response.filter('http://id.ukpds.org/schema/HouseSeat').first
+      @seat_nodes = response.filter('http://id.ukpds.org/schema/HouseSeat')
     end
 
     context 'Grom::Node has all the required objects' do

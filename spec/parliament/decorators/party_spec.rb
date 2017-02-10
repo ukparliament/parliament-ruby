@@ -8,7 +8,7 @@ describe Parliament::Decorators::Party, vcr: true do
 
   describe '#name' do
     before(:each) do
-      @party_nodes = response.filter('http://id.ukpds.org/schema/Party').first
+      @party_nodes = response.filter('http://id.ukpds.org/schema/Party')
     end
 
     context 'Grom::Node has all the required objects' do
@@ -38,7 +38,7 @@ describe Parliament::Decorators::Party, vcr: true do
     before(:each) do
       id = '626b57f9-6ef0-475a-ae12-40a44aca7eff'
       response = Parliament::Request.new(base_url: 'http://localhost:3030').people(id).parties.get
-      @party_nodes = response.filter('http://id.ukpds.org/schema/Party').first
+      @party_nodes = response.filter('http://id.ukpds.org/schema/Party')
     end
     context 'Grom::Node has all the required objects' do
       it 'returns the party memberships for a Grom::Node object of type Party' do
