@@ -6,7 +6,7 @@ describe Parliament::Decorators::ContactPoint, vcr: true do
   end
 
   before(:each) do
-    @contact_point_nodes = response.filter('http://id.ukpds.org/schema/ContactPoint').first
+    @contact_point_nodes = response.filter('http://id.ukpds.org/schema/ContactPoint')
   end
 
   describe '#postal_addresses' do
