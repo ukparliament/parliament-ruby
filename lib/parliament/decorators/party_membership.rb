@@ -12,6 +12,12 @@ module Parliament
       def end_date
         respond_to?(:partyMembershipEndDate) ? DateTime.parse(partyMembershipEndDate) : nil
       end
+
+      def current?
+        has_end_date = respond_to?(:partyMembershipEndDate)
+
+        !has_end_date
+      end
     end
   end
 end

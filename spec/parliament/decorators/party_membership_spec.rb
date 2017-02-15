@@ -63,4 +63,12 @@ describe Parliament::Decorators::PartyMembership, vcr: true do
       end
     end
   end
+
+  describe '#current?' do
+    it 'Grom::Node returns the correct value for a current or non current party membership' do
+      party_membership_results = @party_membership_nodes.map(&:current?)
+
+      expect(party_membership_results).to eq([false, true])
+    end
+  end
 end
