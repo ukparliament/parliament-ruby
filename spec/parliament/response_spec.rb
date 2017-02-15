@@ -44,6 +44,10 @@ describe Parliament::Response, vcr: true do
     it 'should respond to []' do
       expect(subject).to respond_to(:[])
     end
+
+    it 'should respond to empty?' do
+      expect(subject).to respond_to(:empty?)
+    end
   end
 
   describe '#filter' do
