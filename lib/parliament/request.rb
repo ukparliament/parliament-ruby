@@ -68,7 +68,7 @@ module Parliament
     end
 
     def api_endpoint
-      [@base_url, @endpoint_parts].join('/') + '.nt'
+      [@base_url, @endpoint_parts].join('/')
     end
   end
 end

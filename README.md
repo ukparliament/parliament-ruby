@@ -70,7 +70,7 @@ Parliament::Request.new.base_url #=> 'http://example.com'
 
 
 ### Building an 'endpoint'
-Now that we have a `base_url` set, we will want to build an 'endpoint' such as: `http://test.com/parties/current.nt`.
+Now that we have a `base_url` set, we will want to build an 'endpoint' such as: `http://test.com/parties/current`.
 
 An endpoint is effectively just a full URL to an n-triple file on a remote server.
 
@@ -78,13 +78,13 @@ Building an endpoint is simple, once you have a Parliament::Request object, you 
 ```ruby
 parliament = Parliament::Request.new(base_url: 'http://test.com') #=>  #<Parliament::Request>
 
-# target endpoint: 'http://test.com/parties/current.nt'
+# target endpoint: 'http://test.com/parties/current'
 parliament.parties.current.get
 
-# target endpoint: 'http://test.com/parties/123/people/current.nt'
+# target endpoint: 'http://test.com/parties/123/people/current'
 parliament.parties('123').people.current.get
 
-# target endpoint: 'http://test.com/people/123/letters/456.nt'
+# target endpoint: 'http://test.com/people/123/letters/456'
 parliament.people('123').letters('456').get
 ```
 
