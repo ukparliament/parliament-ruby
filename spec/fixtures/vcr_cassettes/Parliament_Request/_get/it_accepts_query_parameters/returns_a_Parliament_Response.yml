@@ -1,0 +1,49 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: http://localhost:3030/people?by=mnisId&id=3898
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Host:
+      - localhost:3030
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Content-Type-Options:
+      - nosniff
+      Content-Type:
+      - application/n-triples; charset=utf-8
+      Etag:
+      - W/"070ba81d6dda5d42fda1032187263084"
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      X-Request-Id:
+      - d49bec10-10ca-47be-9ac3-799d0cba9b1e
+      X-Runtime:
+      - '0.030821'
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: UTF-8
+      string: |
+        <http://id.ukpds.org/581ade57-3805-4a4a-82c9-8d622cb352a4> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://id.ukpds.org/schema/Person> .
+        <http://id.ukpds.org/581ade57-3805-4a4a-82c9-8d622cb352a4> <http://id.ukpds.org/schema/personGivenName> "Person - givenName" .
+        <http://id.ukpds.org/581ade57-3805-4a4a-82c9-8d622cb352a4> <http://id.ukpds.org/schema/personFamilyName> "Person - familyName" .
+    http_version:
+  recorded_at: Tue, 21 Feb 2017 17:08:52 GMT
+recorded_with: VCR 3.0.3

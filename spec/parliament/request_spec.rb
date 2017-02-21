@@ -116,21 +116,15 @@ describe Parliament::Request, vcr: true do
       end
     end
 
-    xcontext 'it accepts query parameters' do
-      subject { Parliament::Request.new(base_url: 'http://localhost:3030').people.get(params: {by: 'wiki', value: '123'}) }
+    context 'it accepts query parameters' do
+      subject { Parliament::Request.new(base_url: 'http://localhost:3030').people.get(params: { by: 'mnisId', id: '3898' }) }
 
       it 'returns a Parliament::Response' do
         expect(subject).to be_a(Parliament::Response)
       end
 
-      it 'returns 27 objects' do
-        expect(subject.size).to eq(27)
-      end
-
-      it 'returns an array of Grom::Node objects' do
-        subject.each do |object|
-          expect(object).to be_a(Grom::Node)
-        end
+      it 'returns 1 object' do
+        expect(subject.size).to eq(1)
       end
     end
   end
