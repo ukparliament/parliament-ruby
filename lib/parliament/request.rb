@@ -22,15 +22,36 @@ module Parliament
     end
 
     def get
-      response = Net::HTTP.get_response(URI(api_endpoint))
+      net_response = Net::HTTP.get_response(URI(api_endpoint))
 
-      raise StandardError, 'This is a HTTPClientError' if response.is_a?(Net::HTTPClientError)
-      raise StandardError, 'This is a HTTPServerError' if response.is_a?(Net::HTTPServerError)
+      handle_errors(net_response)
 
+      build_parliament_response(net_response)
+    end
+
+    def build_parliament_response(response)
       objects = Grom::Reader.new(response.body).objects
       objects.map { |object| assign_decorator(object) }
 
       Parliament::Response.new(objects)
+    end
+
+    def handle_errors(response)
+      handle_not_found_error(response)
+      handle_server_error(response)
+      handle_no_content_error(response)
+    end
+
+    def handle_server_error(response)
+      raise StandardError, 'This is a HTTPServerError' if response.is_a?(Net::HTTPServerError)
+    end
+
+    def handle_not_found_error(response)
+      raise StandardError, 'This is a HTTPClientError' if response.is_a?(Net::HTTPClientError)
+    end
+
+    def handle_no_content_error(response)
+      raise Parliament::NoContentError if response.code == '204'
     end
 
     def assign_decorator(object)

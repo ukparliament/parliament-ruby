@@ -5,7 +5,7 @@ module Parliament
     include Enumerable
     extend Forwardable
     attr_reader :nodes
-    def_delegators :@nodes, :size, :each, :select, :map, :select!, :map!, :count, :length, :[]
+    def_delegators :@nodes, :size, :each, :select, :map, :select!, :map!, :count, :length, :[], :empty?
 
     def initialize(nodes)
       @nodes = nodes
@@ -21,9 +21,18 @@ module Parliament
         end
       end
 
+      result = build_responses(filtered_objects)
+
+      types.size == 1 ? result.first : result
+    end
+
+    def build_responses(filtered_objects)
+      result = []
+
       filtered_objects.each do |objects|
-        Parliament::Response.new(objects)
+        result << Parliament::Response.new(objects)
       end
+      result
     end
   end
 end

@@ -7,7 +7,7 @@ describe Parliament::Decorators::House, vcr: true do
 
   describe '#name' do
     before(:each) do
-      @house_nodes = response.filter('http://id.ukpds.org/schema/House').first
+      @house_nodes = response.filter('http://id.ukpds.org/schema/House')
     end
 
     context 'Grom::Node has all the required objects' do
@@ -31,7 +31,7 @@ describe Parliament::Decorators::House, vcr: true do
     before(:each) do
       id = 'ff75cd0c-1a8b-49ab-8292-f00d153588e5'
       response = Parliament::Request.new(base_url: 'http://localhost:3030').people(id).houses.get
-      @house_nodes = response.filter('http://id.ukpds.org/schema/House').first
+      @house_nodes = response.filter('http://id.ukpds.org/schema/House')
     end
 
     context 'Grom::Node has all the required objects' do
@@ -56,7 +56,7 @@ describe Parliament::Decorators::House, vcr: true do
     before(:each) do
       id = 'ff75cd0c-1a8b-49ab-8292-f00d153588e5'
       response = Parliament::Request.new(base_url: 'http://localhost:3030').people(id).houses.get
-      @house_nodes = response.filter('http://id.ukpds.org/schema/House').first
+      @house_nodes = response.filter('http://id.ukpds.org/schema/House')
     end
 
     context 'Grom::Node has all the required objects' do

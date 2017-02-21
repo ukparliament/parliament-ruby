@@ -6,7 +6,7 @@ describe Parliament::Decorators::PartyMembership, vcr: true do
   end
 
   before(:each) do
-    @party_membership_nodes = response.filter('http://id.ukpds.org/schema/PartyMembership').first
+    @party_membership_nodes = response.filter('http://id.ukpds.org/schema/PartyMembership')
   end
 
   describe '#party' do
@@ -33,7 +33,7 @@ describe Parliament::Decorators::PartyMembership, vcr: true do
       it 'returns the start date for a Grom::Node object of type PartyMembership' do
         party_membership_node = @party_membership_nodes.first
 
-        expect(party_membership_node.start_date).to eq(Time.new(1992, 4, 9))
+        expect(party_membership_node.start_date).to eq(DateTime.new(1992, 4, 9))
       end
     end
 
@@ -51,7 +51,7 @@ describe Parliament::Decorators::PartyMembership, vcr: true do
       it 'returns the end date for a Grom::Node object of type PartyMembership' do
         party_membership_node = @party_membership_nodes.first
 
-        expect(party_membership_node.end_date).to eq(Time.new(2015, 3, 30))
+        expect(party_membership_node.end_date).to eq(DateTime.new(2015, 3, 30))
       end
     end
 
@@ -61,6 +61,14 @@ describe Parliament::Decorators::PartyMembership, vcr: true do
 
         expect(party_membership_node.end_date).to be(nil)
       end
+    end
+  end
+
+  describe '#current?' do
+    it 'Grom::Node returns the correct value for a current or non current party membership' do
+      party_membership_results = @party_membership_nodes.map(&:current?)
+
+      expect(party_membership_results).to eq([false, true])
     end
   end
 end

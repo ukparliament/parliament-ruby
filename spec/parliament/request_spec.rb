@@ -89,7 +89,16 @@ describe Parliament::Request, vcr: true do
       end
     end
 
-    context 'it returns any other status code than a 200' do
+    context 'it returns a status code of 204 and...' do
+      it 'raises a Parliament::NoContentError' do
+        past_person_id = '321f496b-5c8b-4455-ab49-a96e42b34739'
+        expect do
+          Parliament::Request.new(base_url: 'http://localhost:3030').people(past_person_id).parties.current.get
+        end.to raise_error(Parliament::NoContentError, 'No content')
+      end
+    end
+
+    context 'it returns a status code in either the 400 or 500 range' do
       it 'and raises client error when status is within the 400 range' do
         stub_request(:get, 'http://localhost:3030/dogs/cats.nt').to_return(status: 400)
 

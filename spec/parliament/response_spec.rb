@@ -44,6 +44,10 @@ describe Parliament::Response, vcr: true do
     it 'should respond to []' do
       expect(subject).to respond_to(:[])
     end
+
+    it 'should respond to empty?' do
+      expect(subject).to respond_to(:empty?)
+    end
   end
 
   describe '#filter' do
@@ -86,7 +90,21 @@ describe Parliament::Response, vcr: true do
     end
 
     it 'returns an empty array when the response is empty' do
-      expect(subject.filter('http://id.ukpds.org/schema/Person').first.size).to eq(0)
+      expect(subject.filter('http://id.ukpds.org/schema/Person').size).to eq(0)
     end
+
+    it 'returns a response filtered by a single type' do
+      filtered_response = @response.filter('http://id.ukpds.org/schema/Person')
+      expect(filtered_response).to be_a(Parliament::Response)
+    end
+
+    it 'confirms that each Grom::Node is of type Person' do
+      filtered_response = @response.filter('http://id.ukpds.org/schema/Person')
+      filtered_response.each do |node|
+        expect(node.type).to eq('http://id.ukpds.org/schema/Person')
+      end
+
+    end
+
   end
 end
