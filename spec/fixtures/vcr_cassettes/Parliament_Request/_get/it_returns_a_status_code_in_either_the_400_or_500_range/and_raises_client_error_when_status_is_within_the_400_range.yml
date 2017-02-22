@@ -1,0 +1,77 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: http://localhost:3030/dogs/cats
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Host:
+      - localhost:3030
+  response:
+    status:
+      code: 404
+      message: Not Found
+    headers:
+      Content-Type:
+      - application/json; charset=utf-8
+      X-Request-Id:
+      - f9380e0d-550f-4036-9119-f84fb6afd1a4
+      X-Runtime:
+      - '0.009278'
+      Content-Length:
+      - '3686'
+    body:
+      encoding: UTF-8
+      string: '{"status":404,"error":"Not Found","exception":"#\u003cActionController::RoutingError:
+        No route matches [GET] \"/dogs/cats\"\u003e","traces":{"Application Trace":[],"Framework
+        Trace":[{"id":0,"trace":"actionpack (5.0.0.1) lib/action_dispatch/middleware/debug_exceptions.rb:53:in
+        `call''"},{"id":1,"trace":"actionpack (5.0.0.1) lib/action_dispatch/middleware/show_exceptions.rb:31:in
+        `call''"},{"id":2,"trace":"railties (5.0.0.1) lib/rails/rack/logger.rb:36:in
+        `call_app''"},{"id":3,"trace":"railties (5.0.0.1) lib/rails/rack/logger.rb:24:in
+        `block in call''"},{"id":4,"trace":"activesupport (5.0.0.1) lib/active_support/tagged_logging.rb:70:in
+        `block in tagged''"},{"id":5,"trace":"activesupport (5.0.0.1) lib/active_support/tagged_logging.rb:26:in
+        `tagged''"},{"id":6,"trace":"activesupport (5.0.0.1) lib/active_support/tagged_logging.rb:70:in
+        `tagged''"},{"id":7,"trace":"railties (5.0.0.1) lib/rails/rack/logger.rb:24:in
+        `call''"},{"id":8,"trace":"actionpack (5.0.0.1) lib/action_dispatch/middleware/request_id.rb:24:in
+        `call''"},{"id":9,"trace":"rack (2.0.1) lib/rack/runtime.rb:22:in `call''"},{"id":10,"trace":"activesupport
+        (5.0.0.1) lib/active_support/cache/strategy/local_cache_middleware.rb:28:in
+        `call''"},{"id":11,"trace":"actionpack (5.0.0.1) lib/action_dispatch/middleware/executor.rb:12:in
+        `call''"},{"id":12,"trace":"actionpack (5.0.0.1) lib/action_dispatch/middleware/static.rb:136:in
+        `call''"},{"id":13,"trace":"rack (2.0.1) lib/rack/sendfile.rb:111:in `call''"},{"id":14,"trace":"railties
+        (5.0.0.1) lib/rails/engine.rb:522:in `call''"},{"id":15,"trace":"puma (3.6.0)
+        lib/puma/configuration.rb:225:in `call''"},{"id":16,"trace":"puma (3.6.0)
+        lib/puma/server.rb:578:in `handle_request''"},{"id":17,"trace":"puma (3.6.0)
+        lib/puma/server.rb:415:in `process_client''"},{"id":18,"trace":"puma (3.6.0)
+        lib/puma/server.rb:275:in `block in run''"},{"id":19,"trace":"puma (3.6.0)
+        lib/puma/thread_pool.rb:116:in `block in spawn_thread''"}],"Full Trace":[{"id":0,"trace":"actionpack
+        (5.0.0.1) lib/action_dispatch/middleware/debug_exceptions.rb:53:in `call''"},{"id":1,"trace":"actionpack
+        (5.0.0.1) lib/action_dispatch/middleware/show_exceptions.rb:31:in `call''"},{"id":2,"trace":"railties
+        (5.0.0.1) lib/rails/rack/logger.rb:36:in `call_app''"},{"id":3,"trace":"railties
+        (5.0.0.1) lib/rails/rack/logger.rb:24:in `block in call''"},{"id":4,"trace":"activesupport
+        (5.0.0.1) lib/active_support/tagged_logging.rb:70:in `block in tagged''"},{"id":5,"trace":"activesupport
+        (5.0.0.1) lib/active_support/tagged_logging.rb:26:in `tagged''"},{"id":6,"trace":"activesupport
+        (5.0.0.1) lib/active_support/tagged_logging.rb:70:in `tagged''"},{"id":7,"trace":"railties
+        (5.0.0.1) lib/rails/rack/logger.rb:24:in `call''"},{"id":8,"trace":"actionpack
+        (5.0.0.1) lib/action_dispatch/middleware/request_id.rb:24:in `call''"},{"id":9,"trace":"rack
+        (2.0.1) lib/rack/runtime.rb:22:in `call''"},{"id":10,"trace":"activesupport
+        (5.0.0.1) lib/active_support/cache/strategy/local_cache_middleware.rb:28:in
+        `call''"},{"id":11,"trace":"actionpack (5.0.0.1) lib/action_dispatch/middleware/executor.rb:12:in
+        `call''"},{"id":12,"trace":"actionpack (5.0.0.1) lib/action_dispatch/middleware/static.rb:136:in
+        `call''"},{"id":13,"trace":"rack (2.0.1) lib/rack/sendfile.rb:111:in `call''"},{"id":14,"trace":"railties
+        (5.0.0.1) lib/rails/engine.rb:522:in `call''"},{"id":15,"trace":"puma (3.6.0)
+        lib/puma/configuration.rb:225:in `call''"},{"id":16,"trace":"puma (3.6.0)
+        lib/puma/server.rb:578:in `handle_request''"},{"id":17,"trace":"puma (3.6.0)
+        lib/puma/server.rb:415:in `process_client''"},{"id":18,"trace":"puma (3.6.0)
+        lib/puma/server.rb:275:in `block in run''"},{"id":19,"trace":"puma (3.6.0)
+        lib/puma/thread_pool.rb:116:in `block in spawn_thread''"}]}}'
+    http_version: 
+  recorded_at: Tue, 21 Feb 2017 12:03:46 GMT
+recorded_with: VCR 3.0.3

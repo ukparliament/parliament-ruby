@@ -21,8 +21,11 @@ module Parliament
       (method != :base_url=) || super
     end
 
-    def get
-      net_response = Net::HTTP.get_response(URI(api_endpoint))
+    def get(params: nil)
+      endpoint_uri = URI.parse(api_endpoint)
+      endpoint_uri.query = URI.encode_www_form(params.to_a) unless params.nil?
+
+      net_response = Net::HTTP.get_response(URI(endpoint_uri))
 
       handle_errors(net_response)
 
@@ -68,7 +71,7 @@ module Parliament
     end
 
     def api_endpoint
-      [@base_url, @endpoint_parts].join('/') + '.nt'
+      [@base_url, @endpoint_parts].join('/')
     end
   end
 end
