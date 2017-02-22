@@ -22,10 +22,10 @@ module Parliament
     end
 
     def get(params: nil)
-      endpoint = api_endpoint
-      endpoint = add_query_params(endpoint, params) unless params.nil?
+      endpoint_uri = URI.parse(api_endpoint)
+      endpoint_uri.query = URI.encode_www_form(params.to_a) unless params.nil?
 
-      net_response = Net::HTTP.get_response(URI(endpoint))
+      net_response = Net::HTTP.get_response(URI(endpoint_uri))
 
       handle_errors(net_response)
 
@@ -72,14 +72,6 @@ module Parliament
 
     def api_endpoint
       [@base_url, @endpoint_parts].join('/')
-    end
-
-    def add_query_params(endpoint, params)
-      endpoint += '?'
-      params.each do |param_key, param_value|
-        endpoint += param_key.to_s + '=' + param_value.to_s + '&'
-      end
-      endpoint.chop
     end
   end
 end
