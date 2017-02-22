@@ -17,6 +17,8 @@ module Parliament
         has_end_date = respond_to?(:partyMembershipEndDate)
 
         !has_end_date
+        
+        respond_to?(:partyMembershipStartDate) ? Time.parse(partyMembershipStartDate) : nil
       end
     end
   end
