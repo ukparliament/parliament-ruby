@@ -117,7 +117,7 @@ describe Parliament::Request, vcr: true do
     end
 
     context 'it accepts query parameters' do
-      subject { Parliament::Request.new(base_url: 'http://localhost:3030').people.get(params: { by: 'mnisId', id: '3898' }) }
+      subject { Parliament::Request.new(base_url: 'http://localhost:3030').people.get(params: { source: 'mnisId', id: '3898' }) }
 
       it 'returns a Parliament::Response' do
         expect(subject).to be_a(Parliament::Response)

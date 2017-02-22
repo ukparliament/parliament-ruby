@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: http://localhost:3030/people?by=mnisId&id=3898
+    uri: http://localhost:3030/people?id=3898&source=mnisId
     body:
       encoding: US-ASCII
       string: ''
