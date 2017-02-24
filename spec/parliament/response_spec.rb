@@ -105,6 +105,44 @@ describe Parliament::Response, vcr: true do
       end
 
     end
+  end
 
+  describe '#sort_by' do
+    context 'all nodes have the parameter being sorted on' do
+      it 'returns a response sorted by personFamilyName' do
+        response = Parliament::Request.new(base_url: 'http://localhost:3030').people.get
+        sorted_response = response.sort_by(:personFamilyName)
+
+        expect(sorted_response.first.personGivenName).to eq('Jane')
+      end
+
+      it 'returns a response sorted by seatIncumbencyStartDate' do
+        response = Parliament::Request.new(base_url: 'http://localhost:3030').people('2c196540-13f3-4c07-8714-b356912beceb').get
+        filtered_response = response.filter('http://id.ukpds.org/schema/SeatIncumbency')
+        sorted_response = filtered_response.sort_by(:seatIncumbencyStartDate)
+
+        expect(sorted_response.first.seatIncumbencyStartDate).to eq('1987-06-11')
+      end
+    end
+
+    context 'not all nodes have the parameter being sorted on' do
+      it 'returns a response sorted by personGivenName' do
+        response = Parliament::Request.new(base_url: 'http://localhost:3030').people.get
+        sorted_response = response.sort_by(:personGivenName)
+
+        expect(sorted_response.first.personFamilyName).to eq('A')
+        expect(sorted_response[1].personGivenName).to eq('Alice')
+      end
+    end
+
+    context 'sorting by multiple parameters' do
+      it 'returns a response sorted by personFamilyName, then personGivenName' do
+        response = Parliament::Request.new(base_url: 'http://localhost:3030').people.get
+        sorted_response = response.sort_by(:personFamilyName, :personGivenName)
+
+        expect(sorted_response.first.personGivenName).to eq('Rebecca')
+        expect(sorted_response[1].personGivenName).to eq('Sarah')
+      end
+    end
   end
 end
