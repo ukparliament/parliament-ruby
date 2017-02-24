@@ -34,5 +34,16 @@ module Parliament
       end
       result
     end
+
+    def sort_by(*parameters)
+      rejected = []
+      grom_nodes = @nodes.dup
+      grom_nodes.delete_if { |node| rejected << node unless parameters.all?{ |param| node.respond_to?(param) } }
+      grom_nodes.sort_by! do |node|
+        parameters.map { |param| node.send(param) }
+      end
+
+      rejected.concat(grom_nodes)
+    end
   end
 end
