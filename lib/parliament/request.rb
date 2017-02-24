@@ -29,7 +29,7 @@ module Parliament
 
       handle_errors(net_response)
 
-      return net_response.body if net_response.body.encoding.name == 'ASCII-8BIT'
+      # return net_response.body if net_response.body.encoding.name == 'ASCII-8BIT'
 
       build_parliament_response(net_response)
     end
