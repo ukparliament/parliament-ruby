@@ -87,6 +87,12 @@ describe Parliament::Request, vcr: true do
 
         expect(result).to eq('Constituency 1 - name')
       end
+
+      it 'returns a response directly where the data is not n-triples (and it has encoding of type ASCII-8BIT)' do
+        response = Parliament::Request.new(base_url: 'http://localhost:3030').people.a_z_letters.get
+
+        expect(response).to be_a(String)
+      end
     end
 
     context 'it returns a status code of 204 and...' do
