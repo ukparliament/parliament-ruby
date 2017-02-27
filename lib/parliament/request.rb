@@ -29,8 +29,6 @@ module Parliament
 
       handle_errors(net_response)
 
-      # return net_response.body if net_response.body.encoding.name == 'ASCII-8BIT'
-
       build_parliament_response(net_response)
     end
 
@@ -61,8 +59,11 @@ module Parliament
 
     def assign_decorator(object)
       return object unless object.respond_to?(:type)
+
       object_type = Grom::Helper.get_id(object.type)
+
       return object unless Parliament::Decorators.constants.include?(object_type.to_sym)
+
       decorator_module = Object.const_get("Parliament::Decorators::#{object_type}")
       object.extend(decorator_module)
     end
