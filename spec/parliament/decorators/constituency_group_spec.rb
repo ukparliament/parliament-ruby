@@ -32,16 +32,16 @@ describe Parliament::Decorators::ConstituencyGroup, vcr: true do
         constituency_node = response.filter('http://id.ukpds.org/schema/ConstituencyGroup')[0]
 
         expect(constituency_node).to respond_to(:start_date)
-        expect(constituency_node.start_date).to eq '2010-05-06'
+        expect(constituency_node.start_date).to eq(DateTime.new(2010, 5, 6))
       end
     end
 
     context 'constituency has no start date' do
-      it 'returns an empty string' do
+      it 'returns nil' do
         constituency_node = response.filter('http://id.ukpds.org/schema/ConstituencyGroup')[1]
 
         expect(constituency_node).to respond_to(:start_date)
-        expect(constituency_node.start_date).to eq ''
+        expect(constituency_node.start_date).to be(nil)
       end
     end
   end
@@ -52,16 +52,16 @@ describe Parliament::Decorators::ConstituencyGroup, vcr: true do
         constituency_node = response.filter('http://id.ukpds.org/schema/ConstituencyGroup')[0]
 
         expect(constituency_node).to respond_to(:end_date)
-        expect(constituency_node.end_date).to eq '2011-05-06'
+        expect(constituency_node.end_date).to eq(DateTime.new(2011, 5, 6))
       end
     end
 
     context 'constituency has no end date' do
-      it 'returns an empty string' do
+      it 'returns nil' do
         constituency_node = response.filter('http://id.ukpds.org/schema/ConstituencyGroup')[1]
 
         expect(constituency_node).to respond_to(:end_date)
-        expect(constituency_node.end_date).to eq ''
+        expect(constituency_node.end_date).to be(nil)
       end
     end
   end

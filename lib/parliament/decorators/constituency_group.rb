@@ -6,11 +6,11 @@ module Parliament
       end
 
       def start_date
-        respond_to?(:constituencyGroupStartDate) ? constituencyGroupStartDate : ''
+        respond_to?(:constituencyGroupStartDate) ? DateTime.parse(constituencyGroupStartDate) : nil
       end
 
       def end_date
-        respond_to?(:constituencyGroupEndDate) ? constituencyGroupEndDate : ''
+        respond_to?(:constituencyGroupEndDate) ? DateTime.parse(constituencyGroupEndDate) : nil
       end
 
       def seats
