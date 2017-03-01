@@ -13,10 +13,6 @@ module Parliament
         respond_to?(:seatIncumbencyHasHouseSeat) ? seatIncumbencyHasHouseSeat.first : nil
       end
 
-      def member
-        respond_to?(:seatIncumbencyHasMember) ? seatIncumbencyHasMember.first : nil
-      end
-
       def current?
         has_end_date = respond_to?(:seatIncumbencyEndDate)
 
@@ -33,6 +29,10 @@ module Parliament
 
       def contact_points
         respond_to?(:seatIncumbencyHasContactPoint) ? seatIncumbencyHasContactPoint : []
+      end
+
+      def member
+        respond_to?(:incumbencyHasMember) ? incumbencyHasMember.first : nil
       end
     end
   end

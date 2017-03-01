@@ -1,4 +1,3 @@
-
 module Parliament
   module Decorators
     module Party
