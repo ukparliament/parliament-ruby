@@ -14,7 +14,7 @@ module Parliament
       end
 
       def current?
-        has_end_date = respond_to?(:seatIncumbencyEndDate)
+        has_end_date = respond_to?(:incumbencyEndDate)
 
         !has_end_date
       end
@@ -28,7 +28,7 @@ module Parliament
       end
 
       def contact_points
-        respond_to?(:seatIncumbencyHasContactPoint) ? seatIncumbencyHasContactPoint : []
+        respond_to?(:incumbencyHasContactPoint) ? incumbencyHasContactPoint : []
       end
 
       def member

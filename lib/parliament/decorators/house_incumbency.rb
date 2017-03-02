@@ -22,6 +22,10 @@ module Parliament
       def member
         respond_to?(:incumbencyHasMember) ? incumbencyHasMember.first : nil
       end
+
+      def contact_points
+        respond_to?(:incumbencyHasContactPoint) ? incumbencyHasContactPoint : []
+      end
     end
   end
 end

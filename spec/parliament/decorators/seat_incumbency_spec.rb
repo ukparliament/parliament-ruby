@@ -123,9 +123,9 @@ describe Parliament::Decorators::SeatIncumbency, vcr: true do
       end
     end
 
-    context 'constituency has no contact points' do
+    context 'seat incumbency has no contact points' do
       it 'returns an empty array' do
-        seat_incumbency_node = response.filter('http://id.ukpds.org/schema/SeatIncumbency')[1]
+        seat_incumbency_node = response.filter('http://id.ukpds.org/schema/SeatIncumbency').first
 
         expect(seat_incumbency_node).to respond_to(:contact_points)
         expect(seat_incumbency_node.contact_points).to eq []

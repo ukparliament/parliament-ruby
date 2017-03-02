@@ -162,7 +162,7 @@ describe Parliament::Decorators::ConstituencyGroup, vcr: true do
 
     context 'constituency has no contact points' do
       it 'returns an empty array' do
-        constituency_node = response.filter('http://id.ukpds.org/schema/ConstituencyGroup')[1]
+        constituency_node = response.filter('http://id.ukpds.org/schema/ConstituencyGroup').first
 
         expect(constituency_node).to respond_to(:contact_points)
         expect(constituency_node.contact_points).to eq []

@@ -129,25 +129,25 @@ describe Parliament::Decorators::HouseIncumbency, vcr: true do
       expect(incumbency_results).to eq([false, true])
     end
   end
-  #
-  # describe '#contact_points' do
-  #   context 'seat incumbency has contact points' do
-  #     it 'returns an array of contact points' do
-  #       seat_incumbency_node = response.filter('http://id.ukpds.org/schema/SeatIncumbency')[0]
-  #
-  #       expect(seat_incumbency_node).to respond_to(:contact_points)
-  #       expect(seat_incumbency_node.contact_points.size).to eq 1
-  #       expect(seat_incumbency_node.contact_points.first.type).to eq 'http://id.ukpds.org/schema/ContactPoint'
-  #     end
-  #   end
-  #
-  #   context 'constituency has no contact points' do
-  #     it 'returns an empty array' do
-  #       seat_incumbency_node = response.filter('http://id.ukpds.org/schema/SeatIncumbency')[1]
-  #
-  #       expect(seat_incumbency_node).to respond_to(:contact_points)
-  #       expect(seat_incumbency_node.contact_points).to eq []
-  #     end
-  #   end
-  # end
+
+  describe '#contact_points' do
+    context 'house incumbency has contact points' do
+      it 'returns an array of contact points' do
+        incumbency_node = response.filter('http://id.ukpds.org/schema/HouseIncumbency')[0]
+
+        expect(incumbency_node).to respond_to(:contact_points)
+        expect(incumbency_node.contact_points.size).to eq 1
+        expect(incumbency_node.contact_points.first.type).to eq 'http://id.ukpds.org/schema/ContactPoint'
+      end
+    end
+
+    context 'house incumbency has no contact points' do
+      it 'returns an empty array' do
+        incumbency_node = response.filter('http://id.ukpds.org/schema/HouseIncumbency').first
+
+        expect(incumbency_node).to respond_to(:contact_points)
+        expect(incumbency_node.contact_points).to eq []
+      end
+    end
+  end
 end
