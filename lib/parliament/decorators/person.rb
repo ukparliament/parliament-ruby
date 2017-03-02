@@ -28,6 +28,10 @@ module Parliament
         respond_to?(:memberHasIncumbency) ? memberHasIncumbency : []
       end
 
+      def seat_incumbencies
+        respond_to?(:memberHasIncumbency) ? memberHasIncumbency : []
+      end
+
       def seats
         return @seats unless @seats.nil?
 
