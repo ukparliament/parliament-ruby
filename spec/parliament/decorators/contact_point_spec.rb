@@ -109,4 +109,24 @@ describe Parliament::Decorators::ContactPoint, vcr: true do
       end
     end
   end
+
+  describe '#incumbency' do
+    context 'Grom::Node has all the required objects' do
+      it 'returns the object of type Incumbency for a Grom::Node object of type ContactPoint' do
+        contact_point_node = @contact_point_nodes.first
+
+        expect(contact_point_node).to respond_to(:incumbency)
+        expect(contact_point_node.incumbency.type).to eq('http://id.ukpds.org/schema/Incumbency')
+      end
+    end
+
+    context 'Grom::Node has no incumbency associated with it' do
+      it 'returns nil' do
+        contact_point_node = @contact_point_nodes.first
+
+        expect(contact_point_node).to respond_to(:incumbency)
+        expect(contact_point_node.incumbency).to be(nil)
+      end
+    end
+  end
 end
