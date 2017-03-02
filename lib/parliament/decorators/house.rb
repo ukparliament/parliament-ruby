@@ -19,6 +19,10 @@ module Parliament
       def seats
         respond_to?(:houseHasHouseSeat) ? houseHasHouseSeat : []
       end
+
+      def house_incumbencies
+        respond_to?(:houseHasHouseIncumbency) ? houseHasHouseIncumbency : []
+      end
     end
   end
 end

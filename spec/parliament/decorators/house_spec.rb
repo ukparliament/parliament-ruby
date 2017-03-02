@@ -76,4 +76,29 @@ describe Parliament::Decorators::House, vcr: true do
       end
     end
   end
+
+  describe '#house_incumbencies' do
+    before(:each) do
+      id = '90558d1f-ea34-4c44-b3ad-ed9c98a557d1'
+      response = Parliament::Request.new(base_url: 'http://localhost:3030').people(id).houses.get
+      @house_nodes = response.filter('http://id.ukpds.org/schema/House')
+    end
+
+    context 'Grom::Node has all the required objects' do
+      it 'returns the house_incumbencies for a Grom::Node object of type House' do
+        house_node = @house_nodes.first
+
+        expect(house_node.house_incumbencies.size).to eq(1)
+        expect(house_node.house_incumbencies.first.type).to eq('http://id.ukpds.org/schema/HouseIncumbency')
+      end
+    end
+
+    context 'Grom::Node has no house incumbencies' do
+      it 'returns an empty string' do
+        house_node = @house_nodes.first
+
+        expect(house_node.house_incumbencies).to eq([])
+      end
+    end
+  end
 end

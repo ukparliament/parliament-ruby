@@ -24,16 +24,16 @@ module Parliament
         full_name.rstrip
       end
 
-      def seat_incumbencies
-        respond_to?(:memberHasSeatIncumbency) ? memberHasSeatIncumbency : []
+      def incumbencies
+        respond_to?(:memberHasIncumbency) ? memberHasIncumbency : []
       end
 
       def seats
         return @seats unless @seats.nil?
 
         seats = []
-        seat_incumbencies.each do |seat_incumbency|
-          seats << seat_incumbency.seat
+        incumbencies.each do |incumbency|
+          seats << incumbency.seat if incumbency.respond_to?(:seat)
         end
 
         @seats = seats.flatten.uniq
@@ -87,6 +87,7 @@ module Parliament
       def gender
         gender_identities.empty? ? nil : gender_identities.first.gender
       end
+
     end
   end
 end

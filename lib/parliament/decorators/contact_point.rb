@@ -20,6 +20,10 @@ module Parliament
       def person
         respond_to?(:contactPointHasPerson) ? contactPointHasPerson : []
       end
+
+      def incumbency
+        respond_to?(:contactPointHasIncumbency) ? contactPointHasIncumbency.first : nil
+      end
     end
   end
 end

@@ -104,24 +104,6 @@ describe Parliament::Decorators::SeatIncumbency, vcr: true do
     end
   end
 
-  describe '#member' do
-    context 'Grom::Node has all the required objects' do
-      it 'returns the member for a Grom::Node object of type SeatIncumbency' do
-        seat_incumbency_node = @seat_incumbency_nodes.first
-
-        expect(seat_incumbency_node.member.type).to eq('http://id.ukpds.org/schema/Person')
-      end
-    end
-
-    context 'Grom::Node has no member' do
-      it 'returns nil' do
-        seat_incumbency_node = @seat_incumbency_nodes[1]
-
-        expect(seat_incumbency_node.member).to be_nil
-      end
-    end
-  end
-
   describe '#current?' do
     it 'Grom::Node returns the correct value for a current or non current seat incumbency' do
       seat_incumbency_results = @seat_incumbency_nodes.map(&:current?)
@@ -141,12 +123,30 @@ describe Parliament::Decorators::SeatIncumbency, vcr: true do
       end
     end
 
-    context 'constituency has no contact points' do
+    context 'seat incumbency has no contact points' do
       it 'returns an empty array' do
-        seat_incumbency_node = response.filter('http://id.ukpds.org/schema/SeatIncumbency')[1]
+        seat_incumbency_node = response.filter('http://id.ukpds.org/schema/SeatIncumbency').first
 
         expect(seat_incumbency_node).to respond_to(:contact_points)
         expect(seat_incumbency_node.contact_points).to eq []
+      end
+    end
+  end
+
+  describe '#member' do
+    context 'Grom::Node has all the required objects' do
+      it 'returns the member for a Grom::Node object of type SeatIncumbency' do
+        seat_incumbency_node = @seat_incumbency_nodes.first
+
+        expect(seat_incumbency_node.member.type).to eq('http://id.ukpds.org/schema/Person')
+      end
+    end
+
+    context 'Grom::Node has no member' do
+      it 'returns nil' do
+        seat_incumbency_node = @seat_incumbency_nodes[1]
+
+        expect(seat_incumbency_node.member).to be_nil
       end
     end
   end

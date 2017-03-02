@@ -29,25 +29,24 @@ describe Parliament::Decorators::Person, vcr: true do
     end
   end
 
-  describe '#seat_incumbencies' do
+  describe '#incumbencies' do
     before(:each) do
       @people_nodes = response.filter('http://id.ukpds.org/schema/Person')
     end
 
     context 'Grom::Node has all the required objects' do
-      it 'returns the seat incumbencies for a Grom::Node object of type Person' do
+      it 'returns the incumbencies for a Grom::Node object of type Person' do
         person_node = @people_nodes.first
 
-        expect(person_node.seat_incumbencies.size).to eq(5)
-        expect(person_node.seat_incumbencies.first.type).to eq('http://id.ukpds.org/schema/SeatIncumbency')
+        expect(person_node.incumbencies.size).to eq(5)
       end
     end
 
-    context 'Grom::Node has no seat incumbencies' do
+    context 'Grom::Node has no incumbencies' do
       it 'returns an empty array' do
         person_node = @people_nodes[1]
 
-        expect(person_node.seat_incumbencies).to eq([])
+        expect(person_node.incumbencies).to eq([])
       end
     end
   end
@@ -60,7 +59,7 @@ describe Parliament::Decorators::Person, vcr: true do
     context 'Grom::Node has all the required objects' do
       it 'returns the seats for a Grom::Node object of type Person' do
         person_node = @people_nodes.first
-        expect(person_node.seats.size).to eq(3)
+        expect(person_node.seats.size).to eq(2)
         expect(person_node.seats.first.type).to eq('http://id.ukpds.org/schema/HouseSeat')
       end
     end
