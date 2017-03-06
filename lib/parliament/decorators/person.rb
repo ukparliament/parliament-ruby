@@ -36,7 +36,7 @@ module Parliament
         return @seats unless @seats.nil?
 
         seats = []
-        incumbencies.each do |incumbency|
+        seat_incumbencies.each do |incumbency|
           seats << incumbency.seat if incumbency.respond_to?(:seat)
         end
 
@@ -91,7 +91,6 @@ module Parliament
       def gender
         gender_identities.empty? ? nil : gender_identities.first.gender
       end
-
     end
   end
 end
