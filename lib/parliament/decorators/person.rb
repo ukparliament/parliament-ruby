@@ -91,7 +91,6 @@ module Parliament
       def gender
         gender_identities.empty? ? nil : gender_identities.first.gender
       end
-
     end
   end
 end
