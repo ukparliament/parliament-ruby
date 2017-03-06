@@ -25,11 +25,15 @@ module Parliament
       end
 
       def incumbencies
-        respond_to?(:memberHasIncumbency) ? memberHasIncumbency : []
+        respond_to?(:memberHasIncumbency) ? memberHasIncumbency.select{ |inc| inc.type == 'http://id.ukpds.org/schema/Incumbency' } : []
       end
 
       def seat_incumbencies
-        respond_to?(:memberHasIncumbency) ? memberHasIncumbency : []
+        respond_to?(:memberHasIncumbency) ? memberHasIncumbency.select{ |inc| inc.type == 'http://id.ukpds.org/schema/SeatIncumbency' } : []
+      end
+
+      def house_incumbencies
+        respond_to?(:memberHasIncumbency) ? memberHasIncumbency.select{ |inc| inc.type == 'http://id.ukpds.org/schema/HouseIncumbency' } : []
       end
 
       def seats
@@ -49,6 +53,10 @@ module Parliament
         houses = []
         seats.each do |seat|
           houses << seat.house
+        end
+
+        house_incumbencies.each do |inc|
+          houses << inc.house
         end
 
         @houses = houses.flatten.uniq
