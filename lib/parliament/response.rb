@@ -40,7 +40,9 @@ module Parliament
       grom_nodes = @nodes.dup
       grom_nodes.delete_if { |node| rejected << node unless parameters.all? { |param| node.respond_to?(param) } }
       grom_nodes.sort_by! do |node|
-        parameters.map { |param| node.send(param) }
+        parameters.map do |param|
+          node.send(param).is_a?(String) ? I18n.transliterate(node.send(param).downcase) : node.send(param)
+        end
       end
 
       rejected.concat(grom_nodes)
