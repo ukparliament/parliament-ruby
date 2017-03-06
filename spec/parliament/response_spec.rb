@@ -165,6 +165,15 @@ describe Parliament::Response, vcr: true do
         expect(sorted_response[1].personGivenName).to eq('Sóley')
         expect(sorted_response[2].personGivenName).to eq('Solomon')
       end
+
+      it 'returns a response sorted by personFamilyName, personGivenName' do
+        response = Parliament::Request.new(base_url: 'http://localhost:3030').people.get
+        sorted_response = response.sort_by(:personFamilyName, :personGivenName)
+
+        expect(sorted_response.first.personGivenName).to eq('Solomon')
+        expect(sorted_response[1].personGivenName).to eq('Sophie')
+        expect(sorted_response[2].personGivenName).to eq('Sarah')
+      end
     end
   end
 end
