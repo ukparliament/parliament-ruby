@@ -119,9 +119,10 @@ describe Parliament::Response, vcr: true do
       it 'returns a response sorted by seatIncumbencyStartDate' do
         response = Parliament::Request.new(base_url: 'http://localhost:3030').people('2c196540-13f3-4c07-8714-b356912beceb').get
         filtered_response = response.filter('http://id.ukpds.org/schema/SeatIncumbency')
-        sorted_response = filtered_response.sort_by(:seatIncumbencyStartDate)
+        sorted_response = filtered_response.sort_by(:start_date)
 
-        expect(sorted_response.first.seatIncumbencyStartDate).to eq('1987-06-11')
+        expect(sorted_response.first.start_date).to eq(DateTime.new(1987, 6, 11))
+        expect(sorted_response[1].start_date).to eq(DateTime.new(1992, 4, 9))
       end
     end
 
@@ -142,6 +143,27 @@ describe Parliament::Response, vcr: true do
 
         expect(sorted_response.first.personGivenName).to eq('Rebecca')
         expect(sorted_response[1].personGivenName).to eq('Sarah')
+      end
+    end
+
+    context 'sorting strings of different cases' do
+      it 'returns a response sorted by personFamilyName' do
+        response = Parliament::Request.new(base_url: 'http://localhost:3030').people.get
+        sorted_response = response.sort_by(:personFamilyName)
+
+        expect(sorted_response.first.personGivenName).to eq('Jane')
+        expect(sorted_response[1].personGivenName).to eq('Alice')
+      end
+    end
+
+    context 'sorting strings with accents' do
+      it 'returns a response sorted by personGivenName' do
+        response = Parliament::Request.new(base_url: 'http://localhost:3030').people.get
+        sorted_response = response.sort_by(:personGivenName)
+
+        expect(sorted_response.first.personGivenName).to eq('Sarah')
+        expect(sorted_response[1].personGivenName).to eq('Sóley')
+        expect(sorted_response[2].personGivenName).to eq('Solomon')
       end
     end
   end
