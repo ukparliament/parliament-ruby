@@ -169,4 +169,16 @@ describe Parliament::Decorators::ConstituencyGroup, vcr: true do
       end
     end
   end
+
+  describe '#current?' do
+    it 'Grom::Node returns the correct value for a current or non current constituency' do
+      id = '1921fc4a-6867-48fa-a4f4-6df05be005ce'
+      response = Parliament::Request.new(base_url: 'http://localhost:3030').people(id).constituencies.get
+      constituency_nodes = response.filter('http://id.ukpds.org/schema/ConstituencyGroup')
+
+      constituency_results = constituency_nodes.map(&:current?)
+
+      expect(constituency_results).to eq([false, false, true])
+    end
+  end
 end

@@ -53,6 +53,12 @@ module Parliament
 
         @contact_points = contact_points.flatten.uniq
       end
+
+      def current?
+        has_end_date = respond_to?(:constituencyGroupEndDate)
+
+        !has_end_date
+      end
     end
   end
 end
