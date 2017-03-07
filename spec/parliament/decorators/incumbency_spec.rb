@@ -96,4 +96,40 @@ describe Parliament::Decorators::Incumbency, vcr: true do
       end
     end
   end
+
+  describe '#house' do
+    context 'Grom::Node has all the required objects' do
+      it 'returns the house for a Grom::Node object of type Incumbency' do
+        incumbency_node = @incumbency_nodes.first
+
+        expect(incumbency_node.house.type).to eq('http://id.ukpds.org/schema/House')
+      end
+    end
+
+    context 'Grom::Node has no house' do
+      it 'returns nil' do
+        incumbency_node = @incumbency_nodes.first
+
+        expect(incumbency_node.house).to be(nil)
+      end
+    end
+  end
+
+  describe '#seat' do
+    context 'Grom::Node has all the required objects' do
+      it 'returns the seat for a Grom::Node object of type Incumbency' do
+        incumbency_node = @incumbency_nodes.first
+
+        expect(incumbency_node.seat.type).to eq('http://id.ukpds.org/schema/HouseSeat')
+      end
+    end
+
+    context 'Grom::Node has no seats' do
+      it 'returns nil' do
+        incumbency_node = @incumbency_nodes.first
+
+        expect(incumbency_node.seat).to be(nil)
+      end
+    end
+  end
 end

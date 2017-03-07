@@ -5,7 +5,7 @@ module Parliament
     include Enumerable
     extend Forwardable
     attr_reader :nodes
-    def_delegators :@nodes, :size, :each, :select, :map, :select!, :map!, :count, :length, :[], :empty?, :concat
+    def_delegators :@nodes, :size, :each, :select, :map, :select!, :map!, :count, :length, :[], :empty?
 
     def initialize(nodes)
       @nodes = nodes

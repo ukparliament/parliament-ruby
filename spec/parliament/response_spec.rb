@@ -48,10 +48,6 @@ describe Parliament::Response, vcr: true do
     it 'should respond to empty?' do
       expect(subject).to respond_to(:empty?)
     end
-
-    it 'should respond to concat' do
-      expect(subject).to respond_to(:concat)
-    end
   end
 
   describe '#filter' do
