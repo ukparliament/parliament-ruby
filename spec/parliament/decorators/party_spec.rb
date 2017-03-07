@@ -70,7 +70,7 @@ describe Parliament::Decorators::Party, vcr: true do
       it 'returns the member count for a Grom::Node object of type Party' do
         party_node = @party_nodes.first
 
-        expect(party_node.member_count).to eq('2')
+        expect(party_node.member_count).to eq(2)
       end
     end
 
