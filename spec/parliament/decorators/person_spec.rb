@@ -20,6 +20,15 @@ describe Parliament::Decorators::Person, vcr: true do
       end
     end
 
+    context 'Grom::Node has all the required objects (house incumbencies)' do
+      it 'returns the houses for a Grom::Node object of type Person' do
+        person_node = @people_nodes.first
+
+        expect(person_node.houses.size).to eq(1)
+        expect(person_node.houses.first.type).to eq('http://id.ukpds.org/schema/House')
+      end
+    end
+
     context 'Grom::Node has no houses' do
       it 'returns an empty array' do
         person_node = @people_nodes[1]
