@@ -99,6 +99,18 @@ module Parliament
       def gender
         gender_identities.empty? ? nil : gender_identities.first.gender
       end
+
+      def statuses
+        return @statuses unless @statuses.nil?
+
+        statuses = []
+        statuses << 'Current MP' unless seat_incumbencies.select(&:current?).empty?
+        statuses << 'Current Lord' unless house_incumbencies.select(&:current?).empty?
+        statuses << 'Former Lord' if !house_incumbencies.empty? && house_incumbencies.select(&:current?).empty?
+        statuses << 'Former MP' if !seat_incumbencies.empty? && seat_incumbencies.select(&:current?).empty?
+
+        @statuses = statuses
+      end
     end
   end
 end
