@@ -25,15 +25,27 @@ module Parliament
       end
 
       def incumbencies
-        respond_to?(:memberHasIncumbency) ? memberHasIncumbency.select{ |inc| inc.type == 'http://id.ukpds.org/schema/Incumbency' } : []
+        if respond_to?(:memberHasIncumbency)
+          memberHasIncumbency.select { |inc| inc.type == 'http://id.ukpds.org/schema/Incumbency' }
+        else
+          []
+        end
       end
 
       def seat_incumbencies
-        respond_to?(:memberHasIncumbency) ? memberHasIncumbency.select{ |inc| inc.type == 'http://id.ukpds.org/schema/SeatIncumbency' } : []
+        if respond_to?(:memberHasIncumbency)
+          memberHasIncumbency.select { |inc| inc.type == 'http://id.ukpds.org/schema/SeatIncumbency' }
+        else
+          []
+        end
       end
 
       def house_incumbencies
-        respond_to?(:memberHasIncumbency) ? memberHasIncumbency.select{ |inc| inc.type == 'http://id.ukpds.org/schema/HouseIncumbency' } : []
+        if respond_to?(:memberHasIncumbency)
+          memberHasIncumbency.select { |inc| inc.type == 'http://id.ukpds.org/schema/HouseIncumbency' }
+        else
+          []
+        end
       end
 
       def seats
@@ -105,7 +117,7 @@ module Parliament
 
         statuses = []
         statuses << 'Current MP' unless seat_incumbencies.select(&:current?).empty?
-        statuses << 'Current Lord' unless house_incumbencies.select(&:current?).empty?
+        statuses << 'Lord' unless house_incumbencies.select(&:current?).empty?
         statuses << 'Former Lord' if !house_incumbencies.empty? && house_incumbencies.select(&:current?).empty?
         statuses << 'Former MP' if !seat_incumbencies.empty? && seat_incumbencies.select(&:current?).empty?
 

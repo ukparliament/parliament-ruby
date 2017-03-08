@@ -392,7 +392,7 @@ describe Parliament::Decorators::Person, vcr: true do
         person_node = response.filter('http://id.ukpds.org/schema/Person').first
 
         expect(person_node.statuses.size).to eq(1)
-        expect(person_node.statuses.first).to eq('Current Lord')
+        expect(person_node.statuses.first).to eq('Lord')
       end
     end
 
@@ -425,7 +425,7 @@ describe Parliament::Decorators::Person, vcr: true do
         person_node = response.filter('http://id.ukpds.org/schema/Person').first
 
         expect(person_node.statuses.size).to eq(2)
-        expect(person_node.statuses[0]).to eq('Current Lord')
+        expect(person_node.statuses[0]).to eq('Lord')
         expect(person_node.statuses[1]).to eq('Former MP')
       end
     end
