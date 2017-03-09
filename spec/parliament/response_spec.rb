@@ -176,4 +176,15 @@ describe Parliament::Response, vcr: true do
       end
     end
   end
+
+  describe '#reverse_sort_by' do
+    it 'returns a response sorted by incumbencyStartDate' do
+      response = Parliament::Request.new(base_url: 'http://localhost:3030').people('2c196540-13f3-4c07-8714-b356912beceb').get
+      filtered_response = response.filter('http://id.ukpds.org/schema/SeatIncumbency')
+      sorted_response = filtered_response.reverse_sort_by(:start_date)
+
+      expect(sorted_response[0].start_date).to eq(DateTime.new(2015, 5, 7))
+      expect(sorted_response[1].start_date).to eq(DateTime.new(2010, 5, 6))
+    end
+  end
 end

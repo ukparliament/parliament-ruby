@@ -47,5 +47,9 @@ module Parliament
 
       rejected.concat(grom_nodes)
     end
+
+    def reverse_sort_by(*parameters)
+      sort_by(*parameters).reverse!
+    end
   end
 end
