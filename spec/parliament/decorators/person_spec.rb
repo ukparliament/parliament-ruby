@@ -20,6 +20,15 @@ describe Parliament::Decorators::Person, vcr: true do
       end
     end
 
+    context 'Grom::Node has all the required objects (house incumbencies)' do
+      it 'returns the houses for a Grom::Node object of type Person' do
+        person_node = @people_nodes.first
+
+        expect(person_node.houses.size).to eq(1)
+        expect(person_node.houses.first.type).to eq('http://id.ukpds.org/schema/House')
+      end
+    end
+
     context 'Grom::Node has no houses' do
       it 'returns an empty array' do
         person_node = @people_nodes[1]
@@ -360,6 +369,86 @@ describe Parliament::Decorators::Person, vcr: true do
         person_node = @people_nodes[1]
 
         expect(person_node.gender).to be(nil)
+      end
+    end
+  end
+
+  describe '#statuses' do
+    context 'Grom::Node has a current seat incumbency' do
+      it 'returns the status Current MP' do
+        id = '1921fc4a-6867-48fa-a4f4-6df05be005ce'
+        response = Parliament::Request.new(base_url: 'http://localhost:3030').people(id).get
+        person_node = response.filter('http://id.ukpds.org/schema/Person').first
+
+        expect(person_node.statuses.size).to eq(1)
+        expect(person_node.statuses.first).to eq('Current MP')
+      end
+    end
+
+    context 'Grom::Node has a current house incumbency' do
+      it 'returns the status Current Lord' do
+        id = '841a4a1f-965a-4009-8cbc-dfc9e350fe0e'
+        response = Parliament::Request.new(base_url: 'http://localhost:3030').people(id).get
+        person_node = response.filter('http://id.ukpds.org/schema/Person').first
+
+        expect(person_node.statuses.size).to eq(1)
+        expect(person_node.statuses.first).to eq('Lord')
+      end
+    end
+
+    context 'Grom::Node has seat incumbencies but no current seat incumbency' do
+      it 'returns the status Former MP' do
+        id = '5fe4df31-fa20-40cc-8cf2-f9d731e0be91'
+        response = Parliament::Request.new(base_url: 'http://localhost:3030').people(id).get
+        person_node = response.filter('http://id.ukpds.org/schema/Person').first
+
+        expect(person_node.statuses.size).to eq(1)
+        expect(person_node.statuses.first).to eq('Former MP')
+      end
+    end
+
+    context 'Grom::Node has house incumbencies but no current house incumbency' do
+      it 'returns the status Former Lord' do
+        id = '99ceb32e-2e16-42a0-904d-c6a7e3a9f217'
+        response = Parliament::Request.new(base_url: 'http://localhost:3030').people(id).get
+        person_node = response.filter('http://id.ukpds.org/schema/Person').first
+
+        expect(person_node.statuses.size).to eq(1)
+        expect(person_node.statuses.first).to eq('Former Lord')
+      end
+    end
+
+    context 'Grom::Node has seat incumbencies and a current house incumbency' do
+      it 'returns the statuses Former MP and Current Lord' do
+        id = '7c511a2b-9ce2-4001-8ee5-71ae734c52d6'
+        response = Parliament::Request.new(base_url: 'http://localhost:3030').people(id).get
+        person_node = response.filter('http://id.ukpds.org/schema/Person').first
+
+        expect(person_node.statuses.size).to eq(2)
+        expect(person_node.statuses[0]).to eq('Lord')
+        expect(person_node.statuses[1]).to eq('Former MP')
+      end
+    end
+
+    context 'Grom::Node has house incumbencies and seat incumbencies but no current incumbency' do
+      it 'returns the statuses Former Lord and Former MP' do
+        id = '90558d1f-ea34-4c44-b3ad-ed9c98a557d1'
+        response = Parliament::Request.new(base_url: 'http://localhost:3030').people(id).get
+        person_node = response.filter('http://id.ukpds.org/schema/Person').first
+
+        expect(person_node.statuses.size).to eq(2)
+        expect(person_node.statuses[0]).to eq('Former Lord')
+        expect(person_node.statuses[1]).to eq('Former MP')
+      end
+    end
+
+    context 'Grom::Node has no membership data' do
+      it 'returns an empty array' do
+        id = '841a4a1f-965a-4009-8cbc-dfc9e350fe0e'
+        response = Parliament::Request.new(base_url: 'http://localhost:3030').people(id).get
+        person_node = response.filter('http://id.ukpds.org/schema/Person').first
+
+        expect(person_node.statuses).to eq([])
       end
     end
   end

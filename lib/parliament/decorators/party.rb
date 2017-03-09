@@ -10,7 +10,7 @@ module Parliament
       end
 
       def member_count
-        respond_to?(:count) ? count : nil
+        respond_to?(:count) ? count.to_i : nil
       end
     end
   end

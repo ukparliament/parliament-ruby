@@ -22,6 +22,14 @@ module Parliament
       def contact_points
         respond_to?(:incumbencyHasContactPoint) ? incumbencyHasContactPoint : []
       end
+
+      def seat
+        respond_to?(:seatIncumbencyHasHouseSeat) ? seatIncumbencyHasHouseSeat.first : nil
+      end
+
+      def house
+        respond_to?(:houseIncumbencyHasHouse) ? houseIncumbencyHasHouse.first : nil
+      end
     end
   end
 end
