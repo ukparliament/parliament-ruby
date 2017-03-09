@@ -380,8 +380,8 @@ describe Parliament::Decorators::Person, vcr: true do
         response = Parliament::Request.new(base_url: 'http://localhost:3030').people(id).get
         person_node = response.filter('http://id.ukpds.org/schema/Person').first
 
-        expect(person_node.statuses.size).to eq(1)
-        expect(person_node.statuses.first).to eq('Current MP')
+        expect(person_node.statuses[:house_membership_status].size).to eq(1)
+        expect(person_node.statuses[:house_membership_status].first).to eq('Current MP')
       end
     end
 
@@ -391,8 +391,30 @@ describe Parliament::Decorators::Person, vcr: true do
         response = Parliament::Request.new(base_url: 'http://localhost:3030').people(id).get
         person_node = response.filter('http://id.ukpds.org/schema/Person').first
 
-        expect(person_node.statuses.size).to eq(1)
-        expect(person_node.statuses.first).to eq('Lord')
+        expect(person_node.statuses[:house_membership_status].size).to eq(1)
+        expect(person_node.statuses[:house_membership_status].first).to eq('Lord')
+      end
+    end
+
+    context 'Grom::Node has a current incumbency' do
+      it 'returns the status Current Member' do
+        id = '841a4a1f-965a-4009-8cbc-dfc9e350fe0e'
+        response = Parliament::Request.new(base_url: 'http://localhost:3030').people(id).get
+        person_node = response.filter('http://id.ukpds.org/schema/Person').first
+
+        expect(person_node.statuses[:general_membership_status].size).to eq(1)
+        expect(person_node.statuses[:general_membership_status].first).to eq('Current Member')
+      end
+    end
+
+    context 'Grom::Node has no current incumbency' do
+      it 'returns the status Former Member' do
+        id = '5fe4df31-fa20-40cc-8cf2-f9d731e0be91'
+        response = Parliament::Request.new(base_url: 'http://localhost:3030').people(id).get
+        person_node = response.filter('http://id.ukpds.org/schema/Person').first
+
+        expect(person_node.statuses[:general_membership_status].size).to eq(1)
+        expect(person_node.statuses[:general_membership_status].first).to eq('Former Member')
       end
     end
 
@@ -402,8 +424,8 @@ describe Parliament::Decorators::Person, vcr: true do
         response = Parliament::Request.new(base_url: 'http://localhost:3030').people(id).get
         person_node = response.filter('http://id.ukpds.org/schema/Person').first
 
-        expect(person_node.statuses.size).to eq(1)
-        expect(person_node.statuses.first).to eq('Former MP')
+        expect(person_node.statuses[:house_membership_status].size).to eq(1)
+        expect(person_node.statuses[:house_membership_status].first).to eq('Former MP')
       end
     end
 
@@ -413,8 +435,8 @@ describe Parliament::Decorators::Person, vcr: true do
         response = Parliament::Request.new(base_url: 'http://localhost:3030').people(id).get
         person_node = response.filter('http://id.ukpds.org/schema/Person').first
 
-        expect(person_node.statuses.size).to eq(1)
-        expect(person_node.statuses.first).to eq('Former Lord')
+        expect(person_node.statuses[:house_membership_status].size).to eq(1)
+        expect(person_node.statuses[:house_membership_status].first).to eq('Former Lord')
       end
     end
 
@@ -425,8 +447,8 @@ describe Parliament::Decorators::Person, vcr: true do
         person_node = response.filter('http://id.ukpds.org/schema/Person').first
 
         expect(person_node.statuses.size).to eq(2)
-        expect(person_node.statuses[0]).to eq('Lord')
-        expect(person_node.statuses[1]).to eq('Former MP')
+        expect(person_node.statuses[:house_membership_status][0]).to eq('Lord')
+        expect(person_node.statuses[:house_membership_status][1]).to eq('Former MP')
       end
     end
 
@@ -437,8 +459,8 @@ describe Parliament::Decorators::Person, vcr: true do
         person_node = response.filter('http://id.ukpds.org/schema/Person').first
 
         expect(person_node.statuses.size).to eq(2)
-        expect(person_node.statuses[0]).to eq('Former Lord')
-        expect(person_node.statuses[1]).to eq('Former MP')
+        expect(person_node.statuses[:house_membership_status][0]).to eq('Former Lord')
+        expect(person_node.statuses[:house_membership_status][1]).to eq('Former MP')
       end
     end
 
@@ -448,7 +470,7 @@ describe Parliament::Decorators::Person, vcr: true do
         response = Parliament::Request.new(base_url: 'http://localhost:3030').people(id).get
         person_node = response.filter('http://id.ukpds.org/schema/Person').first
 
-        expect(person_node.statuses).to eq([])
+        expect(person_node.statuses[:house_membership_status]).to eq([])
       end
     end
   end

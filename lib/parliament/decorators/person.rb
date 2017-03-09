@@ -115,13 +115,29 @@ module Parliament
       def statuses
         return @statuses unless @statuses.nil?
 
+        statuses = {}
+        statuses[:house_membership_status] = house_membership_status
+        statuses[:general_membership_status] = general_membership_status
+
+        @statuses = statuses
+      end
+
+      private
+
+      def house_membership_status
         statuses = []
         statuses << 'Current MP' unless seat_incumbencies.select(&:current?).empty?
         statuses << 'Lord' unless house_incumbencies.select(&:current?).empty?
         statuses << 'Former Lord' if !house_incumbencies.empty? && house_incumbencies.select(&:current?).empty?
         statuses << 'Former MP' if !seat_incumbencies.empty? && seat_incumbencies.select(&:current?).empty?
+        statuses
+      end
 
-        @statuses = statuses
+      def general_membership_status
+        statuses = []
+        statuses << 'Current Member' unless incumbencies.select(&:current?).empty?
+        statuses << 'Former Member' if !incumbencies.empty? && incumbencies.select(&:current?).empty?
+        statuses
       end
     end
   end
