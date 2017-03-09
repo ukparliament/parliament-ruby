@@ -129,7 +129,7 @@ If you wish to submit a bug fix or feature, you can create a pull request and it
 [ruby-version]:    https://github.com/ukparliament/parliament-ruby/blob/master/.ruby-version
 
 [info-gem]:  https://rubygems.org/gems/parliament-ruby
-[shield-gem]: 
+[shield-gem]: https://img.shields.io/gem/v/formatador.svg
 
 [info-travis]:   https://travis-ci.org/ukparliament/parliament-ruby
 [shield-travis]: https://img.shields.io/travis/ukparliament/parliament-ruby.svg
