@@ -122,6 +122,14 @@ module Parliament
         @statuses = statuses
       end
 
+      def full_title
+        respond_to?(:D79B0BAC513C4A9A87C9D5AFF1FC632F) ? self.D79B0BAC513C4A9A87C9D5AFF1FC632F : ''
+      end
+
+      def display_name
+        respond_to?(:F31CBD81AD8343898B49DC65743F0BDF) ? self.F31CBD81AD8343898B49DC65743F0BDF : ''
+      end
+
       private
 
       def house_membership_status
