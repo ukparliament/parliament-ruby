@@ -474,4 +474,44 @@ describe Parliament::Decorators::Person, vcr: true do
       end
     end
   end
+
+  describe '#full_title' do
+    before(:each) do
+      id = '841a4a1f-965a-4009-8cbc-dfc9e350fe0e'
+      response = Parliament::Request.new(base_url: 'http://localhost:3030').people(id).get
+      @person_node = response.filter('http://id.ukpds.org/schema/Person').first
+    end
+
+    context 'Grom::Node has all the required objects' do
+      it 'returns the given full_title for a Grom::Node objects of type Person' do
+        expect(@person_node.full_title).to eq('Person - fullTitle')
+      end
+    end
+
+    context 'Grom::Node has no fullTitle' do
+      it 'returns an empty string' do
+        expect(@person_node.full_title).to eq('')
+      end
+    end
+  end
+
+  describe '#display_name' do
+    before(:each) do
+      id = '841a4a1f-965a-4009-8cbc-dfc9e350fe0e'
+      response = Parliament::Request.new(base_url: 'http://localhost:3030').people(id).get
+      @person_node = response.filter('http://id.ukpds.org/schema/Person').first
+    end
+
+    context 'Grom::Node has all the required objects' do
+      it 'returns the given display_name for a Grom::Node objects of type Person' do
+        expect(@person_node.display_name).to eq('Person - displayAs')
+      end
+    end
+
+    context 'Grom::Node has no displayAs' do
+      it 'returns an empty string' do
+        expect(@person_node.display_name).to eq('')
+      end
+    end
+  end
 end
