@@ -25,11 +25,7 @@ module Parliament
       end
 
       def incumbencies
-        if respond_to?(:memberHasIncumbency)
-          memberHasIncumbency.select { |inc| inc.type == 'http://id.ukpds.org/schema/Incumbency' }
-        else
-          []
-        end
+        respond_to?(:memberHasIncumbency) ? memberHasIncumbency : []
       end
 
       def seat_incumbencies
