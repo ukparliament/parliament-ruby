@@ -143,19 +143,6 @@ module Parliament
         statuses << 'Former Member' if !incumbencies.empty? && incumbencies.select(&:current?).empty?
         statuses
       end
-
-      def sort_by(*parameters)
-        rejected = []
-        grom_nodes = @nodes.dup
-        grom_nodes.delete_if { |node| rejected << node unless parameters.all? { |param| !node.send(param).nil? if node.respond_to?(param) } }
-        grom_nodes.sort_by! do |node|
-          parameters.map do |param|
-            node.send(param).is_a?(String) ? I18n.transliterate(node.send(param)).downcase : node.send(param)
-          end
-        end
-
-        rejected.concat(grom_nodes)
-      end
     end
   end
 end

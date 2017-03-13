@@ -37,16 +37,16 @@ module Parliament
 
     def sort_by(*parameters)
       Parliament::Utils.sort_by({
-                                  list: @nodes,
-                                  parameters: parameters
-                                })
+        list:       @nodes,
+        parameters: parameters
+      })
     end
 
     def reverse_sort_by(*parameters)
       Parliament::Utils.reverse_sort_by({
-                                          list: @nodes,
-                                          parameters: parameters
-                                        })
+        list:       @nodes,
+        parameters: parameters
+      })
     end
   end
 end
