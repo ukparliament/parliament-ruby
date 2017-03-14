@@ -123,7 +123,11 @@ module Parliament
       end
 
       def display_name
-        respond_to?(:F31CBD81AD8343898B49DC65743F0BDF) ? self.F31CBD81AD8343898B49DC65743F0BDF : ''
+        respond_to?(:F31CBD81AD8343898B49DC65743F0BDF) ? self.F31CBD81AD8343898B49DC65743F0BDF : full_name
+      end
+
+      def sort_name
+        respond_to?(:A5EE13ABE03C4D3A8F1A274F57097B6C) ? self.A5EE13ABE03C4D3A8F1A274F57097B6C : ''
       end
 
       private
