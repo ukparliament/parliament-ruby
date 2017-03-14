@@ -509,8 +509,8 @@ describe Parliament::Decorators::Person, vcr: true do
     end
 
     context 'Grom::Node has no displayAs' do
-      it 'returns an empty string' do
-        expect(@person_node.display_name).to eq('')
+      it 'returns the full_name' do
+        expect(@person_node.display_name).to eq('Person - givenName Person - familyName')
       end
     end
   end
