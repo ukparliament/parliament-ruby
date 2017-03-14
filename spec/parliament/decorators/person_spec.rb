@@ -514,4 +514,24 @@ describe Parliament::Decorators::Person, vcr: true do
       end
     end
   end
+
+  describe '#sort_name' do
+    before(:each) do
+      id = '841a4a1f-965a-4009-8cbc-dfc9e350fe0e'
+      response = Parliament::Request.new(base_url: 'http://localhost:3030').people.get
+      @people_nodes = response.filter('http://id.ukpds.org/schema/Person')
+    end
+
+    context 'Grom::Node has all the required objects' do
+      it 'returns the given sort_name for a Grom::Node objects of type Person' do
+        expect(@people_nodes.first.sort_name).to eq('Person 1 - listAs')
+      end
+    end
+
+    context 'Grom::Node has no listAs' do
+      it 'returns an empty string' do
+        expect(@people_nodes.first.sort_name).to eq('')
+      end
+    end
+  end
 end
