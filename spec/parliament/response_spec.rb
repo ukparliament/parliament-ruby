@@ -103,7 +103,34 @@ describe Parliament::Response, vcr: true do
       filtered_response.each do |node|
         expect(node.type).to eq('http://id.ukpds.org/schema/Person')
       end
+    end
+  end
 
+  describe '#sort_by' do
+    before(:each) do
+      @response = Parliament::Request.new(base_url: 'http://localhost:3030').people.members.current.get
+    end
+
+    it 'sorts the nodes in a Parliament::Response object by the given parameter' do
+      filtered_response = @response.filter('http://id.ukpds.org/schema/Person')
+      sorted_response = filtered_response.sort_by(:family_name)
+
+      expect(sorted_response[0].family_name).to eq('Person 1 - familyName')
+      expect(sorted_response[1].family_name).to eq('Person 2 - familyName')
+    end
+  end
+
+  describe '#reverse_sort_by' do
+    before(:each) do
+      @response = Parliament::Request.new(base_url: 'http://localhost:3030').people('1921fc4a-6867-48fa-a4f4-6df05be005ce').get
+    end
+
+    it 'sorts the nodes in a Parliament::Response object by the given parameter' do
+      filtered_response = @response.filter('http://id.ukpds.org/schema/SeatIncumbency')
+      sorted_response = filtered_response.reverse_sort_by(:start_date)
+
+      expect(sorted_response[0].start_date).to eq(DateTime.new(2015, 5, 7))
+      expect(sorted_response[1].start_date).to eq(DateTime.new(2010, 5, 6))
     end
   end
 end
