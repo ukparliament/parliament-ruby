@@ -104,6 +104,31 @@ describe Parliament::Response, vcr: true do
         expect(node.type).to eq('http://id.ukpds.org/schema/Person')
       end
     end
+
+    it 'filters blank nodes' do
+      filtered_response = @response.filter(Grom::Node::BLANK)
+      expect(filtered_response).to be_a(Parliament::Response)
+      expect(filtered_response.size).to eq(25)
+    end
+
+    it 'filters a mixture of typed nodes and blank nodes' do
+      filtered_response = @response.filter('http://id.ukpds.org/schema/Person', Grom::Node::BLANK)
+      expect(filtered_response[0].size).to eq(3)
+      expect(filtered_response[1].size).to eq(25)
+
+      filtered_response[0].each do |node|
+        expect(node.type).to eq('http://id.ukpds.org/schema/Person')
+      end
+    end
+
+    it 'filters typed nodes from a mixture of typed nodes and blank nodes' do
+      filtered_response = @response.filter('http://id.ukpds.org/schema/Person')
+      expect(filtered_response.size).to eq(3)
+
+      filtered_response.each do |node|
+        expect(node.type).to eq('http://id.ukpds.org/schema/Person')
+      end
+    end
   end
 
   describe '#sort_by' do

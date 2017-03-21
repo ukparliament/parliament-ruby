@@ -21,7 +21,7 @@ module Parliament
 
     # Given our array of Grom::Nodes, filter them into arrays of 'types' of nodes.
     #
-    # Note: this method assumes all of your nodes include a #type attribute.
+    # Note: this method assumes all of your nodes include a #type attribute or are blank nodes.
     #
     # @since 0.2.0
     #
@@ -58,6 +58,17 @@ module Parliament
     #    type_2 #=> [#<Grom::Node @type='type_2'>]
     #    type_1 #=> [#<Grom::Node @type='type_1'>, #<Grom::Node @type='type_1'>]
     #
+    # @example Filtering blank nodes
+    #    node_1 = Grom::Node.new
+    #    node_1.instance_variable_set(:type, 'type_1')
+    #    node_2 = Grom::Node.new
+    #    node_3 = Grom::Node.new
+    #    node_3.instance_variable_set(:type, 'type_1')
+    #    nodes = [node_1, node_2, node_3]
+    #
+    #    response = Parliament::Response.new(nodes)
+    #    response.filter(Grom::Node::BLANK) #=> [#<Grom::Node>]
+    #
     # @param [Array<String>] types An array of type strings that you are looking for.
     # @return [Array<Grom::Node> || Array<*Array<Grom::Node>>] If you pass one type, this returns an Array of Grom::Node objects. If you pass multiple, it returns an array, of arrays of Grom::Node objects.
     def filter(*types)
@@ -65,7 +76,8 @@ module Parliament
 
       unless types.empty?
         @nodes.each do |node|
-          type_index = types.index(node.type)
+          type_index = node.blank? ? types.index(Grom::Node::BLANK) : types.index(node.type)
+
           filtered_objects[type_index] << node unless type_index.nil?
         end
       end
