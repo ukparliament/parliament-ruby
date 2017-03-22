@@ -25,10 +25,6 @@ describe Parliament::Request, vcr: true do
     end
   end
 
-  it 'does not accept setting base_url on an instance' do
-    expect { Parliament::Request.new.base_url = 'http://test.com' }.to raise_error(NoMethodError)
-  end
-
   describe '#method_missing' do
     subject { Parliament::Request.new(base_url: 'http://test.com') }
 
@@ -53,12 +49,10 @@ describe Parliament::Request, vcr: true do
 
   describe '#respond_to_missing?' do
     subject { Parliament::Request.new(base_url: 'http://test.com') }
-    it 'returns false for :base_url=' do
-      expect(subject.send(:respond_to_missing?, :base_url=)).to eq(false)
-    end
 
-    it 'returns true for anything else' do
+    it 'returns true for anything' do
       expect(subject.send(:respond_to_missing?, :foo)).to eq(true)
+      expect(subject.send(:respond_to_missing?, :bar)).to eq(true)
     end
   end
 
@@ -92,27 +86,27 @@ describe Parliament::Request, vcr: true do
     context 'it returns a status code of 204 and...' do
       it 'raises a Parliament::NoContentError' do
         past_person_id = '321f496b-5c8b-4455-ab49-a96e42b34739'
-        expect do
+        expect {
           Parliament::Request.new(base_url: 'http://localhost:3030').people(past_person_id).parties.current.get
-        end.to raise_error(Parliament::NoContentError, 'No content')
+        }.to raise_error(Parliament::NoContentResponseError, '204 HTTP status code received from: http://localhost:3030/people/321f496b-5c8b-4455-ab49-a96e42b34739/parties/current - No Content')
       end
     end
 
     context 'it returns a status code in either the 400 or 500 range' do
       it 'and raises client error when status is within the 400 range' do
-        stub_request(:get, 'http://localhost:3030/dogs/cats').to_return(status: 400)
+        stub_request(:get, 'http://localhost:3030/dogs/cats').to_return(status: 404)
 
-        expect do
+        expect {
           Parliament::Request.new(base_url: 'http://localhost:3030').dogs.cats.get
-        end.to raise_error(StandardError, 'This is a HTTPClientError')
+        }.to raise_error(Parliament::ClientError, '404 HTTP status code received from: http://localhost:3030/dogs/cats - ')
       end
 
       it 'and raises server error when status is within the 500 range' do
         stub_request(:get, 'http://localhost:3030/parties/current').to_return(status: 500)
 
-        expect do
+        expect {
           Parliament::Request.new(base_url: 'http://localhost:3030').parties.current.get
-        end.to raise_error(StandardError, 'This is a HTTPServerError')
+        }.to raise_error(Parliament::ServerError, '500 HTTP status code received from: http://localhost:3030/parties/current - ')
       end
     end
 
