@@ -8,10 +8,10 @@ Gem::Specification.new do |spec|
   spec.version       = Parliament::VERSION
   spec.authors       = ['Matt Rayner']
   spec.email         = ['mattrayner1@gmail.com']
-  spec.summary       = %q{Internal parliamentary data API wrapper for ruby}
+  spec.summary       = %q{Internal parliamentary API wrapper}
   spec.description   = %q{Internal parliamentary data API wrapper for ruby}
   spec.homepage      = 'http://github.com/ukparliament/parliament_ruby'
-  spec.license       = 'Open Parliament License'
+  spec.license       = 'Nonstandard'
 
 
   spec.files         = `git ls-files -z`.split("\x0").reject do |f|
@@ -26,8 +26,8 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'bundler', '~> 1.13'
   spec.add_development_dependency 'rake', '~> 10.0'
   spec.add_development_dependency 'rspec', '~> 3.0'
-  spec.add_development_dependency 'rubocop', '~> 0.47.1'
-  spec.add_development_dependency 'simplecov', '~> 0.12.0'
-  spec.add_development_dependency 'vcr', '~> 3.0.3'
-  spec.add_development_dependency 'webmock', '~> 2.3.2'
+  spec.add_development_dependency 'rubocop', '~> 0.47'
+  spec.add_development_dependency 'simplecov', '~> 0.12'
+  spec.add_development_dependency 'vcr', '~> 3.0'
+  spec.add_development_dependency 'webmock', '~> 2.3'
 end
