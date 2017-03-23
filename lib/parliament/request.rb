@@ -108,7 +108,12 @@ module Parliament
       endpoint_uri = URI.parse(api_endpoint)
       endpoint_uri.query = URI.encode_www_form(params.to_a) unless params.nil?
 
-      net_response = Net::HTTP.get_response(URI(endpoint_uri))
+      request = Net::HTTP::Get.new(URI(endpoint_uri))
+      request.add_field('Accept', 'application/n-triples')
+
+      net_response = Net::HTTP.new(endpoint_uri.host, endpoint_uri.port).start do |http|
+        http.request(request)
+      end
 
       handle_errors(net_response)
 
