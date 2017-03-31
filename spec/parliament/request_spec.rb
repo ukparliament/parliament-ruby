@@ -121,6 +121,23 @@ describe Parliament::Request, vcr: true do
         expect(subject.size).to eq(1)
       end
     end
+
+    context 'it accepts headers' do
+      it 'sets the header correctly when passed in' do
+        Parliament::Request.headers = { 'Access-Token'=>'Test-Token' }
+        Parliament::Request.new(base_url: 'http://localhost:3030').people.get
+
+        expect(WebMock).to have_requested(:get, 'http://localhost:3030/people').
+            with(:headers => {'Accept'=>['*/*', 'application/n-triples'], 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Access-Token'=>'Test-Token', 'User-Agent'=>'Ruby'}).once
+      end
+
+      it 'sets the default headers only when no additional headers passed' do
+        Parliament::Request.new(base_url: 'http://localhost:3030').people.get
+
+        expect(WebMock).to have_requested(:get, 'http://localhost:3030/people').
+            with(:headers => {'Accept'=>['*/*', 'application/n-triples'], 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'User-Agent'=>'Ruby'}).once
+      end
+    end
   end
 
   describe '#assign_decorator' do

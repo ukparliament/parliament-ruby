@@ -98,7 +98,19 @@ parliament.parties('123').people.current
 parliament.people('123').letters('456')
 ```
 
+### Setting headers
 
+#### Setting headers 'globally'
+Within the code you can set global headers using the following snippet.
+```
+Parliament::Request.headers = { 'Accept' => 'Test' }
+
+# The headers should be set for all new objects
+Parliament::Request.new.headers #=> { 'Accept' => 'Test' }
+
+# You can still override the headers on an instance by instance basis
+Parliament::Request.new(headers: { 'Accept' => 'Test2' }).headers #=> { 'Accept' => 'Test2' }
+```
 ### Methods
 [parliament-ruby][parliament-ruby] comes with the following common methods:
 
