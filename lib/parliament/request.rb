@@ -5,14 +5,15 @@ module Parliament
   # @since 0.1.0
   #
   # @attr_reader [String] base_url the base url of our api. (expected: http://example.com - without the trailing slash).
+  # @attr_reader [Hash] headers the headers being sent in the request.
   class Request
-    attr_reader :base_url
+    attr_reader :base_url, :headers
 
     # Creates a new instance of Parliament::Request.
     #
     # An interesting note for #initialize is that setting base_url on the class, or using the environment variable
     # PARLIAMENT_BASE_URL means you don't need to pass in a base_url. You can pass one anyway to override the
-    # environment variable or class parameter.
+    # environment variable or class parameter.  Similarly, headers can be set by either settings the headers on the class, or passing headers in.
     #
     # @example Setting the base_url on the class
     #   Parliament::Request.base_url = 'http://example.com'
@@ -35,10 +36,27 @@ module Parliament
     #
     #   Parliament::Request.new(base_url: 'http://example.com').base_url #=> 'http://example.com'
     #
+    # @example Setting the headers on the class
+    #   Parliament::Request.headers = { 'Accept' => 'Test' }
+    #
+    #   Parliament::Request.new.headers #=> '{ 'Accept' => 'Test' }
+    #
+    # @example Setting the headers via a parameter
+    #   Parliament::Request.headers #=> nil
+    #
+    #   Parliament::Request.new(headers: '{ 'Accept' => 'Test' }).headers #=> { 'Accept' => 'Test' }
+    #
+    # @example Overriding the headers via a parameter
+    #   Parliament::Request.headers = { 'Accept' => 'Test' }
+    #
+    #   Parliament::Request.new(headers: '{ 'Accept' => 'Test2' }).headers #=> { 'Accept' => 'Test2' }
+    #
     # @param [String] base_url the base url of our api. (expected: http://example.com - without the trailing slash).
-    def initialize(base_url: nil)
+    # @param [Hash] headers the headers being sent in the request.
+    def initialize(base_url: nil, headers: nil)
       @endpoint_parts = []
       @base_url = base_url || self.class.base_url || ENV['PARLIAMENT_BASE_URL']
+      @headers = headers || self.class.headers || {}
     end
 
     # Overrides ruby's method_missing to allow creation of URLs through method calls.
@@ -113,7 +131,7 @@ module Parliament
 
       net_response = http.start do |h|
         api_request = Net::HTTP::Get.new(endpoint_uri.request_uri)
-        api_request.add_field('Accept', 'application/n-triples')
+        add_headers(api_request)
 
         h.request api_request
       end
@@ -126,8 +144,20 @@ module Parliament
     private
 
     # @attr [String] base_url the base url of our api. (expected: http://example.com - without the trailing slash).
+    # @attr [Hash] headers the headers being sent in the request.
     class << self
-      attr_accessor :base_url
+      attr_accessor :base_url, :headers
+    end
+
+    def default_headers
+      { 'Accept' => 'application/n-triples' }
+    end
+
+    def add_headers(request)
+      headers = default_headers.merge(@headers)
+      headers.each do |key, value|
+        request.add_field(key, value)
+      end
     end
 
     def api_endpoint
