@@ -3,7 +3,8 @@ require_relative '../../spec_helper'
 describe Parliament::Decorator::Incumbency, vcr: true do
   let(:id) { '4b77dd58-f6ba-4121-b521-c8ad70465f52' }
   let(:response) do
-    Parliament::Request.new(base_url: 'http://localhost:3030').houses(id).members.current.get
+    Parliament::Request::UrlRequest.new(base_url: 'http://localhost:3030',
+                                        builder: Parliament::Builder::NTripleResponseBuilder).houses(id).members.current.get
   end
 
   before(:each) do

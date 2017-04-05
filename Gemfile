@@ -5,3 +5,6 @@ gemspec
 
 # Include coveralls for CI coverage reports
 gem 'coveralls', require: false
+
+gem 'pry'
+gem 'rb-readline'
