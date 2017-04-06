@@ -105,10 +105,18 @@ describe Parliament::Decorator::SeatIncumbency, vcr: true do
   end
 
   describe '#current?' do
-    it 'Grom::Node returns the correct value for a current or non current seat incumbency' do
+    it 'Grom::Node returns the correct value for a current or former seat incumbency' do
       seat_incumbency_results = @seat_incumbency_nodes.map(&:current?)
 
       expect(seat_incumbency_results).to eq([true, false, false, false, false])
+    end
+  end
+
+  describe '#former?' do
+    it 'Grom::Node returns the correct value for a former or current seat incumbency' do
+      seat_incumbency_results = @seat_incumbency_nodes.map(&:former?)
+
+      expect(seat_incumbency_results).to eq([false, true, true, true, true])
     end
   end
 

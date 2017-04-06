@@ -13,7 +13,6 @@ Gem::Specification.new do |spec|
   spec.homepage      = 'http://github.com/ukparliament/parliament_ruby'
   spec.license       = 'Nonstandard'
 
-
   spec.files         = `git ls-files -z`.split("\x0").reject do |f|
     f.match(%r{^(test|spec|features)/})
   end

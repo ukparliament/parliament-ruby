@@ -13,14 +13,14 @@ module Parliament
       #
       # @return [DateTime, nil] the start date of the Grom::Node or nil.
       def start_date
-        respond_to?(:constituencyGroupStartDate) ? DateTime.parse(constituencyGroupStartDate) : nil
+        @start_date ||= respond_to?(:constituencyGroupStartDate) ? DateTime.parse(constituencyGroupStartDate) : nil
       end
 
       # Alias constituencyGroupEndDate with fallback.
       #
       # @return [DateTime, nil] the end date of the Grom::Node or nil.
       def end_date
-        respond_to?(:constituencyGroupEndDate) ? DateTime.parse(constituencyGroupEndDate) : nil
+        @end_date ||= respond_to?(:constituencyGroupEndDate) ? DateTime.parse(constituencyGroupEndDate) : nil
       end
 
       # Alias constituencyGroupHasHouseSeat with fallback.

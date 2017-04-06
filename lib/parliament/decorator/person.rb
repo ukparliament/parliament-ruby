@@ -28,17 +28,20 @@ module Parliament
       #
       # @return [DateTime, nil] the date of birth of the Grom::Node or nil.
       def date_of_birth
-        respond_to?(:personDateOfBirth) ? DateTime.parse(personDateOfBirth) : nil
+        @date_of_birth ||= respond_to?(:personDateOfBirth) ? DateTime.parse(personDateOfBirth) : nil
       end
 
       # Builds a full name using personGivenName and personFamilyName.
       #
       # @return [String, String] the full name of the Grom::Node or an empty string.
       def full_name
-        full_name = ''
-        full_name += respond_to?(:personGivenName) ? personGivenName + ' ' : ''
-        full_name += respond_to?(:personFamilyName) ? personFamilyName : ''
-        full_name.rstrip
+        return @full_name unless @full_name.nil?
+
+        full_name = []
+        full_name << personGivenName if respond_to?(:personGivenName)
+        full_name << personFamilyName if respond_to?(:personFamilyName)
+
+        @full_name = full_name.join(' ')
       end
 
       # Alias memberHasIncumbency with fallback.
@@ -52,68 +55,35 @@ module Parliament
       #
       # @return [Array, Array] the seat incumbencies of the Grom::Node or an empty array.
       def seat_incumbencies
-        if respond_to?(:memberHasIncumbency)
-          memberHasIncumbency.select { |inc| inc.type == 'http://id.ukpds.org/schema/SeatIncumbency' }
-        else
-          []
-        end
+        @seat_incumbencies ||= incumbencies.select { |inc| inc.type == 'http://id.ukpds.org/schema/SeatIncumbency' }
       end
 
       # Alias memberHasIncumbency with fallback.
       #
       # @return [Array, Array] the house incumbencies of the Grom::Node or an empty array.
       def house_incumbencies
-        if respond_to?(:memberHasIncumbency)
-          memberHasIncumbency.select { |inc| inc.type == 'http://id.ukpds.org/schema/HouseIncumbency' }
-        else
-          []
-        end
+        @house_incumbencies ||= incumbencies.select { |inc| inc.type == 'http://id.ukpds.org/schema/HouseIncumbency' }
       end
 
       # Alias seatIncumbencyHasHouseSeat with fallback.
       #
       # @return [Array, Array] the seats of the Grom::Node or an empty array.
       def seats
-        return @seats unless @seats.nil?
-
-        seats = []
-        seat_incumbencies.each do |incumbency|
-          seats << incumbency.seat if incumbency.respond_to?(:seat)
-        end
-
-        @seats = seats.flatten.uniq
+        @seats ||= seat_incumbencies.map(&:seat).flatten.uniq
       end
 
       # Alias houseSeatHasHouse with fallback.
       #
       # @return [Array, Array] the houses of the Grom::Node or an empty array.
       def houses
-        return @houses unless @houses.nil?
-
-        houses = []
-        seats.each do |seat|
-          houses << seat.house
-        end
-
-        house_incumbencies.each do |inc|
-          houses << inc.house
-        end
-
-        @houses = houses.flatten.uniq
+        @houses ||= [seats.map(&:house), house_incumbencies.map(&:house)].flatten.uniq
       end
 
       # Alias houseSeatHasConstituencyGroup with fallback.
       #
       # @return [Array, Array] the constituencies of the Grom::Node or an empty array.
       def constituencies
-        return @constituencies unless @constituencies.nil?
-
-        constituencies = []
-        seats.each do |seat|
-          constituencies << seat.constituency
-        end
-
-        @constituencies = constituencies.flatten.uniq
+        @constituencies ||= seats.map(&:constituency).flatten.uniq
       end
 
       # Alias partyMemberHasPartyMembership with fallback.
@@ -127,14 +97,7 @@ module Parliament
       #
       # @return [Array, Array] the parties of the Grom::Node or an empty array.
       def parties
-        return @parties unless @parties.nil?
-
-        parties = []
-        party_memberships.each do |party_membership|
-          parties << party_membership.party
-        end
-
-        @parties = parties.flatten.uniq.compact
+        @parties ||= party_memberships.map(&:party).flatten.uniq.compact
       end
 
       # Alias personHasContactPoint with fallback.
@@ -203,6 +166,7 @@ module Parliament
         build_house_membership_status(no_current_seat_incumbency, no_current_house_incumbency, former_lord, former_mp)
       end
 
+      # TODO: Convert hard-coded strings to language file values
       def build_house_membership_status(no_current_seat_incumbency, no_current_house_incumbency, former_lord, former_mp)
         statuses = []
         statuses << 'Current MP' unless no_current_seat_incumbency
