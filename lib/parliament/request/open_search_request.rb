@@ -15,7 +15,7 @@ module Parliament
 
       def initialize(base_url: nil, headers: nil, builder: nil)
         @base_url = Parliament::Request::OpenSearchRequest.get_description(base_url) || self.class.base_url || ENV['OPEN_SEARCH_API']
-        @open_search_parameters = OPEN_SEARCH_PARAMETERS.dup
+        @open_search_parameters = self.class.open_search_parameters
 
         super(base_url: @base_url, headers: headers, builder: builder)
       end
@@ -33,6 +33,10 @@ module Parliament
 
         def base_url=(base_url)
           @base_url = get_description(base_url)
+        end
+
+        def open_search_parameters
+          OPEN_SEARCH_PARAMETERS.dup
         end
 
         def get_description(url)
@@ -56,7 +60,7 @@ module Parliament
         query_url = @base_url.dup
         query_url.gsub!('{searchTerms}', search_terms)
 
-        @open_search_params.each do |key, value|
+        @open_search_parameters.each do |key, value|
           camel_case_key = ActiveSupport::Inflector.camelize(key.to_s, false)
           if search_params.keys.include?(key)
             query_url.gsub!("{#{camel_case_key}?}", search_params[key].to_s)
