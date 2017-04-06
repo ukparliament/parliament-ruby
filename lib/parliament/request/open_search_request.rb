@@ -4,8 +4,6 @@ require 'open-uri'
 module Parliament
   module Request
     class OpenSearchRequest < Parliament::Request::BaseRequest
-      attr_reader :open_search_parameters
-
       OPEN_SEARCH_PARAMETERS = {
           count:            10,
           start_index:      1,
@@ -31,7 +29,7 @@ module Parliament
       private
 
       class << self
-        attr_reader :base_url
+        attr_reader :base_url, :open_search_parameters
 
         def base_url=(base_url)
           @base_url = get_description(base_url)
