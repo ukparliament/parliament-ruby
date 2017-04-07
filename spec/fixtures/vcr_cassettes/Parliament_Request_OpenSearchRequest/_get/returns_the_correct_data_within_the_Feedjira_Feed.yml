@@ -1,0 +1,160 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: http://parliament-search-api.azurewebsites.net/description
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      - application/opensearchdescription+xml
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Cache-Control:
+      - no-cache
+      Pragma:
+      - no-cache
+      Content-Length:
+      - '336'
+      Content-Type:
+      - application/opensearchdescription+xml
+      Expires:
+      - "-1"
+      Server:
+      - Microsoft-IIS/8.0
+      X-Aspnet-Version:
+      - 4.0.30319
+      X-Powered-By:
+      - ASP.NET
+      Set-Cookie:
+      - ARRAffinity=8178b3b2e8d11c3c178adca749545f846d9882b742e0df864a4df01a5d808af5;Path=/;Domain=parliament-search-api.azurewebsites.net
+      Date:
+      - Wed, 05 Apr 2017 16:02:26 GMT
+    body:
+      encoding: UTF-8
+      string: "<?xml version=\"1.0\"?>\r\n<OpenSearchDescription xmlns=\"http://a9.com/-/spec/opensearch/1.1/\">\r\n
+        \ <ShortName>os test</ShortName>\r\n  <Description>test for os</Description>\r\n
+        \ <Url template=\"http://parliament-search-api.azurewebsites.net/search?q={searchTerms}&amp;start={startPage?}\"
+        type=\"application/atom+xml\" />\r\n</OpenSearchDescription>"
+    http_version: 
+  recorded_at: Wed, 05 Apr 2017 16:02:59 GMT
+- request:
+    method: get
+    uri: http://parliament-search-api.azurewebsites.net/search?q=banana&start=10
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      - application/atom+xml
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Cache-Control:
+      - no-cache
+      Pragma:
+      - no-cache
+      Content-Length:
+      - '2195'
+      Content-Type:
+      - application/atom+xml
+      Expires:
+      - "-1"
+      Vary:
+      - Accept-Encoding
+      Server:
+      - Microsoft-IIS/8.0
+      X-Aspnet-Version:
+      - 4.0.30319
+      X-Powered-By:
+      - ASP.NET
+      Set-Cookie:
+      - ARRAffinity=8178b3b2e8d11c3c178adca749545f846d9882b742e0df864a4df01a5d808af5;Path=/;Domain=parliament-search-api.azurewebsites.net
+      Date:
+      - Wed, 05 Apr 2017 16:02:27 GMT
+    body:
+      encoding: ASCII-8BIT
+      string: "<?xml version=\"1.0\" encoding=\"utf-8\"?><feed xmlns=\"http://www.w3.org/2005/Atom\"><title
+        type=\"text\"></title><id>uuid:d7e4068d-4264-499c-aae3-d9cf0f78564e;id=23</id><updated>2017-04-05T16:02:28Z</updated><author><name>parliament.uk</name></author><Query
+        role=\"request\" searchTerms=\"banana\" xmlns=\"http://a9.com/-/spec/opensearch/1.1/\"
+        /><totalResults xmlns=\"http://a9.com/-/spec/opensearch/1.1/\">18800</totalResults><startIndex
+        xmlns=\"http://a9.com/-/spec/opensearch/1.1/\">10</startIndex><entry><id>uuid:d7e4068d-4264-499c-aae3-d9cf0f78564e;id=24</id><title
+        type=\"html\">House of Commons Standing Committee (pt 3)</title><summary type=\"html\">Because
+        &lt;b&gt;bananas&lt;/b&gt; are the top-selling fruit, it is in no one&amp;#39;s
+        interest to agree to a &lt;br&gt;\r\nregime that will jack up the price unnecessarily.
+        Far be it from that_the price&amp;nbsp;...</summary><updated>2017-04-05T16:02:28Z</updated><link
+        rel=\"alternate\" href=\"http://www.publications.parliament.uk/pa/cm199798/cmstand/euroa/st980325/80325s03.htm\"
+        /></entry><entry><id>uuid:d7e4068d-4264-499c-aae3-d9cf0f78564e;id=25</id><title
+        type=\"html\">House of Commons - Documents considered by the Committee on
+        ...</title><summary type=\"html\">Dec 15, 2010 &lt;b&gt;...&lt;/b&gt; 9.3
+        In that chapter, we also outlined the steps that the EU had taken to facilitate
+        &lt;br&gt;\r\nthe adjustment that ACP &lt;b&gt;banana&lt;/b&gt; producers
+        would have to make&amp;nbsp;...</summary><updated>2017-04-05T16:02:28Z</updated><link
+        rel=\"alternate\" href=\"https://www.publications.parliament.uk/pa/cm201011/cmselect/cmeuleg/428/42811.htm\"
+        /></entry><entry><id>uuid:d7e4068d-4264-499c-aae3-d9cf0f78564e;id=26</id><title
+        type=\"html\">House of Commons Standing Committee (pt 4)</title><summary type=\"html\">I
+        do not want to repeat all the elegant and witty remarks I made on the importance
+        &lt;br&gt;\r\nof the &lt;b&gt;banana&lt;/b&gt; in my life or all the medical
+        and nutritional benefits of the&amp;nbsp;...</summary><updated>2017-04-05T16:02:28Z</updated><link
+        rel=\"alternate\" href=\"http://www.publications.parliament.uk/pa/cm199900/cmstand/euroa/st000404/00404s04.htm\"
+        /></entry><entry><id>uuid:d7e4068d-4264-499c-aae3-d9cf0f78564e;id=27</id><title
+        type=\"html\">Early day motion 1121 - EUROPEAN &lt;b&gt;BANANA&lt;/b&gt; POLICY
+        - UK ...</title><summary type=\"html\">That this House notes that the European
+        Commission will slip on a &lt;b&gt;banana&lt;/b&gt; skin if &lt;br&gt;\r\nit
+        does not produce acceptable proposals for an EC &lt;b&gt;banana&lt;/b&gt;
+        regime that will...</summary><updated>2017-04-05T16:02:28Z</updated><link
+        rel=\"alternate\" href=\"http://www.parliament.uk/edm/1990-91/1121\" /></entry><entry><id>uuid:d7e4068d-4264-499c-aae3-d9cf0f78564e;id=28</id><title
+        type=\"html\">&lt;b&gt;Banana&lt;/b&gt; Imports</title><summary type=\"html\">Apr
+        4, 2000 &lt;b&gt;...&lt;/b&gt; The House has shown considerable interest in
+        the future of the European Union &lt;br&gt;\r\n&lt;b&gt;banana&lt;/b&gt; regime.
+        Indeed, it was debated in this Committee two&amp;nbsp;...</summary><updated>2017-04-05T16:02:28Z</updated><link
+        rel=\"alternate\" href=\"http://www.publications.parliament.uk/pa/cm199900/cmstand/euroa/st000404/00404s01.htm\"
+        /></entry><entry><id>uuid:d7e4068d-4264-499c-aae3-d9cf0f78564e;id=29</id><title
+        type=\"html\">Memorandum submitted by &lt;b&gt;Banana&lt;/b&gt; Link</title><summary
+        type=\"html\">Jun 14, 2007 &lt;b&gt;...&lt;/b&gt; Since before &lt;b&gt;Banana&lt;/b&gt;
+        Link was founded in January 1996, the organisation&amp;#39;s &lt;br&gt;\r\ncurrent
+        International Coordinator has been closely involved with&amp;nbsp;...</summary><updated>2017-04-05T16:02:28Z</updated><link
+        rel=\"alternate\" href=\"http://www.publications.parliament.uk/pa/cm200607/cmselect/cmintdev/356/356we24.htm\"
+        /></entry><entry><id>uuid:d7e4068d-4264-499c-aae3-d9cf0f78564e;id=30</id><title
+        type=\"html\">Early day motion 115 - CARIBBEAN &lt;b&gt;BANANA&lt;/b&gt; GROWERS
+        - UK ...</title><summary type=\"html\">That this House recognises the crucial
+        importance of the &lt;b&gt;banana&lt;/b&gt; industry to small &lt;br&gt;\r\nCaribbean
+        states; is alarmed that the European Commission&amp;#39;s current...</summary><updated>2017-04-05T16:02:28Z</updated><link
+        rel=\"alternate\" href=\"http://www.parliament.uk/edm/1999-00/115\" /></entry><entry><id>uuid:d7e4068d-4264-499c-aae3-d9cf0f78564e;id=31</id><title
+        type=\"html\">Assistance for traditional suppliers of &lt;b&gt;bananas&lt;/b&gt;</title><summary
+        type=\"html\">Mar 31, 2005 &lt;b&gt;...&lt;/b&gt; Background. 8.1 In 2002,
+        world &lt;b&gt;banana&lt;/b&gt; production was approximately 68 million &lt;br&gt;\r\ntonnes.
+        The largest producer is India, with around a quarter of&amp;nbsp;...</summary><updated>2017-04-05T16:02:28Z</updated><link
+        rel=\"alternate\" href=\"http://www.publications.parliament.uk/pa/cm200405/cmselect/cmeuleg/38-xi/3810.htm\"
+        /></entry><entry><id>uuid:d7e4068d-4264-499c-aae3-d9cf0f78564e;id=32</id><title
+        type=\"html\">Lords Hansard text for 11 Mar 1998 (180311-01)</title><summary
+        type=\"html\">What is their policy for protecting the well-being of the peoples
+        of those countries &lt;br&gt;\r\nwhose economies largely depend on &lt;b&gt;banana&lt;/b&gt;
+        exports to the European Union&amp;nbsp;...</summary><updated>2017-04-05T16:02:28Z</updated><link
+        rel=\"alternate\" href=\"http://www.publications.parliament.uk/pa/ld199798/ldhansrd/vo980311/text/80311-01.htm\"
+        /></entry><entry><id>uuid:d7e4068d-4264-499c-aae3-d9cf0f78564e;id=33</id><title
+        type=\"html\">Lords Hansard text for 2 Nov 1999 (191102-02)</title><summary
+        type=\"html\">&lt;b&gt;Banana&lt;/b&gt; Imports. 2.58 p.m.. Viscount Waverley
+        asked Her Majesty&amp;#39;s Government: &lt;br&gt;\r\nWhether the United States&amp;#39;
+        legal challenge to the European Union&amp;#39;s preferential&amp;nbsp;...</summary><updated>2017-04-05T16:02:28Z</updated><link
+        rel=\"alternate\" href=\"http://www.publications.parliament.uk/pa/ld199899/ldhansrd/vo991102/text/91102-02.htm\"
+        /></entry></feed>"
+    http_version: 
+  recorded_at: Wed, 05 Apr 2017 16:03:00 GMT
+recorded_with: VCR 3.0.3

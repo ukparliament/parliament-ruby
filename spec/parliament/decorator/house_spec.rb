@@ -2,7 +2,8 @@ require_relative '../../spec_helper'
 
 describe Parliament::Decorator::House, vcr: true do
   let(:response) do
-    Parliament::Request.new(base_url: 'http://localhost:3030').people('626b57f9-6ef0-475a-ae12-40a44aca7eff').get
+    Parliament::Request::UrlRequest.new(base_url: 'http://localhost:3030',
+                                        builder: Parliament::Builder::NTripleResponseBuilder).people('626b57f9-6ef0-475a-ae12-40a44aca7eff').get
   end
 
   describe '#name' do
@@ -30,7 +31,8 @@ describe Parliament::Decorator::House, vcr: true do
   describe '#seats' do
     before(:each) do
       id = 'ff75cd0c-1a8b-49ab-8292-f00d153588e5'
-      response = Parliament::Request.new(base_url: 'http://localhost:3030').people(id).houses.get
+      response = Parliament::Request::UrlRequest.new(base_url: 'http://localhost:3030',
+                                                     builder: Parliament::Builder::NTripleResponseBuilder).people(id).houses.get
       @house_nodes = response.filter('http://id.ukpds.org/schema/House')
     end
 
@@ -55,7 +57,8 @@ describe Parliament::Decorator::House, vcr: true do
   describe '#seat_incumbencies' do
     before(:each) do
       id = 'ff75cd0c-1a8b-49ab-8292-f00d153588e5'
-      response = Parliament::Request.new(base_url: 'http://localhost:3030').people(id).houses.get
+      response = Parliament::Request::UrlRequest.new(base_url: 'http://localhost:3030',
+                                                     builder: Parliament::Builder::NTripleResponseBuilder).people(id).houses.get
       @house_nodes = response.filter('http://id.ukpds.org/schema/House')
     end
 
@@ -80,7 +83,8 @@ describe Parliament::Decorator::House, vcr: true do
   describe '#house_incumbencies' do
     before(:each) do
       id = '90558d1f-ea34-4c44-b3ad-ed9c98a557d1'
-      response = Parliament::Request.new(base_url: 'http://localhost:3030').people(id).houses.get
+      response = Parliament::Request::UrlRequest.new(base_url: 'http://localhost:3030',
+                                                     builder: Parliament::Builder::NTripleResponseBuilder).people(id).houses.get
       @house_nodes = response.filter('http://id.ukpds.org/schema/House')
     end
 

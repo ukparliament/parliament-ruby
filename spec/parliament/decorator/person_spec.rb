@@ -3,7 +3,8 @@ require_relative '../../spec_helper'
 describe Parliament::Decorator::Person, vcr: true do
   let(:id) { '626b57f9-6ef0-475a-ae12-40a44aca7eff' }
   let(:response) do
-    Parliament::Request.new(base_url: 'http://localhost:3030').people(id).get
+    Parliament::Request::UrlRequest.new(base_url: 'http://localhost:3030',
+                                        builder: Parliament::Builder::NTripleResponseBuilder).people(id).get
   end
 
   describe '#houses' do
@@ -174,7 +175,8 @@ describe Parliament::Decorator::Person, vcr: true do
   describe '#other_name' do
     before(:each) do
       id = '08a3dfac-652a-44d6-8a43-00bb13c60e47'
-      response = Parliament::Request.new(base_url: 'http://localhost:3030').people(id).get
+      response = Parliament::Request::UrlRequest.new(base_url: 'http://localhost:3030',
+                                                     builder: Parliament::Builder::NTripleResponseBuilder).people(id).get
       @people_nodes = response.filter('http://id.ukpds.org/schema/Person')
     end
 
@@ -305,7 +307,8 @@ describe Parliament::Decorator::Person, vcr: true do
   describe '#contact_points' do
     before(:each) do
       id = '08a3dfac-652a-44d6-8a43-00bb13c60e47'
-      response = Parliament::Request.new(base_url: 'http://localhost:3030').people(id).get
+      response = Parliament::Request::UrlRequest.new(base_url: 'http://localhost:3030',
+                                                     builder: Parliament::Builder::NTripleResponseBuilder).people(id).get
       @people_with_contact_nodes = response.filter('http://id.ukpds.org/schema/Person')
     end
 
@@ -377,7 +380,8 @@ describe Parliament::Decorator::Person, vcr: true do
     context 'Grom::Node has a current seat incumbency' do
       it 'returns the status Current MP' do
         id = '1921fc4a-6867-48fa-a4f4-6df05be005ce'
-        response = Parliament::Request.new(base_url: 'http://localhost:3030').people(id).get
+        response = Parliament::Request::UrlRequest.new(base_url: 'http://localhost:3030',
+                                                       builder: Parliament::Builder::NTripleResponseBuilder).people(id).get
         person_node = response.filter('http://id.ukpds.org/schema/Person').first
 
         expect(person_node.statuses[:house_membership_status].size).to eq(1)
@@ -388,7 +392,8 @@ describe Parliament::Decorator::Person, vcr: true do
     context 'Grom::Node has a current house incumbency' do
       it 'returns the status Current Lord' do
         id = '841a4a1f-965a-4009-8cbc-dfc9e350fe0e'
-        response = Parliament::Request.new(base_url: 'http://localhost:3030').people(id).get
+        response = Parliament::Request::UrlRequest.new(base_url: 'http://localhost:3030',
+                                                       builder: Parliament::Builder::NTripleResponseBuilder).people(id).get
         person_node = response.filter('http://id.ukpds.org/schema/Person').first
 
         expect(person_node.statuses[:house_membership_status].size).to eq(1)
@@ -399,7 +404,8 @@ describe Parliament::Decorator::Person, vcr: true do
     context 'Grom::Node has a current incumbency' do
       it 'returns the status Current Member' do
         id = '841a4a1f-965a-4009-8cbc-dfc9e350fe0e'
-        response = Parliament::Request.new(base_url: 'http://localhost:3030').people(id).get
+        response = Parliament::Request::UrlRequest.new(base_url: 'http://localhost:3030',
+                                                       builder: Parliament::Builder::NTripleResponseBuilder).people(id).get
         person_node = response.filter('http://id.ukpds.org/schema/Person').first
 
         expect(person_node.statuses[:general_membership_status].size).to eq(1)
@@ -410,7 +416,8 @@ describe Parliament::Decorator::Person, vcr: true do
     context 'Grom::Node has no current incumbency' do
       it 'returns the status Former Member' do
         id = '5fe4df31-fa20-40cc-8cf2-f9d731e0be91'
-        response = Parliament::Request.new(base_url: 'http://localhost:3030').people(id).get
+        response = Parliament::Request::UrlRequest.new(base_url: 'http://localhost:3030',
+                                                       builder: Parliament::Builder::NTripleResponseBuilder).people(id).get
         person_node = response.filter('http://id.ukpds.org/schema/Person').first
 
         expect(person_node.statuses[:general_membership_status].size).to eq(1)
@@ -421,7 +428,8 @@ describe Parliament::Decorator::Person, vcr: true do
     context 'Grom::Node has seat incumbencies but no current seat incumbency' do
       it 'returns the status Former MP' do
         id = '5fe4df31-fa20-40cc-8cf2-f9d731e0be91'
-        response = Parliament::Request.new(base_url: 'http://localhost:3030').people(id).get
+        response = Parliament::Request::UrlRequest.new(base_url: 'http://localhost:3030',
+                                                       builder: Parliament::Builder::NTripleResponseBuilder).people(id).get
         person_node = response.filter('http://id.ukpds.org/schema/Person').first
 
         expect(person_node.statuses[:house_membership_status].size).to eq(1)
@@ -432,7 +440,8 @@ describe Parliament::Decorator::Person, vcr: true do
     context 'Grom::Node has house incumbencies but no current house incumbency' do
       it 'returns the status Former Lord' do
         id = '99ceb32e-2e16-42a0-904d-c6a7e3a9f217'
-        response = Parliament::Request.new(base_url: 'http://localhost:3030').people(id).get
+        response = Parliament::Request::UrlRequest.new(base_url: 'http://localhost:3030',
+                                                       builder: Parliament::Builder::NTripleResponseBuilder).people(id).get
         person_node = response.filter('http://id.ukpds.org/schema/Person').first
 
         expect(person_node.statuses[:house_membership_status].size).to eq(1)
@@ -443,7 +452,8 @@ describe Parliament::Decorator::Person, vcr: true do
     context 'Grom::Node has seat incumbencies and a current house incumbency' do
       it 'returns the statuses Former MP and Current Lord' do
         id = '7c511a2b-9ce2-4001-8ee5-71ae734c52d6'
-        response = Parliament::Request.new(base_url: 'http://localhost:3030').people(id).get
+        response = Parliament::Request::UrlRequest.new(base_url: 'http://localhost:3030',
+                                                       builder: Parliament::Builder::NTripleResponseBuilder).people(id).get
         person_node = response.filter('http://id.ukpds.org/schema/Person').first
 
         expect(person_node.statuses.size).to eq(2)
@@ -455,7 +465,8 @@ describe Parliament::Decorator::Person, vcr: true do
     context 'Grom::Node has house incumbencies and seat incumbencies but no current incumbency' do
       it 'returns the statuses Former Lord and Former MP' do
         id = '90558d1f-ea34-4c44-b3ad-ed9c98a557d1'
-        response = Parliament::Request.new(base_url: 'http://localhost:3030').people(id).get
+        response = Parliament::Request::UrlRequest.new(base_url: 'http://localhost:3030',
+                                                       builder: Parliament::Builder::NTripleResponseBuilder).people(id).get
         person_node = response.filter('http://id.ukpds.org/schema/Person').first
 
         expect(person_node.statuses.size).to eq(2)
@@ -467,7 +478,8 @@ describe Parliament::Decorator::Person, vcr: true do
     context 'Grom::Node has no membership data' do
       it 'returns an empty array' do
         id = '841a4a1f-965a-4009-8cbc-dfc9e350fe0e'
-        response = Parliament::Request.new(base_url: 'http://localhost:3030').people(id).get
+        response = Parliament::Request::UrlRequest.new(base_url: 'http://localhost:3030',
+                                                       builder: Parliament::Builder::NTripleResponseBuilder).people(id).get
         person_node = response.filter('http://id.ukpds.org/schema/Person').first
 
         expect(person_node.statuses[:house_membership_status]).to eq([])
@@ -478,7 +490,8 @@ describe Parliament::Decorator::Person, vcr: true do
   describe '#full_title' do
     before(:each) do
       id = '841a4a1f-965a-4009-8cbc-dfc9e350fe0e'
-      response = Parliament::Request.new(base_url: 'http://localhost:3030').people(id).get
+      response = Parliament::Request::UrlRequest.new(base_url: 'http://localhost:3030',
+                                                     builder: Parliament::Builder::NTripleResponseBuilder).people(id).get
       @person_node = response.filter('http://id.ukpds.org/schema/Person').first
     end
 
@@ -498,7 +511,8 @@ describe Parliament::Decorator::Person, vcr: true do
   describe '#display_name' do
     before(:each) do
       id = '841a4a1f-965a-4009-8cbc-dfc9e350fe0e'
-      response = Parliament::Request.new(base_url: 'http://localhost:3030').people(id).get
+      response = Parliament::Request::UrlRequest.new(base_url: 'http://localhost:3030',
+                                                     builder: Parliament::Builder::NTripleResponseBuilder).people(id).get
       @person_node = response.filter('http://id.ukpds.org/schema/Person').first
     end
 
@@ -518,7 +532,8 @@ describe Parliament::Decorator::Person, vcr: true do
   describe '#sort_name' do
     before(:each) do
       id = '841a4a1f-965a-4009-8cbc-dfc9e350fe0e'
-      response = Parliament::Request.new(base_url: 'http://localhost:3030').people.get
+      response = Parliament::Request::UrlRequest.new(base_url: 'http://localhost:3030',
+                                                     builder: Parliament::Builder::NTripleResponseBuilder).people.get
       @people_nodes = response.filter('http://id.ukpds.org/schema/Person')
     end
 

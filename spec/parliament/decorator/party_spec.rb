@@ -3,7 +3,8 @@ require_relative '../../spec_helper'
 describe Parliament::Decorator::Party, vcr: true do
   let(:id) { '626b57f9-6ef0-475a-ae12-40a44aca7eff' }
   let(:response) do
-    Parliament::Request.new(base_url: 'http://localhost:3030').people(id).get
+    Parliament::Request::UrlRequest.new(base_url: 'http://localhost:3030',
+                                        builder: Parliament::Builder::NTripleResponseBuilder).people(id).get
   end
 
   describe '#name' do
@@ -37,7 +38,8 @@ describe Parliament::Decorator::Party, vcr: true do
   describe '#party_memberships' do
     before(:each) do
       id = '626b57f9-6ef0-475a-ae12-40a44aca7eff'
-      response = Parliament::Request.new(base_url: 'http://localhost:3030').people(id).parties.get
+      response = Parliament::Request::UrlRequest.new(base_url: 'http://localhost:3030',
+                                                     builder: Parliament::Builder::NTripleResponseBuilder).people(id).parties.get
       @party_nodes = response.filter('http://id.ukpds.org/schema/Party')
     end
 
@@ -62,7 +64,8 @@ describe Parliament::Decorator::Party, vcr: true do
   describe '#member_count' do
     before(:each) do
       id = '4b77dd58-f6ba-4121-b521-c8ad70465f52'
-      response = Parliament::Request.new(base_url: 'http://localhost:3030').houses(id).parties.current.get
+      response = Parliament::Request::UrlRequest.new(base_url: 'http://localhost:3030',
+                                                     builder: Parliament::Builder::NTripleResponseBuilder).houses(id).parties.current.get
       @party_nodes = response.filter('http://id.ukpds.org/schema/Party')
     end
 

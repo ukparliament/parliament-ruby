@@ -6,6 +6,7 @@ require 'parliament/request'
 require 'parliament/response'
 require 'parliament/utils'
 require 'parliament/decorator'
+require 'parliament/builder'
 
 require 'parliament/network_error'
 require 'parliament/client_error'

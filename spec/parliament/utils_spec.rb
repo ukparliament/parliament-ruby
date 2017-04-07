@@ -4,7 +4,8 @@ describe Parliament::Utils, vcr: true do
   describe '#sort_by' do
     context 'all nodes have the parameter being sorted on' do
       it 'returns a response sorted by personFamilyName' do
-        response = Parliament::Request.new(base_url: 'http://localhost:3030').people.get
+        response = Parliament::Request::UrlRequest.new(base_url: 'http://localhost:3030',
+                                                       builder: Parliament::Builder::NTripleResponseBuilder).people.get
 
         sorted_people = Parliament::Utils.sort_by({
                                                       list: response.nodes,
@@ -15,7 +16,8 @@ describe Parliament::Utils, vcr: true do
       end
 
       it 'returns a response sorted by seatIncumbencyStartDate' do
-        response = Parliament::Request.new(base_url: 'http://localhost:3030').people('2c196540-13f3-4c07-8714-b356912beceb').get
+        response = Parliament::Request::UrlRequest.new(base_url: 'http://localhost:3030',
+                                                       builder: Parliament::Builder::NTripleResponseBuilder).people('2c196540-13f3-4c07-8714-b356912beceb').get
         filtered_response = response.filter('http://id.ukpds.org/schema/SeatIncumbency')
 
         sorted_incumbencies = Parliament::Utils.sort_by({
@@ -30,7 +32,8 @@ describe Parliament::Utils, vcr: true do
 
     context 'not all nodes have the parameter being sorted on' do
       it 'returns a response sorted by personGivenName' do
-        response = Parliament::Request.new(base_url: 'http://localhost:3030').people.get
+        response = Parliament::Request::UrlRequest.new(base_url: 'http://localhost:3030',
+                                                       builder: Parliament::Builder::NTripleResponseBuilder).people.get
         filtered_response = response.filter('http://id.ukpds.org/schema/Person')
 
         sorted_people = Parliament::Utils.sort_by({
@@ -43,7 +46,8 @@ describe Parliament::Utils, vcr: true do
       end
 
       it 'returns a response sorted by end_date (it can handle nil values)' do
-        response = Parliament::Request.new(base_url: 'http://localhost:3030').people('1921fc4a-6867-48fa-a4f4-6df05be005ce').get
+        response = Parliament::Request::UrlRequest.new(base_url: 'http://localhost:3030',
+                                                       builder: Parliament::Builder::NTripleResponseBuilder).people('1921fc4a-6867-48fa-a4f4-6df05be005ce').get
         person = response.filter('http://id.ukpds.org/schema/Person').first
 
         sorted_incumbencies = Parliament::Utils.sort_by({
@@ -57,7 +61,8 @@ describe Parliament::Utils, vcr: true do
       end
 
       it 'uses the prepend_rejected parameter correctly - defaults to true so nil values will be at the start' do
-        response = Parliament::Request.new(base_url: 'http://localhost:3030').people('1921fc4a-6867-48fa-a4f4-6df05be005ce').get
+        response = Parliament::Request::UrlRequest.new(base_url: 'http://localhost:3030',
+                                                       builder: Parliament::Builder::NTripleResponseBuilder).people('1921fc4a-6867-48fa-a4f4-6df05be005ce').get
         person = response.filter('http://id.ukpds.org/schema/Person').first
 
         sorted_incumbencies = Parliament::Utils.sort_by({
@@ -69,7 +74,8 @@ describe Parliament::Utils, vcr: true do
       end
 
       it 'uses the prepend_rejected parameter correctly - when set to false the nil values will be at the end' do
-        response = Parliament::Request.new(base_url: 'http://localhost:3030').people('1921fc4a-6867-48fa-a4f4-6df05be005ce').get
+        response = Parliament::Request::UrlRequest.new(base_url: 'http://localhost:3030',
+                                                       builder: Parliament::Builder::NTripleResponseBuilder).people('1921fc4a-6867-48fa-a4f4-6df05be005ce').get
         person = response.filter('http://id.ukpds.org/schema/Person').first
 
         sorted_incumbencies = Parliament::Utils.sort_by({
@@ -84,7 +90,8 @@ describe Parliament::Utils, vcr: true do
 
     context 'sorting by multiple parameters' do
       it 'returns a response sorted by personFamilyName, then personGivenName' do
-        response = Parliament::Request.new(base_url: 'http://localhost:3030').people.get
+        response = Parliament::Request::UrlRequest.new(base_url: 'http://localhost:3030',
+                                                       builder: Parliament::Builder::NTripleResponseBuilder).people.get
 
         sorted_people = Parliament::Utils.sort_by({
                                                       list: response.nodes,
@@ -98,7 +105,8 @@ describe Parliament::Utils, vcr: true do
 
     context 'sorting strings of different cases' do
       it 'returns a response sorted by personFamilyName' do
-        response = Parliament::Request.new(base_url: 'http://localhost:3030').people.get
+        response = Parliament::Request::UrlRequest.new(base_url: 'http://localhost:3030',
+                                                       builder: Parliament::Builder::NTripleResponseBuilder).people.get
 
         sorted_people = Parliament::Utils.sort_by({
                                                       list: response.nodes,
@@ -112,7 +120,8 @@ describe Parliament::Utils, vcr: true do
 
     context 'sorting strings with accents' do
       it 'returns a response sorted by personGivenName' do
-        response = Parliament::Request.new(base_url: 'http://localhost:3030').people.get
+        response = Parliament::Request::UrlRequest.new(base_url: 'http://localhost:3030',
+                                                       builder: Parliament::Builder::NTripleResponseBuilder).people.get
 
         sorted_people = Parliament::Utils.sort_by({
                                                       list: response.nodes,
@@ -125,7 +134,8 @@ describe Parliament::Utils, vcr: true do
       end
 
       it 'returns a response sorted by personFamilyName, personGivenName' do
-        response = Parliament::Request.new(base_url: 'http://localhost:3030').people.get
+        response = Parliament::Request::UrlRequest.new(base_url: 'http://localhost:3030',
+                                                       builder: Parliament::Builder::NTripleResponseBuilder).people.get
 
         sorted_people = Parliament::Utils.sort_by({
                                                       list: response.nodes,
@@ -141,7 +151,8 @@ describe Parliament::Utils, vcr: true do
 
   describe '#reverse_sort_by' do
     it 'returns a response sorted by incumbencyStartDate' do
-      response = Parliament::Request.new(base_url: 'http://localhost:3030').people('2c196540-13f3-4c07-8714-b356912beceb').get
+      response = Parliament::Request::UrlRequest.new(base_url: 'http://localhost:3030',
+                                                     builder: Parliament::Builder::NTripleResponseBuilder).people('2c196540-13f3-4c07-8714-b356912beceb').get
       person = response.filter('http://id.ukpds.org/schema/Person').first
 
       sorted_incumbencies = Parliament::Utils.reverse_sort_by({
@@ -154,7 +165,8 @@ describe Parliament::Utils, vcr: true do
     end
 
     it 'returns a response sorted by end_date (it can handle nil values)' do
-      response = Parliament::Request.new(base_url: 'http://localhost:3030').people('1921fc4a-6867-48fa-a4f4-6df05be005ce').get
+      response = Parliament::Request::UrlRequest.new(base_url: 'http://localhost:3030',
+                                                     builder: Parliament::Builder::NTripleResponseBuilder).people('1921fc4a-6867-48fa-a4f4-6df05be005ce').get
       person = response.filter('http://id.ukpds.org/schema/Person').first
 
       sorted_incumbencies = Parliament::Utils.reverse_sort_by({

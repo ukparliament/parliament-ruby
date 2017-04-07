@@ -2,7 +2,8 @@ require_relative '../../spec_helper'
 
 describe Parliament::Decorator::ContactPoint, vcr: true do
   let(:response) do
-    Parliament::Request.new(base_url: 'http://localhost:3030').people('08a3dfac-652a-44d6-8a43-00bb13c60e47').get
+    Parliament::Request::UrlRequest.new(base_url: 'http://localhost:3030',
+                                        builder: Parliament::Builder::NTripleResponseBuilder).people('08a3dfac-652a-44d6-8a43-00bb13c60e47').get
   end
 
   before(:each) do

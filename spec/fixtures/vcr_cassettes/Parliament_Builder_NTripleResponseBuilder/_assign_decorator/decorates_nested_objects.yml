@@ -104,6 +104,6 @@ http_interactions:
                       <http://id.ukpds.org/9647ee95-850b-432b-ba95-79b2a9517bcc> <http://id.ukpds.org/schema/houseSeatHasConstituencyGroup> <http://id.ukpds.org/b53e9a24-716e-483a-a743-2c5e88752e32> .
                       <http://id.ukpds.org/9647ee95-850b-432b-ba95-79b2a9517bcc> <http://id.ukpds.org/schema/houseSeatHasHouse> <http://id.ukpds.org/c2d41b82-d4df-4f50-b0f9-f52b84a6a788> .
                       <http://id.ukpds.org/626b57f9-6ef0-475a-ae12-40a44aca7123> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://id.ukpds.org/schema/Person> .
-    http_version: 
+    http_version:
   recorded_at: Fri, 27 Jan 2017 12:24:10 GMT
 recorded_with: VCR 3.0.3

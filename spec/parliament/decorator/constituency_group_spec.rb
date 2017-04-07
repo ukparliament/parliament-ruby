@@ -3,7 +3,8 @@ require_relative '../../spec_helper'
 describe Parliament::Decorator::ConstituencyGroup, vcr: true do
   let(:id) { 'a2ce856d-ba0a-4508-9dd0-62feb54d3894' }
   let(:response) do
-    Parliament::Request.new(base_url: 'http://localhost:3030').constituencies(id).get
+    Parliament::Request::UrlRequest.new(base_url: 'http://localhost:3030',
+                                        builder: Parliament::Builder::NTripleResponseBuilder).constituencies(id).get
   end
 
   describe '#name' do
@@ -173,7 +174,8 @@ describe Parliament::Decorator::ConstituencyGroup, vcr: true do
   describe '#current?' do
     it 'Grom::Node returns the correct value for a current or non current constituency' do
       id = '1921fc4a-6867-48fa-a4f4-6df05be005ce'
-      response = Parliament::Request.new(base_url: 'http://localhost:3030').people(id).constituencies.get
+      response = Parliament::Request::UrlRequest.new(base_url: 'http://localhost:3030',
+                                                     builder: Parliament::Builder::NTripleResponseBuilder).people(id).constituencies.get
       constituency_nodes = response.filter('http://id.ukpds.org/schema/ConstituencyGroup')
 
       constituency_results = constituency_nodes.map(&:current?)

@@ -2,7 +2,8 @@ require_relative '../../spec_helper'
 
 describe Parliament::Decorator::PartyMembership, vcr: true do
   let(:response) do
-    Parliament::Request.new(base_url: 'http://localhost:3030').people('626b57f9-6ef0-475a-ae12-40a44aca7eff').get
+    Parliament::Request::UrlRequest.new(base_url: 'http://localhost:3030',
+                                        builder: Parliament::Builder::NTripleResponseBuilder).people('626b57f9-6ef0-475a-ae12-40a44aca7eff').get
   end
 
   before(:each) do

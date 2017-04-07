@@ -2,7 +2,8 @@ require_relative '../../spec_helper'
 
 describe Parliament::Decorator::PostalAddress, vcr: true do
   let(:id) { '8d895ffc-c2bf-43d2-b756-95ab3e987919' }
-  let(:response) { Parliament::Request.new(base_url: 'http://localhost:3030').constituencies(id).contact_point.get }
+  let(:response) { Parliament::Request::UrlRequest.new(base_url: 'http://localhost:3030',
+                                                       builder: Parliament::Builder::NTripleResponseBuilder).constituencies(id).contact_point.get }
 
   before(:each) do
     @postal_address_nodes = response.filter('http://id.ukpds.org/schema/PostalAddress')

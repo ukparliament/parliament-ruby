@@ -52,7 +52,8 @@ describe Parliament::Response, vcr: true do
 
   describe '#filter' do
     before(:each) do
-      @response = Parliament::Request.new(base_url: 'http://localhost:3030').people.members.current.get
+      @response = Parliament::Request::UrlRequest.new(base_url: 'http://localhost:3030',
+                                                      builder: Parliament::Builder::NTripleResponseBuilder).people.members.current.get
     end
 
     it 'returns an empty array when no types are passed in' do
@@ -133,7 +134,8 @@ describe Parliament::Response, vcr: true do
 
   describe '#sort_by' do
     before(:each) do
-      @response = Parliament::Request.new(base_url: 'http://localhost:3030').people.members.current.get
+      @response = Parliament::Request::UrlRequest.new(base_url: 'http://localhost:3030',
+                                                      builder: Parliament::Builder::NTripleResponseBuilder).people.members.current.get
     end
 
     it 'sorts the nodes in a Parliament::Response object by the given parameter' do
@@ -147,7 +149,8 @@ describe Parliament::Response, vcr: true do
 
   describe '#reverse_sort_by' do
     before(:each) do
-      @response = Parliament::Request.new(base_url: 'http://localhost:3030').people('1921fc4a-6867-48fa-a4f4-6df05be005ce').get
+      @response = Parliament::Request::UrlRequest.new(base_url: 'http://localhost:3030',
+                                                      builder: Parliament::Builder::NTripleResponseBuilder).people('1921fc4a-6867-48fa-a4f4-6df05be005ce').get
     end
 
     it 'sorts the nodes in a Parliament::Response object by the given parameter' do
