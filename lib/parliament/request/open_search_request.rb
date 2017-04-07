@@ -1,6 +1,3 @@
-require 'rss'
-require 'open-uri'
-
 module Parliament
   module Request
     class OpenSearchRequest < Parliament::Request::BaseRequest
