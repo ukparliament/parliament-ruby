@@ -23,13 +23,18 @@ module Parliament
         respond_to?(:seatIncumbencyHasHouseSeat) ? seatIncumbencyHasHouseSeat.first : nil
       end
 
-      # Checks if Grom::Node has an end date.
+      # Checks if Grom::Node has no end date.
       #
       # @return [Boolean] a boolean depending on whether or not the Grom::Node has an end date.
       def current?
-        has_end_date = respond_to?(:incumbencyEndDate)
+        !former?
+      end
 
-        !has_end_date
+      # Checks if Grom::Node has an end date.
+      #
+      # @return [Boolean] a boolean depending on whether or not the Grom::Node has an end date.
+      def former?
+        respond_to?(:incumbencyEndDate)
       end
 
       # Alias houseSeatHasHouse with fallback.

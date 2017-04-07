@@ -13,23 +13,21 @@ module Parliament
       #
       # @return [DateTime, nil] the start date of the Grom::Node or nil.
       def start_date
-        respond_to?(:partyMembershipStartDate) ? DateTime.parse(partyMembershipStartDate) : nil
+        @start_date ||= respond_to?(:partyMembershipStartDate) ? DateTime.parse(partyMembershipStartDate) : nil
       end
 
       # Alias partyMembershipEndDate with fallback.
       #
       # @return [DateTime, nil] the end date of the Grom::Node or nil.
       def end_date
-        respond_to?(:partyMembershipEndDate) ? DateTime.parse(partyMembershipEndDate) : nil
+        @end_date ||= respond_to?(:partyMembershipEndDate) ? DateTime.parse(partyMembershipEndDate) : nil
       end
 
       # Checks if Grom::Node has an end date.
       #
       # @return [Boolean] a boolean depending on whether or not the Grom::Node has an end date.
       def current?
-        has_end_date = respond_to?(:partyMembershipEndDate)
-
-        !has_end_date
+        end_date.nil?
       end
     end
   end

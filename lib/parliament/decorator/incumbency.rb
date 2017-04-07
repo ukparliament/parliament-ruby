@@ -6,23 +6,21 @@ module Parliament
       #
       # @return [DateTime, nil] the start date of the Grom::Node or nil.
       def start_date
-        respond_to?(:incumbencyStartDate) ? DateTime.parse(incumbencyStartDate) : nil
+        @start_date ||= respond_to?(:incumbencyStartDate) ? DateTime.parse(incumbencyStartDate) : nil
       end
 
       # Alias incumbencyEndDate with fallback.
       #
       # @return [DateTime, nil] the end date of the Grom::Node or nil.
       def end_date
-        respond_to?(:incumbencyEndDate) ? DateTime.parse(incumbencyEndDate) : nil
+        @end_date ||= respond_to?(:incumbencyEndDate) ? DateTime.parse(incumbencyEndDate) : nil
       end
 
       # Checks if Grom::Node has an end date.
       #
       # @return [Boolean] a boolean depending on whether or not the Grom::Node has an end date.
       def current?
-        has_end_date = respond_to?(:incumbencyEndDate)
-
-        !has_end_date
+        end_date.nil?
       end
 
       # Alias incumbencyHasMember with fallback.
