@@ -170,8 +170,8 @@ module Parliament
       def build_house_membership_status(no_current_seat_incumbency, no_current_house_incumbency, former_lord, former_mp)
         statuses = []
         statuses << 'Current MP' unless no_current_seat_incumbency
-        statuses << 'Lord' unless no_current_house_incumbency
-        statuses << 'Former Lord' if former_lord
+        statuses << 'Member of the House of Lords' unless no_current_house_incumbency
+        statuses << 'Former Member of the House of Lords' if former_lord
         statuses << 'Former MP' if former_mp
 
         statuses
