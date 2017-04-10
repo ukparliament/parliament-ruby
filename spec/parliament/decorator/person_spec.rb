@@ -397,7 +397,7 @@ describe Parliament::Decorator::Person, vcr: true do
         person_node = response.filter('http://id.ukpds.org/schema/Person').first
 
         expect(person_node.statuses[:house_membership_status].size).to eq(1)
-        expect(person_node.statuses[:house_membership_status].first).to eq('Lord')
+        expect(person_node.statuses[:house_membership_status].first).to eq('Member of the House of Lords')
       end
     end
 
@@ -445,7 +445,7 @@ describe Parliament::Decorator::Person, vcr: true do
         person_node = response.filter('http://id.ukpds.org/schema/Person').first
 
         expect(person_node.statuses[:house_membership_status].size).to eq(1)
-        expect(person_node.statuses[:house_membership_status].first).to eq('Former Lord')
+        expect(person_node.statuses[:house_membership_status].first).to eq('Former Member of the House of Lords')
       end
     end
 
@@ -457,7 +457,7 @@ describe Parliament::Decorator::Person, vcr: true do
         person_node = response.filter('http://id.ukpds.org/schema/Person').first
 
         expect(person_node.statuses.size).to eq(2)
-        expect(person_node.statuses[:house_membership_status][0]).to eq('Lord')
+        expect(person_node.statuses[:house_membership_status][0]).to eq('Member of the House of Lords')
         expect(person_node.statuses[:house_membership_status][1]).to eq('Former MP')
       end
     end
@@ -470,7 +470,7 @@ describe Parliament::Decorator::Person, vcr: true do
         person_node = response.filter('http://id.ukpds.org/schema/Person').first
 
         expect(person_node.statuses.size).to eq(2)
-        expect(person_node.statuses[:house_membership_status][0]).to eq('Former Lord')
+        expect(person_node.statuses[:house_membership_status][0]).to eq('Former Member of the House of Lords')
         expect(person_node.statuses[:house_membership_status][1]).to eq('Former MP')
       end
     end
