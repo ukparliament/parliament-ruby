@@ -8,6 +8,8 @@ SimpleCov.start
 
 $LOAD_PATH.unshift File.expand_path('../../lib', __FILE__)
 require 'parliament'
+require 'parliament/grom/decorator'
+require 'parliament/ntriple'
 require 'webmock/rspec'
 
 require 'vcr'

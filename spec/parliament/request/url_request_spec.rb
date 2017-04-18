@@ -2,7 +2,8 @@ require_relative '../../spec_helper'
 
 describe Parliament::Request::UrlRequest, vcr: true do
   describe '#method_missing' do
-    subject { Parliament::Request::UrlRequest.new(base_url: 'http://test.com') }
+    subject { Parliament::Request::UrlRequest.new(base_url: 'http://test.com', decorators: Parliament::Grom::Decorator) }
+
 
     it 'stores method names in @endpoint_parts' do
       request = subject.people
@@ -24,7 +25,7 @@ describe Parliament::Request::UrlRequest, vcr: true do
   end
 
   describe '#respond_to_missing?' do
-    subject { Parliament::Request::UrlRequest.new(base_url: 'http://test.com') }
+    subject { Parliament::Request::UrlRequest.new(base_url: 'http://test.com', decorators: Parliament::Grom::Decorator) }
 
     it 'returns true for anything' do
       expect(subject.send(:respond_to_missing?, :foo)).to eq(true)

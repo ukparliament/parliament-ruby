@@ -27,10 +27,10 @@ describe Parliament::Request::BaseRequest, vcr: true do
 
   describe '#get' do
     context 'it returns a status code of 200 and ..' do
-      subject { Parliament::Request::BaseRequest.new(base_url: 'http://localhost:3030/parties/current').get }
+      let(:base_response) { Parliament::Request::BaseRequest.new(base_url: 'http://localhost:3030/parties/current').get }
 
       it 'returns a Net::HTTPResponse' do
-        expect(subject).to be_a(Net::HTTPResponse)
+        expect(base_response.response).to be_a(Net::HTTPResponse)
       end
     end
 
@@ -61,10 +61,10 @@ describe Parliament::Request::BaseRequest, vcr: true do
     end
 
     context 'it accepts query parameters' do
-      subject { Parliament::Request::BaseRequest.new(base_url: 'http://localhost:3030/people').get(params: { source: 'mnisId', id: '3898' }) }
+      let(:base_response) { Parliament::Request::BaseRequest.new(base_url: 'http://localhost:3030/people').get(params: { source: 'mnisId', id: '3898' }) }
 
       it 'returns a Net::HTTPResponse' do
-        expect(subject).to be_a(Net::HTTPResponse)
+        expect(base_response.response).to be_a(Net::HTTPResponse)
       end
     end
 

@@ -5,3 +5,6 @@ gemspec
 
 # Include coveralls for CI coverage reports
 gem 'coveralls', require: false
+
+gem 'parliament-grom-decorators', path: '../parliament-grom-decorators'
+gem 'parliament-ntriple', path: '../parliament-ntriple'
