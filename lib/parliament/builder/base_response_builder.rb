@@ -1,14 +1,14 @@
 module Parliament
   module Builder
-    # API response builder, allowing the user to return the body of an HTTPResponse.
+    # Base response builder, allowing the user to return the body of an HTTPResponse.
     # @since 0.7.5
     class BaseResponseBuilder
       # Creates a new BaseReponseBuilder.
-      # @param [HTTPResponse] response an HTTP response containing n-triple data.
-      # @param [Module] decorators the decorator modules to provide alias methods to the resulting objects.
+      # @param [HTTPResponse] response an HTTP response.
+      # @param [Module] decorators a namespace which contains modules used to decorate the objects we receive.  It is not used directly by the BaseResponseBuilder, but is there for API completeness.
       def initialize(response:, decorators: nil)
         @response = response
-        @decorators = decorators
+        _ = decorators
       end
 
       # Builds a Parliament::Response::BaseResponse.

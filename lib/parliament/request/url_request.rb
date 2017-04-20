@@ -1,10 +1,10 @@
 module Parliament
   module Request
-    # API request object, allowing the user to build a request to an API.
+    # URL request object, allowing the user to build a URL to make a request to an API.
     #
     # @since 0.7.5
     #
-    # @attr_reader [String] base_url the base url of our API. (expected: http://example.com - without the trailing slash).
+    # @attr_reader [String] base_url the endpoint for our API which we will build our requests on. (expected: http://example.com - without the trailing slash).
     # @attr_reader [Hash] headers the headers being sent in the request.
     class UrlRequest < Parliament::Request::BaseRequest
       # Creates a new instance of Parliament::Request::UrlRequest.
@@ -14,7 +14,11 @@ module Parliament
       # @param [String] base_url the base url of our api. (expected: http://example.com - without the trailing slash).
       # @param [Hash] headers the headers being sent in the request.
       # @param [Parliament::Builder] builder the builder to use in order to build a response.
-      # @params [Module] decorators the decorator module to use in order to provide possible alias methods for any objects created by the builder.
+      # @param [Module] decorators the decorator module to use in order to provide possible alias methods for any objects created by the builder.
+      # @example Passing headers
+      #
+      # request = Parliament::Request::UrlRequest.new(base_url: 'http://example.com', headers: { 'Access-Token' => '12345678' })
+      # This will create a request with the Access-Token set to 12345678.
       def initialize(base_url: nil, headers: nil, builder: nil, decorators: nil)
         @endpoint_parts = []
         base_url ||= ENV['PARLIAMENT_BASE_URL']
@@ -46,7 +50,7 @@ module Parliament
       # @param [Array<Object>] params parameters passed to the specified method (url part).
       # @param [Block] block additional block (kept for compatibility with method_missing API).
       #
-      # @return [Parliament::Request::UrlRequest] self.
+      # @return [Parliament::Request::UrlRequest] self (this is to allow method chaining).
       def method_missing(method, *params, &block)
         @endpoint_parts << method.to_s
         @endpoint_parts << params

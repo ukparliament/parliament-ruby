@@ -1,6 +1,6 @@
 module Parliament
   module Request
-    # API request object, allowing the user to make a request to an API.
+    # Base request object, allowing the user to make a request to an API.
     #
     # @since 0.7.5
     #
@@ -65,15 +65,21 @@ module Parliament
       #
       # @example HTTP GET request
       #   request = Parliament::Request::BaseRequest.new(base_url: 'http://example.com/people/123'
+      #
+      #   # url: http://example.com/people/123
+      #
       #   response = request.get #=> #<Parliament::Response::BaseResponse ...>
       #
       # @example HTTP GET request with URI encoded form values
       #   request = Parliament::Request.new(base_url: 'http://example.com/people/current')
+      #
+      #   # url: http://example.com/people/current?limit=10&page=4&lang=en-gb
+      #
       #   response = request.get({ limit: 10, page: 4, lang: 'en-gb' }) #=> #<Parliament::Response::BaseResponse ...>
       #
       # @raise [Parliament::ServerError] when the server responds with a 5xx status code.
       # @raise [Parliament::ClientError] when the server responds with a 4xx status code.
-      # @raise [Parliament::NoContentResponseError] when the server responds with a 204 status code.
+      # @raise [Parliament::NoContentResponseError] when the response body is empty.
       #
       # @param [Hash] params (optional) additional URI encoded form values to be added to the URI.
       #

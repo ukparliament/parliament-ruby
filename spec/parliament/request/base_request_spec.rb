@@ -29,8 +29,8 @@ describe Parliament::Request::BaseRequest, vcr: true do
     context 'it returns a status code of 200 and ..' do
       let(:base_response) { Parliament::Request::BaseRequest.new(base_url: 'http://localhost:3030/parties/current').get }
 
-      it 'returns a Net::HTTPResponse' do
-        expect(base_response.response).to be_a(Net::HTTPResponse)
+      it 'returns a Parliament::Response::BaseResponse' do
+        expect(base_response).to be_a(Parliament::Response::BaseResponse)
       end
     end
 
@@ -61,10 +61,11 @@ describe Parliament::Request::BaseRequest, vcr: true do
     end
 
     context 'it accepts query parameters' do
-      let(:base_response) { Parliament::Request::BaseRequest.new(base_url: 'http://localhost:3030/people').get(params: { source: 'mnisId', id: '3898' }) }
+      it 'sets the query parameters correctly when passed in' do
+        Parliament::Request::BaseRequest.new(base_url: 'http://localhost:3030/people/lookup').get(params: { source: 'mnisId', id: '3898' })
 
-      it 'returns a Net::HTTPResponse' do
-        expect(base_response.response).to be_a(Net::HTTPResponse)
+        expect(WebMock).to have_requested(:get, 'http://localhost:3030/people/lookup?id=3898&source=mnisId').
+            with(:headers => {'Accept'=>['*/*', 'application/n-triples'], 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'User-Agent'=>'Ruby'}).once
       end
     end
 
