@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: http://localhost:3030/people/321f496b-5c8b-4455-ab49-a96e42b34739/parties/current
+    uri: http://localhost:3030/parties/x
     body:
       encoding: US-ASCII
       string: ''
@@ -11,10 +11,9 @@ http_interactions:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
       Accept:
       - "*/*"
+      - application/n-triples
       User-Agent:
       - Ruby
-      Host:
-      - localhost:3030
   response:
     status:
       code: 204
@@ -29,12 +28,12 @@ http_interactions:
       Cache-Control:
       - no-cache
       X-Request-Id:
-      - 04296917-133d-45f4-9e1d-c4c70682ee43
+      - 3381d189-6efa-4bc4-ba97-be87c9091078
       X-Runtime:
-      - '0.022145'
+      - '0.140256'
     body:
       encoding: UTF-8
       string: ''
     http_version: 
-  recorded_at: Mon, 13 Feb 2017 15:06:13 GMT
+  recorded_at: Thu, 20 Apr 2017 14:56:41 GMT
 recorded_with: VCR 3.0.3

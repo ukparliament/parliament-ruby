@@ -133,7 +133,7 @@ module Parliament
       def handle_errors(response)
         case response
         when Net::HTTPSuccess # 2xx Status
-          exception_class = Parliament::NoContentResponseError if response.code == '204'
+          exception_class = Parliament::NoContentResponseError if response.body.nil?
         when Net::HTTPClientError # 4xx Status
           exception_class = Parliament::ClientError
         when Net::HTTPServerError # 5xx Status

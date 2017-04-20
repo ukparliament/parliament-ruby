@@ -26,19 +26,17 @@ describe Parliament::Request::BaseRequest, vcr: true do
   end
 
   describe '#get' do
-    context 'it returns a status code of 200 and ..' do
+    context 'it returns a status code of 200' do
       let(:base_response) { Parliament::Request::BaseRequest.new(base_url: 'http://localhost:3030/parties/current').get }
 
       it 'returns a Parliament::Response::BaseResponse' do
         expect(base_response).to be_a(Parliament::Response::BaseResponse)
       end
-    end
 
-    context 'it returns a status code of 204 and...' do
       it 'raises a Parliament::NoContentError' do
         expect {
-          Parliament::Request::BaseRequest.new(base_url: 'http://localhost:3030/people/321f496b-5c8b-4455-ab49-a96e42b34739/parties/current').get
-        }.to raise_error(Parliament::NoContentResponseError, '204 HTTP status code received from: http://localhost:3030/people/321f496b-5c8b-4455-ab49-a96e42b34739/parties/current - No Content')
+          Parliament::Request::BaseRequest.new(base_url: 'http://localhost:3030/parties/x').get
+        }.to raise_error(Parliament::NoContentResponseError, '204 HTTP status code received from: http://localhost:3030/parties/x - No Content')
       end
     end
 
