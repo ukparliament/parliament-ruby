@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: http://localhost:3030/constituencies/a2ce856d-ba0a-4508-9dd0-62feb54d3894
+    uri: http://localhost:3030/constituencies/9d65a056-04c9-4aa5-999c-1a5905ce54fd/contact_point
     body:
       encoding: US-ASCII
       string: ''
@@ -11,10 +11,9 @@ http_interactions:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
       Accept:
       - "*/*"
+      - application/n-triples
       User-Agent:
       - Ruby
-      Host:
-      - localhost:3030
   response:
     status:
       code: 200
@@ -29,33 +28,34 @@ http_interactions:
       Content-Type:
       - application/n-triples; charset=utf-8
       Etag:
-      - W/"a9577dd5cd3d2f4c038b1264b9edd4bd"
+      - W/"9a93f1075cc424364d459789747a803f"
       Cache-Control:
       - max-age=0, private, must-revalidate
       X-Request-Id:
-      - a3cbef4b-f7e6-4111-8610-028cc155ce09
+      - eedfd59c-419f-44db-9e68-0d7faaf45f41
       X-Runtime:
-      - '0.121937'
+      - '0.070749'
       Transfer-Encoding:
       - chunked
     body:
       encoding: UTF-8
       string: |
-        <http://id.ukpds.org/8d895ffc-c2bf-43d2-b756-95ab3e987919> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://id.ukpds.org/schema/ConstituencyGroup> .
-        <http://id.ukpds.org/8d895ffc-c2bf-43d2-b756-95ab3e987919> <http://id.ukpds.org/schema/constituencyGroupHasHouseSeat> <http://id.ukpds.org/da35fbaf-7b5c-43de-af1b-93e35faa2448> .
-        <http://id.ukpds.org/8d895ffc-c2bf-43d2-b756-95ab3e987919> <http://id.ukpds.org/schema/constituencyGroupName> "North Devon" .
-        <http://id.ukpds.org/da35fbaf-7b5c-43de-af1b-93e35faa2448> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://id.ukpds.org/schema/HouseSeat> .
-        <http://id.ukpds.org/da35fbaf-7b5c-43de-af1b-93e35faa2448> <http://id.ukpds.org/schema/houseSeatHasSeatIncumbency> <http://id.ukpds.org/b9945b77-7928-4dfa-8aee-2c2b3642b929> .
-        <http://id.ukpds.org/b9945b77-7928-4dfa-8aee-2c2b3642b929> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://id.ukpds.org/schema/SeatIncumbency> .
-        <http://id.ukpds.org/b9945b77-7928-4dfa-8aee-2c2b3642b929> <http://id.ukpds.org/schema/incumbencyHasContactPoint> <http://id.ukpds.org/ca19f8c2-715f-43fb-931d-01a1657d88b3> .
-        <http://id.ukpds.org/ca19f8c2-715f-43fb-931d-01a1657d88b3> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://id.ukpds.org/schema/ContactPoint> .
-        <http://id.ukpds.org/ca19f8c2-715f-43fb-931d-01a1657d88b3> <http://id.ukpds.org/schema/email> "example@parliament.uk" .
-        <http://id.ukpds.org/ca19f8c2-715f-43fb-931d-01a1657d88b3> <http://id.ukpds.org/schema/phoneNumber> "020 1234 5678" .
-        <http://id.ukpds.org/ca19f8c2-715f-43fb-931d-01a1657d88b3> <http://id.ukpds.org/schema/contactPointHasPostalAddress> <http://id.ukpds.org/bb64f269-b47c-4cc3-84b6-3d51de6eef51> .
-        <http://id.ukpds.org/bb64f269-b47c-4cc3-84b6-3d51de6eef51> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://id.ukpds.org/schema/PostalAddress> .
-        <http://id.ukpds.org/bb64f269-b47c-4cc3-84b6-3d51de6eef51> <http://id.ukpds.org/schema/postCode> "SW1A 0AA" .
-        <http://id.ukpds.org/bb64f269-b47c-4cc3-84b6-3d51de6eef51> <http://id.ukpds.org/schema/addressLine1> "House of Commons" .
-        <http://id.ukpds.org/bb64f269-b47c-4cc3-84b6-3d51de6eef51> <http://id.ukpds.org/schema/addressLine2> "London" .
+        <http://id.ukpds.org/9d65a056-04c9-4aa5-999c-1a5905ce54fd> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://id.ukpds.org/schema/ConstituencyGroup> .
+        <http://id.ukpds.org/9d65a056-04c9-4aa5-999c-1a5905ce54fd> <http://id.ukpds.org/schema/constituencyGroupHasHouseSeat> <http://id.ukpds.org/878d38ee-1a3a-4bc6-9814-2c025d911ef0> .
+        <http://id.ukpds.org/9d65a056-04c9-4aa5-999c-1a5905ce54fd> <http://id.ukpds.org/schema/constituencyGroupName> "Aldershot" .
+        <http://id.ukpds.org/878d38ee-1a3a-4bc6-9814-2c025d911ef0> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://id.ukpds.org/schema/HouseSeat> .
+        <http://id.ukpds.org/878d38ee-1a3a-4bc6-9814-2c025d911ef0> <http://id.ukpds.org/schema/houseSeatHasSeatIncumbency> <http://id.ukpds.org/9c05033b-e19d-4aad-b109-3b97f644a6de> .
+        <http://id.ukpds.org/9c05033b-e19d-4aad-b109-3b97f644a6de> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://id.ukpds.org/schema/SeatIncumbency> .
+        <http://id.ukpds.org/9c05033b-e19d-4aad-b109-3b97f644a6de> <http://id.ukpds.org/schema/incumbencyHasContactPoint> <http://id.ukpds.org/25edd67b-7806-4599-8544-62d0b0f7f5a8> .
+        <http://id.ukpds.org/25edd67b-7806-4599-8544-62d0b0f7f5a8> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://id.ukpds.org/schema/ContactPoint> .
+        <http://id.ukpds.org/25edd67b-7806-4599-8544-62d0b0f7f5a8> <http://id.ukpds.org/schema/email> "person1@parliament.uk" .
+        <http://id.ukpds.org/25edd67b-7806-4599-8544-62d0b0f7f5a8> <http://id.ukpds.org/schema/phoneNumber> "020 7219 5650" .
+        <http://id.ukpds.org/25edd67b-7806-4599-8544-62d0b0f7f5a8> <http://id.ukpds.org/schema/faxNumber> "020 7219 1198" .
+        <http://id.ukpds.org/25edd67b-7806-4599-8544-62d0b0f7f5a8> <http://id.ukpds.org/schema/contactPointHasPostalAddress> <http://id.ukpds.org/fd6435c4-9102-4290-aa44-3bdba201b299> .
+        <http://id.ukpds.org/fd6435c4-9102-4290-aa44-3bdba201b299> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://id.ukpds.org/schema/PostalAddress> .
+        <http://id.ukpds.org/fd6435c4-9102-4290-aa44-3bdba201b299> <http://id.ukpds.org/schema/postCode> "SW1A 0AA" .
+        <http://id.ukpds.org/fd6435c4-9102-4290-aa44-3bdba201b299> <http://id.ukpds.org/schema/addressLine1> "House of Commons" .
+        <http://id.ukpds.org/fd6435c4-9102-4290-aa44-3bdba201b299> <http://id.ukpds.org/schema/addressLine2> "London" .
     http_version: 
-  recorded_at: Wed, 08 Feb 2017 10:25:53 GMT
+  recorded_at: Wed, 19 Apr 2017 09:50:20 GMT
 recorded_with: VCR 3.0.3
