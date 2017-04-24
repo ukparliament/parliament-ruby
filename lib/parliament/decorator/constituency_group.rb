@@ -90,15 +90,12 @@ module Parliament
 
       # Alias incumbencyHasMember with fallback.
       #
-      # @return [Array, Array] the members of the Grom::Node is equivalent to one or an empty array.
+      # @return [Array, Array] the members of the Grom::Node is equivalent to one or nil.
 
-      def member
+      def current_member
         return @member unless @member.nil?
-        member = []
-        seat_incumbencies.each do |seat_incumbency|
-          member << seat_incumbency.member
-        end
-        @member = member.flatten.uniq
+        current = seat_incumbencies.select(&:current?).first
+        @member = current ? current.member : nil
       end
 
       # Alias party_name with fallback.
@@ -106,7 +103,11 @@ module Parliament
       # @return [String, String] the name of the Grom::Node or an empty string.
 
       def party_name
-        member.first.parties.first.respond_to?(:partyName) ? member.first.parties.first.partyName : ''
+        return @party_name unless @party_name.nil?
+
+        current_membership = current_member.party_memberships.select(&:current?).first
+
+        @party_name = current_membership.party.name
       end
     end
   end
