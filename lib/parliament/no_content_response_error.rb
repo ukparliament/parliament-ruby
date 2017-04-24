@@ -1,5 +1,5 @@
 module Parliament
-  # An error raised when a 204 status code is returned by Net::HTTP inside of Parliament::Request.
+  # An error raised when an empty response is returned by Net::HTTP inside of Parliament::Request.
   #
   # @since 0.6.0
   class NoContentResponseError < Parliament::NetworkError
@@ -11,7 +11,7 @@ module Parliament
     #
     #   response = Net::HTTP.get_response(URI(url))
     #
-    #   raise Parliament::NoContentResponseError.new(url, response) if response.code == '204'
+    #   raise Parliament::NoContentResponseError.new(url, response) if response.body.nil?
     def initialize(url, response)
       super
     end

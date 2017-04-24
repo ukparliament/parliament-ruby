@@ -3,6 +3,5 @@ module Parliament
   # @since 0.7.0
   module Builder
     require 'parliament/builder/base_response_builder'
-    require 'parliament/builder/ntriple_response_builder'
   end
 end
