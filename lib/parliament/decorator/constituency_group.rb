@@ -90,12 +90,12 @@ module Parliament
 
       # Alias incumbencyHasMember with fallback.
       #
-      # @return [Array, Array] the members of the Grom::Node is equivalent to one or nil.
+      # @return [Array, Array] the current member of the Grom::Node has a display name.
 
       def current_member
         return @member unless @member.nil?
         current = seat_incumbencies.select(&:current?).first
-        @member = current ? current.member : nil
+        @member = current.member ? current.member.F31CBD81AD8343898B49DC65743F0BDF : ''
       end
 
       # Alias party_name with fallback.

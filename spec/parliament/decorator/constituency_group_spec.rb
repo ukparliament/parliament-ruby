@@ -196,15 +196,16 @@ describe Parliament::Decorator::ConstituencyGroup, vcr: true do
         constituency_node = response.filter('http://id.ukpds.org/schema/ConstituencyGroup')[0]
         expect(constituency_node).to respond_to(:current_member)
         expect(constituency_node.members.size). to be(1)
-        expect(constituency_node.current_member.type).to eq 'http://id.ukpds.org/schema/Person'
+        expect(constituency_node.current_member).to eq 'givename familyname - 1'
       end
+
     end
 
     context 'constituency without any seat incumbencies' do
       it 'returns an empty array' do
         constituency_node = response.filter('http://id.ukpds.org/schema/ConstituencyGroup')[0]
         expect(constituency_node).to respond_to(:current_member)
-        expect(constituency_node.current_member).to be_nil
+        expect(constituency_node.current_member).to eq ''
       end
     end
   end
