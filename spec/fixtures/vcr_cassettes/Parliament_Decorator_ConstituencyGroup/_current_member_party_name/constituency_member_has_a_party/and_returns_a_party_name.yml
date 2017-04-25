@@ -32,9 +32,9 @@ http_interactions:
       Cache-Control:
       - max-age=0, private, must-revalidate
       X-Request-Id:
-      - f6b36fad-1ef0-4f29-8737-b64c70f36049
+      - db989eb1-74e2-416b-8037-96ec6d1df2f5
       X-Runtime:
-      - '0.117614'
+      - '0.323629'
       Transfer-Encoding:
       - chunked
     body:
@@ -59,7 +59,7 @@ http_interactions:
         <http://id.ukpds.org/3c11367a-35ea-4b1d-b036-977553ee7bc6> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://id.ukpds.org/schema/Person> .
         <http://id.ukpds.org/3c11367a-35ea-4b1d-b036-977553ee7bc6> <http://id.ukpds.org/schema/personGivenName> "givename - 1" .
         <http://id.ukpds.org/3c11367a-35ea-4b1d-b036-977553ee7bc6> <http://id.ukpds.org/schema/personFamilyName> "familyname - 1" .
-        <http://id.ukpds.org/3c11367a-35ea-4b1d-b036-977553ee7bc6> <http://example.com/F31CBD81AD8343898B49DC65743F0BDF> "givename familyname - 1" .
+        <http://id.ukpds.org/3c11367a-35ea-4b1d-b036-977553ee7bc6> <http://example.com/F31CBD81AD8343898B49DC65743F0BDF> "givename firstname - 1" .
         <http://id.ukpds.org/3c11367a-35ea-4b1d-b036-977553ee7bc6> <http://id.ukpds.org/schema/partyMemberHasPartyMembership> <http://id.ukpds.org/d4fc0383-8aad-4fea-9ccb-3216aad70b47> .
         <http://id.ukpds.org/d4fc0383-8aad-4fea-9ccb-3216aad70b47> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://id.ukpds.org/schema/PartyMembership> .
         <http://id.ukpds.org/d4fc0383-8aad-4fea-9ccb-3216aad70b47> <http://id.ukpds.org/schema/partyMembershipHasParty> <http://id.ukpds.org/c5858995-6d25-4eb5-b92e-fba3fbd8ba47> .
@@ -70,7 +70,8 @@ http_interactions:
         <http://id.ukpds.org/798adc79-b2c1-476a-8fd4-d2ede852a9fd> <http://id.ukpds.org/schema/partyMembershipHasParty> <http://id.ukpds.org/c5858995-6d25-4eb5-b92e-fba3fbd8ba47> .
         <http://id.ukpds.org/878d38ee-1a3a-4bc6-9814-2c025d911ef0> <http://id.ukpds.org/schema/houseSeatHasSeatIncumbency> <http://id.ukpds.org/9c05033b-e19d-4aad-b109-3b97f644a6de> .
         <http://id.ukpds.org/9c05033b-e19d-4aad-b109-3b97f644a6de> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://id.ukpds.org/schema/SeatIncumbency> .
+        <http://id.ukpds.org/9c05033b-e19d-4aad-b109-3b97f644a6de> <http://id.ukpds.org/schema/incumbencyHasMember> <http://id.ukpds.org/3c11367a-35ea-4b1d-b036-977553ee7bc6> .
         <http://id.ukpds.org/9c05033b-e19d-4aad-b109-3b97f644a6de> <http://id.ukpds.org/schema/incumbencyStartDate> "2015-05-07"^^<http://www.w3.org/2001/XMLSchema#date> .
     http_version: 
-  recorded_at: Mon, 24 Apr 2017 08:18:45 GMT
+  recorded_at: Tue, 25 Apr 2017 10:03:53 GMT
 recorded_with: VCR 3.0.3
