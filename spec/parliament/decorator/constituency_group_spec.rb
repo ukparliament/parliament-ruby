@@ -212,7 +212,7 @@ describe Parliament::Decorator::ConstituencyGroup, vcr: true do
   end
 
   describe '#current_member_party_name' do
-    describe 'constituency member has a party' do
+    describe 'constituency member is a current seat incumbent' do
       it 'and returns a party name' do
         constituency_node = response.filter('http://id.ukpds.org/schema/ConstituencyGroup')[0]
         #require 'pry' ; binding.pry
