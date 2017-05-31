@@ -1,4 +1,10 @@
-test:
+gemset:
+	rvm gemset create parliament-ruby
+	rvm --force gemset empty parliament-ruby
+	rvm gemset use parliament-ruby
+
+test: gemset
+	bundle install
 	bundle exec rake
 
 build:
