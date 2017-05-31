@@ -132,8 +132,8 @@ module Parliament
 
       def handle_errors(response)
         case response
-        when Net::HTTPSuccess # 2xx Status
-          exception_class = Parliament::NoContentResponseError if response.body.nil?
+        when Net::HTTPOK # 2xx Status
+          exception_class = Parliament::NoContentResponseError if response['Content-Length'] == '0'
         when Net::HTTPClientError # 4xx Status
           exception_class = Parliament::ClientError
         when Net::HTTPServerError # 5xx Status

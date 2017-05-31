@@ -33,10 +33,10 @@ describe Parliament::Request::BaseRequest, vcr: true do
         expect(base_response).to be_a(Parliament::Response::BaseResponse)
       end
 
-      it 'raises a Parliament::NoContentError' do
+      it 'raises a Parliament::NoContentError if there is no content' do
         expect {
-          Parliament::Request::BaseRequest.new(base_url: 'http://localhost:3030/parties/x').get
-        }.to raise_error(Parliament::NoContentResponseError, '204 HTTP status code received from: http://localhost:3030/parties/x - No Content')
+          Parliament::Request::BaseRequest.new(base_url: 'http://localhost:3030/parties/lookup/mnisId/abc').get
+        }.to raise_error(Parliament::NoContentResponseError, '200 HTTP status code received from: http://localhost:3030/parties/lookup/mnisId/abc - OK')
       end
     end
 

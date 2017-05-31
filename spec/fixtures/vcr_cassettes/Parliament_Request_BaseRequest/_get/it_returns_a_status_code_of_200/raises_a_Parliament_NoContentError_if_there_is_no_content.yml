@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: http://localhost:3030/parties/x
+    uri: http://localhost:3030/parties/lookup/mnisId/abc
     body:
       encoding: US-ASCII
       string: ''
@@ -16,24 +16,18 @@ http_interactions:
       - Ruby
   response:
     status:
-      code: 204
-      message: No Content
+      code: 200
+      message: OK
     headers:
-      X-Frame-Options:
-      - SAMEORIGIN
-      X-Xss-Protection:
-      - 1; mode=block
-      X-Content-Type-Options:
-      - nosniff
-      Cache-Control:
-      - no-cache
       X-Request-Id:
-      - 3381d189-6efa-4bc4-ba97-be87c9091078
+      - 26fdd203-e59a-4de9-8d9e-b6000e5db1a3
       X-Runtime:
-      - '0.140256'
+      - '0.016273'
+      Content-Length:
+      - '0'
     body:
       encoding: UTF-8
       string: ''
     http_version: 
-  recorded_at: Thu, 20 Apr 2017 14:56:41 GMT
+  recorded_at: Tue, 30 May 2017 15:56:01 GMT
 recorded_with: VCR 3.0.3
