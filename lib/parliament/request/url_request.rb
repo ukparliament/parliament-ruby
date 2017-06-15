@@ -68,8 +68,6 @@ module Parliament
         true # responds to everything, always
       end
 
-      private
-
       def query_url
         [@base_url, @endpoint_parts].join('/')
       end
