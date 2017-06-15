@@ -38,6 +38,8 @@ describe Parliament::Request::UrlRequest, vcr: true do
 
       request.people.members.current.get
 
+      expect(request.query_url).to eq('http://localhost:3030/people/members/current')
+
       expect(WebMock).to have_requested(:get, 'http://localhost:3030/people/members/current').
           with(:headers => {'Accept'=>['*/*', 'application/n-triples'], 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'User-Agent'=>'Ruby'}).once
 
