@@ -65,6 +65,16 @@ describe Parliament::Request::BaseRequest, vcr: true do
         expect(WebMock).to have_requested(:get, 'http://localhost:3030/people/lookup?id=3898&source=mnisId').
             with(:headers => {'Accept'=>['*/*', 'application/n-triples'], 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'User-Agent'=>'Ruby'}).once
       end
+
+      it 'merges passed in params with @query_params' do
+
+        request = Parliament::Request::BaseRequest.new(base_url: 'http://localhost:3030/people/lookup')
+        request.instance_variable_set(:@query_params, { test: true })
+        request.get(params: { source: 'mnisId', id: '3898' })
+
+        expect(WebMock).to have_requested(:get, 'http://localhost:3030/people/lookup?test=true&id=3898&source=mnisId').
+            with(:headers => {'Accept'=>['*/*', 'application/n-triples'], 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'User-Agent'=>'Ruby'}).once
+      end
     end
 
     context 'it accepts headers' do

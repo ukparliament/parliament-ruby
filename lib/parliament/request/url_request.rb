@@ -69,7 +69,19 @@ module Parliament
       end
 
       def query_url
-        [@base_url, @endpoint_parts].join('/')
+        uri_string = [@base_url, @endpoint_parts].join('/').gsub(' ', '%20')
+
+        uri = URI.parse(uri_string)
+        uri.query = URI.encode_www_form(@query_params) unless @query_params.empty?
+
+        uri.to_s
+      end
+
+      # @return [Parliament::Request::UrlRequest] self (this is to allow method chaining).
+      def set_url_params(params)
+        @query_params = @query_params.merge(params)
+
+        self
       end
     end
   end
