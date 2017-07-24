@@ -12,7 +12,7 @@ checkout_to_release:
 
 checkout_to_pull_request:
 	git fetch origin refs/pull/$(PULL_REQUEST_NUMBER)/merge
-	git checkout $(PULL_REQUEST_MERGE_SHA1)
+	git checkout $(shell git show-ref –s refs/pull/$(PULL_REQUEST_NUMBER)/merge)
 
 gemset:
 	rvm gemset create parliament-ruby
