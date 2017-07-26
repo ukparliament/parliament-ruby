@@ -1,0 +1,53 @@
+pipelines:
+  parliament-ruby:
+    group: parliament-ruby
+    label_template: "${COUNT}"
+    materials:
+      parliament-ruby-git:
+        git: https://github.com/jammycakes/ukpds.parliament-ruby.git
+        branch: master
+        auto_update: false
+    stages:
+      - release:
+          jobs:
+            release:
+              tasks:
+                - exec:
+                    run_if: passed
+                    command: make
+                    arguments:
+                      - release
+
+  parliament-ruby-PR:
+    group: parliament-ruby
+    label_template: "${COUNT}"
+    materials:
+      parliament-ruby-pr-git:
+        git: https://github.com/jammycakes/ukpds.parliament-ruby.git
+        branch: master
+        auto_update: false
+    environment_variables:
+      PULL_REQUEST_NUMBER:
+      PULL_REQUEST_HEAD_SHA1:
+      PULL_REQUEST_MERGE_SHA1:
+    stages:
+      - build:
+          jobs:
+            build:
+              tasks:
+                - exec:
+                    run_if: passed
+                    command: make
+                    arguments:
+                      - checkout_to_pull_request
+                - exec:
+                    run_if: passed
+                    command: make
+                    arguments:
+                      - build
+                - exec:
+                    run_if: passed
+                    command: make
+                    arguments:
+                      - test
+
