@@ -6,7 +6,7 @@ pipelines:
       parliament-ruby-git:
         git: https://github.com/jammycakes/ukpds.parliament-ruby.git
         branch: master
-        auto_update: false
+        auto_update: true
     stages:
       - release:
           jobs:
@@ -25,13 +25,14 @@ pipelines:
       parliament-ruby-pr-git:
         git: https://github.com/jammycakes/ukpds.parliament-ruby.git
         branch: master
-        auto_update: false
+        auto_update: true
     environment_variables:
       PULL_REQUEST_NUMBER:
       PULL_REQUEST_HEAD_SHA1:
       PULL_REQUEST_MERGE_SHA1:
     stages:
       - build:
+          approval: manual
           jobs:
             build:
               tasks:
