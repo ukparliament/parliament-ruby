@@ -7,7 +7,7 @@ module Parliament
     # @attr_reader [String] base_url the base url of our api. (expected: http://example.com - without the trailing slash).
     # @attr_reader [Hash] headers the headers being sent in the request.
     class BaseRequest
-      attr_reader :base_url, :headers
+      attr_reader :base_url, :headers, :query_params
       # Creates a new instance of Parliament::Request::BaseRequest.
       #
       # An interesting note for #initialize is that setting base_url on the class, or using the environment variable
@@ -59,6 +59,7 @@ module Parliament
         @headers = headers || self.class.headers || {}
         @builder = builder || Parliament::Builder::BaseResponseBuilder
         @decorators = decorators
+        @query_params = {}
       end
 
       # Makes an HTTP GET request and process results into a response.
@@ -85,8 +86,10 @@ module Parliament
       #
       # @return [Parliament::Response::BaseResponse] a Parliament::Response::BaseResponse object containing all of the data returned from the URL.
       def get(params: nil)
+        @query_params = @query_params.merge(params) unless params.nil?
+
         endpoint_uri = URI.parse(query_url)
-        endpoint_uri.query = URI.encode_www_form(params.to_a) unless params.nil?
+        endpoint_uri.query = URI.encode_www_form(@query_params.to_a) unless @query_params.empty?
 
         http = Net::HTTP.new(endpoint_uri.host, endpoint_uri.port)
         http.use_ssl = true if endpoint_uri.scheme == 'https'
