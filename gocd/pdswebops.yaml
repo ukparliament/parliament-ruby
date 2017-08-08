@@ -52,8 +52,3 @@ pipelines:
                     arguments:
                       - test
 
-environments:
-  Web.Linux:
-    pipelines:
-      - parliament-ruby-PR
-      - parliament-ruby
