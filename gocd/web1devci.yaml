@@ -9,6 +9,7 @@ pipelines:
         auto_update: true
     stages:
       - release:
+          approval: manual
           jobs:
             release:
               tasks:
