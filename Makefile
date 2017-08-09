@@ -10,6 +10,10 @@ REL_TAG=$(shell curl -s $(LATEST_REL) | jq -r '.[0].tag_name')
 checkout_to_release:
 	git checkout -b release $(REL_TAG)
 
+checkout_to_pull_request:
+	git fetch origin refs/pull/$(PULL_REQUEST_NUMBER)/merge
+	git checkout $(shell git show-ref –s refs/pull/$(PULL_REQUEST_NUMBER)/merge)
+
 gemset:
 	rvm gemset create parliament-ruby
 	rvm --force gemset empty parliament-ruby
