@@ -106,6 +106,52 @@ module Parliament
         build_response(net_response)
       end
 
+      # Makes an HTTP POST request and process results into a response.
+      #
+      # @example HTTP POST request
+      #   request = Parliament::Request::BaseRequest.new(base_url: 'http://example.com/people/123', headers: {'Content': 'application/json', 'Accept': 'application/json'})
+      #
+      #   # url: http://example.com/people/123
+      #
+      #   response = request.post(body: {}.to_json) #=> #<Parliament::Response::BaseResponse ...>
+      #
+      # @example HTTP POST request with URI encoded form values
+      #   request = Parliament::Request::BaseRequest.new(base_url: 'http://example.com/people/current', headers: {'Content': 'application/json', 'Accept': 'application/json'})
+      #
+      #   # url: http://example.com/people/current?limit=10&page=4&lang=en-gb
+      #
+      #   response = request.post({ limit: 10, page: 4, lang: 'en-gb' }, body: {}.to_json) #=> #<Parliament::Response::BaseResponse ...>
+      #
+      # @raise [Parliament::ServerError] when the server responds with a 5xx status code.
+      # @raise [Parliament::ClientError] when the server responds with a 4xx status code.
+      # @raise [Parliament::NoContentResponseError] when the response body is empty.
+      #
+      # @param [Hash] params (optional) additional URI encoded form values to be added to the URI.
+      # @param [String] body (optional) body of the post request.
+      #
+      # @return [Parliament::Response::BaseResponse] a Parliament::Response::BaseResponse object containing all of the data returned from the URL.
+      def post(params: nil, body: nil)
+        @query_params = @query_params.merge(params) unless params.nil?
+
+        endpoint_uri = URI.parse(query_url)
+        endpoint_uri.query = URI.encode_www_form(@query_params.to_a) unless @query_params.empty?
+
+        http = Net::HTTP.new(endpoint_uri.host, endpoint_uri.port)
+        http.use_ssl = true if endpoint_uri.scheme == 'https'
+
+        net_response = http.start do |h|
+          api_request = Net::HTTP::Post.new(endpoint_uri.request_uri)
+          add_headers(api_request)
+          api_request.body = body unless body.nil?
+
+          h.request api_request
+        end
+
+        handle_errors(net_response)
+
+        build_response(net_response)
+      end
+
       private
 
       # @attr [String] base_url the base url of our api. (expected: http://example.com - without the trailing slash).
@@ -133,17 +179,17 @@ module Parliament
         end
       end
 
-      def handle_errors(response)
-        case response
+      def handle_errors(net_response)
+        case net_response
         when Net::HTTPOK # 2xx Status
-          exception_class = Parliament::NoContentResponseError if response['Content-Length'] == '0'
+          exception_class = Parliament::NoContentResponseError if net_response['Content-Length'] == '0'
         when Net::HTTPClientError # 4xx Status
           exception_class = Parliament::ClientError
         when Net::HTTPServerError # 5xx Status
           exception_class = Parliament::ServerError
         end
 
-        raise exception_class.new(query_url, response) if exception_class
+        raise exception_class.new(query_url, net_response) if exception_class
       end
     end
   end
