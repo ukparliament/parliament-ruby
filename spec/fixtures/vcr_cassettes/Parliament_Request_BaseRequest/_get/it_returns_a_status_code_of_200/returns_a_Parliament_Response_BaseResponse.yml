@@ -27,6 +27,8 @@ http_interactions:
       - nosniff
       Content-Type:
       - application/n-triples; charset=utf-8
+      Content-Length:
+      - 30
       Etag:
       - W/"c3c4a8825a496815a27932c1fb849cab"
       Cache-Control:
@@ -78,6 +80,6 @@ http_interactions:
         <http://id.ukpds.org/d10ee4f0-32f2-40c7-aec5-dff317eadbf4> <http://id.ukpds.org/schema/partyName> "UK Independence Party" .
         <http://id.ukpds.org/d1b3c538-6c2e-4c57-801c-7d2d6c3fce02> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://id.ukpds.org/schema/Party> .
         <http://id.ukpds.org/d1b3c538-6c2e-4c57-801c-7d2d6c3fce02> <http://id.ukpds.org/schema/partyName> "Sinn Fein" .
-    http_version: 
+    http_version:
   recorded_at: Thu, 20 Apr 2017 14:56:41 GMT
 recorded_with: VCR 3.0.3

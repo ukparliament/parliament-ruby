@@ -27,6 +27,8 @@ http_interactions:
       - nosniff
       Content-Type:
       - application/n-triples; charset=utf-8
+      Content-Length:
+      - 30
       Etag:
       - W/"cef63e03e8318b86a5ac9edfcea4cec2"
       Cache-Control:
@@ -41,6 +43,6 @@ http_interactions:
       encoding: UTF-8
       string: "<http://id.ukpds.org/f5812d52-e221-4a51-a167-e74c84995ecb> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>
         <http://id.ukpds.org/schema/Person> .\n"
-    http_version: 
+    http_version:
   recorded_at: Thu, 20 Apr 2017 11:13:03 GMT
 recorded_with: VCR 3.0.3
