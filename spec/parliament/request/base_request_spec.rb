@@ -38,6 +38,12 @@ describe Parliament::Request::BaseRequest, vcr: true do
           Parliament::Request::BaseRequest.new(base_url: 'http://localhost:3030/parties/lookup/mnisId/abc').get
         }.to raise_error(Parliament::NoContentResponseError, '200 HTTP status code received from: http://localhost:3030/parties/lookup/mnisId/abc - OK')
       end
+
+      it 'raises a Parliament::NoContentError if there is no content and has been gzip compressed' do
+        expect {
+          Parliament::Request::BaseRequest.new(base_url: 'http://localhost:3030/parties/lookup/mnisId/abc').get
+        }.to raise_error(Parliament::NoContentResponseError, '200 HTTP status code received from: http://localhost:3030/parties/lookup/mnisId/abc - OK')
+      end
     end
 
     context 'it returns a status code in either the 400 or 500 range' do
@@ -100,13 +106,21 @@ describe Parliament::Request::BaseRequest, vcr: true do
       let(:base_response) { Parliament::Request::BaseRequest.new(base_url: 'http://localhost:3030/parties/current').post }
 
       it 'returns a Parliament::Response::BaseResponse' do
-        stub_request(:post, 'http://localhost:3030/parties/current').to_return(status: 200, body: '{}')
+        stub_request(:post, 'http://localhost:3030/parties/current').to_return(status: 200, body: '{}', headers: { 'Content-Length' => 30 })
 
         expect(base_response).to be_a(Parliament::Response::BaseResponse)
       end
 
       it 'raises a Parliament::NoContentError if there is no content' do
         stub_request(:post, 'http://localhost:3030/parties/lookup/mnisId/abc').to_return(status: [200, 'OK'], headers: { 'Content-Length' => 0 })
+
+        expect {
+          Parliament::Request::BaseRequest.new(base_url: 'http://localhost:3030/parties/lookup/mnisId/abc').post
+        }.to raise_error(Parliament::NoContentResponseError, '200 HTTP status code received from: http://localhost:3030/parties/lookup/mnisId/abc - OK')
+      end
+
+      it 'raises a Parliament::NoContentError if there is no content and has been gzip compressed' do
+        stub_request(:post, 'http://localhost:3030/parties/lookup/mnisId/abc').to_return(status: [200, 'OK'], body: '')
 
         expect {
           Parliament::Request::BaseRequest.new(base_url: 'http://localhost:3030/parties/lookup/mnisId/abc').post
@@ -134,7 +148,7 @@ describe Parliament::Request::BaseRequest, vcr: true do
 
     context 'it accepts query parameters' do
       it 'sets the query parameters correctly when passed in' do
-        stub_request(:post, 'http://localhost:3030/people/lookup?id=3898&source=mnisId').to_return(status: 200)
+        stub_request(:post, 'http://localhost:3030/people/lookup?id=3898&source=mnisId').to_return(status: 200, headers: { 'Content-Length' => 30 })
 
         Parliament::Request::BaseRequest.new(base_url: 'http://localhost:3030/people/lookup').post(params: { source: 'mnisId', id: '3898' })
 
@@ -143,7 +157,7 @@ describe Parliament::Request::BaseRequest, vcr: true do
       end
 
       it 'merges passed in params with @query_params' do
-        stub_request(:post, 'http://localhost:3030/people/lookup?test=true&id=3898&source=mnisId').to_return(status: 200)
+        stub_request(:post, 'http://localhost:3030/people/lookup?test=true&id=3898&source=mnisId').to_return(status: 200, headers: { 'Content-Length' => 30 })
 
         request = Parliament::Request::BaseRequest.new(base_url: 'http://localhost:3030/people/lookup')
         request.instance_variable_set(:@query_params, { test: true })
@@ -156,7 +170,7 @@ describe Parliament::Request::BaseRequest, vcr: true do
 
     context 'it accepts headers' do
       before :each do
-        stub_request(:post, 'http://localhost:3030/people').to_return(status: 200)
+        stub_request(:post, 'http://localhost:3030/people').to_return(status: 200, headers: { 'Content-Length' => 30 })
       end
 
       it 'sets the header correctly when passed in' do
@@ -177,7 +191,7 @@ describe Parliament::Request::BaseRequest, vcr: true do
 
     context 'it accepts a body' do
       before :each do
-        stub_request(:post, 'http://localhost:3030/people').to_return(status: 200)
+        stub_request(:post, 'http://localhost:3030/people').to_return(status: 200, headers: { 'Content-Length' => 30 })
       end
 
       it 'sends the body as passed' do

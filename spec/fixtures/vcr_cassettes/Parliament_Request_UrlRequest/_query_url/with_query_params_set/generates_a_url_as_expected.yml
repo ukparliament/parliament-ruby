@@ -26,7 +26,9 @@ http_interactions:
       X-Content-Type-Options:
       - nosniff
       Content-Type:
-      - application/n-triples; charset=utf-8
+      - application/n-triples;charset=utf-8
+      Content-Length:
+      - 30
       Etag:
       - W/"05e7a0e4523d4b7fd2d5c532758dd189"
       Cache-Control:

@@ -26,7 +26,9 @@ http_interactions:
       X-Content-Type-Options:
       - nosniff
       Content-Type:
-      - application/n-triples; charset=utf-8
+      - application/n-triples;charset=utf-8
+      Content-Length:
+      - 30
       Etag:
       - W/"05e7a0e4523d4b7fd2d5c532758dd189"
       Cache-Control:
@@ -93,6 +95,6 @@ http_interactions:
         <http://id.ukpds.org/fa3dbdc1-41db-45e5-927c-c65e1940072d> <http://id.ukpds.org/schema/partyMembershipHasParty> <http://id.ukpds.org/f4e62fb8-2cf4-41b2-b7a3-7e621522a30d> .
         <http://id.ukpds.org/fa3dbdc1-41db-45e5-927c-c65e1940072d> <http://id.ukpds.org/schema/partyMembershipStartDate> "2010-07-15"^^<http://www.w3.org/2001/XMLSchema#date> .
 
-    http_version: 
+    http_version:
   recorded_at: Thu, 20 Apr 2017 11:55:10 GMT
 recorded_with: VCR 3.0.3
