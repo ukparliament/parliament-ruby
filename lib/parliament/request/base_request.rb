@@ -139,13 +139,16 @@ module Parliament
         http = Net::HTTP.new(endpoint_uri.host, endpoint_uri.port)
         http.use_ssl = true if endpoint_uri.scheme == 'https'
 
-        net_response = http.start do |h|
-          api_request = Net::HTTP::Post.new(endpoint_uri.request_uri)
-          add_headers(api_request)
-          api_request.body = body unless body.nil?
+        request = Net::HTTP::Post.new(
+            endpoint_uri.request_uri,
+            'Content-Type' => 'application/json'
+        )
 
-          h.request api_request
-        end
+        add_headers(request)
+
+        request.body = body unless body.nil?
+
+        net_response = http.request(request)
 
         handle_errors(net_response)
 
@@ -181,12 +184,12 @@ module Parliament
 
       def handle_errors(net_response)
         case net_response
-        when Net::HTTPOK # 2xx Status
-          exception_class = Parliament::NoContentResponseError if net_response['Content-Length'] == '0'
-        when Net::HTTPClientError # 4xx Status
-          exception_class = Parliament::ClientError
-        when Net::HTTPServerError # 5xx Status
-          exception_class = Parliament::ServerError
+          when Net::HTTPOK # 2xx Status
+            exception_class = Parliament::NoContentResponseError if net_response['Content-Length'] == '0'
+          when Net::HTTPClientError # 4xx Status
+            exception_class = Parliament::ClientError
+          when Net::HTTPServerError # 5xx Status
+            exception_class = Parliament::ServerError
         end
 
         raise exception_class.new(query_url, net_response) if exception_class
