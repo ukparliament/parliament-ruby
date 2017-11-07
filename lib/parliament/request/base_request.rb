@@ -184,12 +184,12 @@ module Parliament
 
       def handle_errors(net_response)
         case net_response
-          when Net::HTTPOK # 2xx Status
-            exception_class = Parliament::NoContentResponseError if net_response['Content-Length'] == '0'
-          when Net::HTTPClientError # 4xx Status
-            exception_class = Parliament::ClientError
-          when Net::HTTPServerError # 5xx Status
-            exception_class = Parliament::ServerError
+        when Net::HTTPOK # 2xx Status
+          exception_class = Parliament::NoContentResponseError if net_response['Content-Length'] == '0' || (net_response['Content-Length'].nil? && net_response.body.nil?)
+        when Net::HTTPClientError # 4xx Status
+          exception_class = Parliament::ClientError
+        when Net::HTTPServerError # 5xx Status
+          exception_class = Parliament::ServerError
         end
 
         raise exception_class.new(query_url, net_response) if exception_class

@@ -27,6 +27,8 @@ http_interactions:
       - nosniff
       Content-Type:
       - application/n-triples; charset=utf-8
+      Content-Length:
+      - 30      
       Etag:
       - W/"72bd0c17d05451b4edf7efb2f314d0f2"
       Cache-Control:
@@ -50,6 +52,6 @@ http_interactions:
         <http://id.ukpds.org/a42f21bf-5ea8-49ad-8f8a-68a892d54669> <http://id.ukpds.org/schema/personGivenName> "Person 3 - givenName" .
         <http://id.ukpds.org/a42f21bf-5ea8-49ad-8f8a-68a892d54669> <http://id.ukpds.org/schema/personFamilyName> "Person 3 - familyName" .
 
-    http_version: 
+    http_version:
   recorded_at: Fri, 31 Mar 2017 10:43:56 GMT
 recorded_with: VCR 3.0.3
