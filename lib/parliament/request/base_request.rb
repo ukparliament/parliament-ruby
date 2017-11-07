@@ -140,8 +140,8 @@ module Parliament
         http.use_ssl = true if endpoint_uri.scheme == 'https'
 
         request = Net::HTTP::Post.new(
-            endpoint_uri.request_uri,
-            'Content-Type' => 'application/json'
+          endpoint_uri.request_uri,
+          'Content-Type' => 'application/json'
         )
 
         add_headers(request)
