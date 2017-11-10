@@ -201,5 +201,18 @@ describe Parliament::Request::BaseRequest, vcr: true do
             with(:body => '{"foo":"bar","test":true,"number":1}').once
       end
     end
+
+    context 'it accepts a timeout' do
+      before :each do
+        stub_request(:post, 'http://localhost:3030/people').to_return(status: 200, body: '{}')
+      end
+
+      it 'still processes our request' do
+        Parliament::Request::BaseRequest.new(base_url: 'http://localhost:3030/people').post(body: { foo: 'bar', test: true, number: 1 }.to_json, timeout: 1)
+
+        expect(WebMock).to have_requested(:post, 'http://localhost:3030/people').
+            with(:body => '{"foo":"bar","test":true,"number":1}').once
+      end
+    end
   end
 end
