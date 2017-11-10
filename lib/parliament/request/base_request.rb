@@ -128,9 +128,10 @@ module Parliament
       #
       # @param [Hash] params (optional) additional URI encoded form values to be added to the URI.
       # @param [String] body (optional) body of the post request.
+      # @param [Integer] timeout (optional) a Net::HTTP.read_timeout value passed suring the post.
       #
       # @return [Parliament::Response::BaseResponse] a Parliament::Response::BaseResponse object containing all of the data returned from the URL.
-      def post(params: nil, body: nil)
+      def post(params: nil, body: nil, timeout: 60)
         @query_params = @query_params.merge(params) unless params.nil?
 
         endpoint_uri = URI.parse(query_url)
@@ -138,6 +139,7 @@ module Parliament
 
         http = Net::HTTP.new(endpoint_uri.host, endpoint_uri.port)
         http.use_ssl = true if endpoint_uri.scheme == 'https'
+        http.read_timeout = timeout
 
         request = Net::HTTP::Post.new(
           endpoint_uri.request_uri,
