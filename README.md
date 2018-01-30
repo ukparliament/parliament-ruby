@@ -21,7 +21,7 @@
     - [`#filter`](#filter)
     - [`#sort_by`](#sort_by)
     - [`#reverse_sort_by`](#reverse_sort_by)
-  - [`Partliament::Utils`](#partliamentutils)
+  - [`Parliament::Utils`](#parliamentutils)
     - [Methods](#methods-1)
       - [`Parliament::Utils.sort_by`](#parliamentutilssort_by)
       - [`Parliament::Utils.reverse_sort_by`](#parliamentutilsreverse_sort_by)
@@ -137,7 +137,7 @@ response.each do |node|
   #
   # You would be able to access the `name` attribute like so:
   puts node.name #=> 'Matthew Rayner'
-  
+
   # If your n-triple file contains a triple who's object is a URI, and that URI is defined within your file, a link will
   # be created, allowing you to 'connect' the two objects. For example, with the following triples:
   # <http://id.ukpds.org/1234> <http://id.ukpds.org/schema/name> 'Matthew Rayner' .
@@ -148,7 +148,7 @@ response.each do |node|
   puts node.graph_id        #=> '12345'
   puts node.name            #=> 'Matthew Rayner'
   puts node.partyMembership #=> [#<Grom::Node @startDate=...>]
-  
+
   puts node.partyMembership.first.startDate #=> "1992-04-09"
 end
 ```
@@ -214,7 +214,7 @@ sorted_response.each { |node| puts "#{node.graph_id} - #{node.respond_to?(:start
 # http://id.ukpds.org/3141 - undefined
 ```
 
-### `Partliament::Utils`
+### `Parliament::Utils`
 Included with [parliament-ruby][parliament-ruby] is `Parliament::Utils`. This module includes helper methods commonly used throughout parliament.uk.
 
 #### Methods
