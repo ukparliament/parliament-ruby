@@ -13,7 +13,7 @@ module Parliament
       #
       # @param [String] base_url the base url of our api. (expected: http://example.com - without the trailing slash).
       # @param [Hash] headers the headers being sent in the request.
-      # @param [Parliament::Builder] builder the builder to use in order to build a response.
+      # @param [Parliament::Builder] builder the builder to use in order to build a response.{{}}
       # @param [Module] decorators the decorator module to use in order to provide possible alias methods for any objects created by the builder.
       # @example Passing headers
       #
@@ -53,6 +53,7 @@ module Parliament
       # @return [Parliament::Request::UrlRequest] self (this is to allow method chaining).
       def method_missing(method, *params, &block)
         @endpoint_parts << method.to_s
+
         @endpoint_parts << params
         @endpoint_parts = @endpoint_parts.flatten!
 
@@ -72,7 +73,6 @@ module Parliament
         uri_string = [@base_url, @endpoint_parts].join('/').gsub(' ', '%20')
 
         uri = URI.parse(uri_string)
-        uri.query = URI.encode_www_form(@query_params) unless @query_params.empty?
 
         uri.to_s
       end
