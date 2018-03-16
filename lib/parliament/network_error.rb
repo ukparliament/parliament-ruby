@@ -7,7 +7,7 @@ module Parliament
   # @since 0.6.0
   class NetworkError < StandardError
     def initialize(url, response)
-      super("#{response.code} HTTP status code received from: #{url} - #{response.message}")
+      super("#{response.code} HTTP status code received from: #{url} - #{response.status_message}")
     end
   end
 end
