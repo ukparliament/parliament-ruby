@@ -195,7 +195,7 @@ module Parliament
         endpoint = URI.parse(query_url)
 
         temp_params = query_params
-        temp_params = temp_params.merge(URI.decode_www_form(endpoint.query)) if endpoint.query
+        temp_params = temp_params.merge(URI.decode_www_form(endpoint.query).to_h) if endpoint.query
         temp_params = temp_params.merge(additional_params) unless additional_params.nil?
 
         endpoint.query = nil
