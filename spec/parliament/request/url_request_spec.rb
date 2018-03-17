@@ -38,7 +38,7 @@ describe Parliament::Request::UrlRequest, vcr: true do
 
         request.people.set_url_params({ person_id: '12345', foo: 'bar', test: true })
 
-        expect(request.query_url.to_s).to eq('http://localhost:3030/people')
+        expect(request.query_url.to_s).to eq('http://localhost:3030/people?person_id=12345&foo=bar&test=true')
 
         request.get(params: { foo: 'foo', hello: 'world' })
 
@@ -52,6 +52,11 @@ describe Parliament::Request::UrlRequest, vcr: true do
     it 'builds a query string' do
       request = subject.people.set_url_params({ people_id: 1234, house_id: 5678 })
       expect(request.instance_variable_get(:@query_params)).to eq({ :people_id=>1234, :house_id=>5678 })
+    end
+
+    it 'is included in #query_url' do
+      request = Parliament::Request::UrlRequest.new(base_url: 'http://localhost:3030', decorators: Parliament::Grom::Decorator).set_url_params({ people_id: 1234, house_id: 5678 })
+      expect(request.query_url.to_s).to eq('http://localhost:3030/?people_id=1234&house_id=5678')
     end
   end
 end

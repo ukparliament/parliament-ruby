@@ -73,6 +73,7 @@ module Parliament
         uri_string = [@base_url, @endpoint_parts].join('/').gsub(' ', '%20')
 
         uri = URI.parse(uri_string)
+        uri.query = URI.encode_www_form(@query_params) unless @query_params.empty?
 
         uri.to_s
       end

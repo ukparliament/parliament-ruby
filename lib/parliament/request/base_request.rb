@@ -90,24 +90,21 @@ module Parliament
       def get(params: nil)
         Typhoeus::Config.user_agent = 'Ruby'
 
-        @query_params = @query_params.merge(params) unless params.nil?
-
-        endpoint_uri    = URI.parse(query_url)
-        endpoint_params = URI.encode_www_form(@query_params.to_a) unless @query_params.empty?
+        uri_hash = separate_uri(query_url, @query_params, params)
 
         typhoeus_request = Typhoeus::Request.new(
-          endpoint_uri,
+          uri_hash[:endpoint],
           method:          :get,
-          params:          endpoint_params,
+          params:          uri_hash[:params],
           headers:         headers,
           accept_encoding: 'gzip'
         )
 
-        net_response = typhoeus_request.run
+        response = typhoeus_request.run
 
-        handle_errors(net_response)
+        handle_errors(response)
 
-        build_response(net_response)
+        build_response(response)
       end
 
       # Makes an HTTP POST request and process results into a response.
@@ -138,26 +135,23 @@ module Parliament
       def post(params: nil, body: nil, timeout: 60)
         Typhoeus::Config.user_agent = 'Ruby'
 
-        @query_params = @query_params.merge(params) unless params.nil?
-
-        endpoint_uri       = URI.parse(query_url)
-        endpoint_params    = URI.encode_www_form(@query_params.to_a) unless @query_params.empty?
+        uri_hash = separate_uri(query_url, @query_params, params)
 
         typhoeus_request = Typhoeus::Request.new(
-          endpoint_uri,
+          uri_hash[:endpoint],
           method:          :post,
-          params:          endpoint_params,
+          params:          uri_hash[:params],
           headers:         headers.merge({ 'Content-Type' => 'application/json' }),
           accept_encoding: 'gzip',
           timeout:         timeout,
           body:            body
         )
 
-        net_response = typhoeus_request.run
+        response = typhoeus_request.run
 
-        handle_errors(net_response)
+        handle_errors(response)
 
-        build_response(net_response)
+        build_response(response)
       end
 
       private
@@ -168,8 +162,8 @@ module Parliament
         attr_accessor :base_url, :headers
       end
 
-      def build_response(net_response)
-        @builder.new(response: net_response, decorators: @decorators).build
+      def build_response(response)
+        @builder.new(response: response, decorators: @decorators).build
       end
 
       def query_url
@@ -184,17 +178,31 @@ module Parliament
         default_headers.merge(@headers)
       end
 
-      def handle_errors(net_response)
-        exception_class = if net_response.success? # 2xx Status
-                            Parliament::NoContentResponseError if net_response.headers&.[]('Content-Length') == '0' ||
-                              (net_response.headers&.[]('Content-Length').nil? && net_response.body.empty?)
-                          elsif /\A4\w{2}/.match(net_response.code.to_s) # 4xx Status
+      def handle_errors(response)
+        exception_class = if response.success? # 2xx Status
+                            Parliament::NoContentResponseError if response.headers&.[]('Content-Length') == '0' ||
+                              (response.headers&.[]('Content-Length').nil? && response.body.empty?)
+                          elsif /\A4\w{2}/.match(response.code.to_s) # 4xx Status
                             Parliament::ClientError
-                          elsif /\A5\w{2}/.match(net_response.code.to_s) # 5xx Status
+                          elsif /\A5\w{2}/.match(response.code.to_s) # 5xx Status
                             Parliament::ServerError
                           end
 
-        raise exception_class.new(query_url, net_response) if exception_class
+        raise exception_class.new(query_url, response) if exception_class
+      end
+
+      def separate_uri(query_url, query_params, additional_params)
+        endpoint = URI.parse(query_url)
+
+        temp_params = query_params
+        temp_params = temp_params.merge(URI.decode_www_form(endpoint.query)) if endpoint.query
+        temp_params = temp_params.merge(additional_params) unless additional_params.nil?
+
+        endpoint.query = nil
+
+        encoded_params = URI.encode_www_form(temp_params.to_a) unless temp_params.empty?
+
+        { endpoint: endpoint, params: encoded_params }
       end
     end
   end

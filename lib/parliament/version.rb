@@ -1,3 +1,3 @@
 module Parliament
-  VERSION = '0.10.2'.freeze
+  VERSION = '1.0.0.pre2'.freeze
 end
