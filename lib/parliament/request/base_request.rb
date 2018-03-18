@@ -194,8 +194,8 @@ module Parliament
       def separate_uri(query_url, query_params, additional_params)
         endpoint = URI.parse(query_url)
 
-        temp_params = query_params
-        temp_params = temp_params.merge(URI.decode_www_form(endpoint.query).to_h) if endpoint.query
+        temp_params = endpoint.query ? URI.decode_www_form(endpoint.query).to_h : {}
+        temp_params = temp_params.merge(query_params)
         temp_params = temp_params.merge(additional_params) unless additional_params.nil?
 
         endpoint.query = nil
