@@ -194,15 +194,21 @@ module Parliament
       def separate_uri(query_url, query_params, additional_params)
         endpoint = URI.parse(query_url)
 
-        temp_params = endpoint.query ? URI.decode_www_form(endpoint.query).to_h : {}
+        temp_params = {}
+
+        if endpoint.query
+          # Returns [ ["key", "value"], ["key", "value"] ]
+          key_value_array = URI.decode_www_form(endpoint.query)
+          key_value_array.map! { |key_value_pair| [ key_value_pair[0].to_sym, key_value_pair[1] ] }
+          temp_params = key_value_array.to_h
+        end
+
         temp_params = temp_params.merge(query_params)
         temp_params = temp_params.merge(additional_params) unless additional_params.nil?
 
         endpoint.query = nil
 
-        encoded_params = URI.encode_www_form(temp_params.to_a) unless temp_params.empty?
-
-        { endpoint: endpoint, params: encoded_params }
+        { endpoint: endpoint, params: temp_params }
       end
     end
   end
