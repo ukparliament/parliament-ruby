@@ -9,6 +9,9 @@ module Parliament
     # @attr_reader [String] base_url the base url of our api. (expected: http://example.com - without the trailing slash).
     # @attr_reader [Hash] headers the headers being sent in the request.
     class BaseRequest
+      TIMEOUT        = 40.freeze
+      CONNECTTIMEOUT = 5.freeze
+
       attr_reader :base_url, :headers, :query_params
       # Creates a new instance of Parliament::Request::BaseRequest.
       #
@@ -87,7 +90,7 @@ module Parliament
       # @param [Hash] params (optional) additional URI encoded form values to be added to the URI.
       #
       # @return [Parliament::Response::BaseResponse] a Parliament::Response::BaseResponse object containing all of the data returned from the URL.
-      def get(params: nil)
+      def get(params: nil, timeout: TIMEOUT, connecttimeout: CONNECTTIMEOUT)
         Typhoeus::Config.user_agent = 'Ruby'
 
         uri_hash = separate_uri(query_url, @query_params, params)
@@ -97,6 +100,8 @@ module Parliament
           method:          :get,
           params:          uri_hash[:params],
           headers:         headers,
+          timeout:         timeout,
+          connecttimeout:  connecttimeout,
           accept_encoding: 'gzip'
         )
 
@@ -132,7 +137,7 @@ module Parliament
       # @param [Integer] timeout (optional) a Net::HTTP.read_timeout value passed suring the post.
       #
       # @return [Parliament::Response::BaseResponse] a Parliament::Response::BaseResponse object containing all of the data returned from the URL.
-      def post(params: nil, body: nil, timeout: 60)
+      def post(params: nil, body: nil, timeout: TIMEOUT, connecttimeout: CONNECTTIMEOUT)
         Typhoeus::Config.user_agent = 'Ruby'
 
         uri_hash = separate_uri(query_url, @query_params, params)
@@ -144,6 +149,7 @@ module Parliament
           headers:         headers.merge({ 'Content-Type' => 'application/json' }),
           accept_encoding: 'gzip',
           timeout:         timeout,
+          connecttimeout:  connecttimeout,
           body:            body
         )
 
