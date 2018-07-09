@@ -13,7 +13,7 @@ module Parliament
       #
       # @param [String] base_url the base url of our api. (expected: http://example.com - without the trailing slash).
       # @param [Hash] headers the headers being sent in the request.
-      # @param [Parliament::Builder] builder the builder to use in order to build a response.{{}}
+      # @param [Parliament::Builder] builder the builder to use in order to build a response.
       # @param [Module] decorators the decorator module to use in order to provide possible alias methods for any objects created by the builder.
       # @example Passing headers
       #
