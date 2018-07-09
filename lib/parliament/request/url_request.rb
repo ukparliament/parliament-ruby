@@ -53,6 +53,7 @@ module Parliament
       # @return [Parliament::Request::UrlRequest] self (this is to allow method chaining).
       def method_missing(method, *params, &block)
         @endpoint_parts << method.to_s
+
         @endpoint_parts << params
         @endpoint_parts = @endpoint_parts.flatten!
 

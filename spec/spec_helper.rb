@@ -1,5 +1,6 @@
 require 'simplecov'
 require 'coveralls'
+
 SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter.new([
   Coveralls::SimpleCov::Formatter,
   SimpleCov::Formatter::HTMLFormatter
@@ -20,3 +21,4 @@ VCR.configure do |config|
   config.hook_into :webmock # or :fakeweb
   config.configure_rspec_metadata!
 end
+

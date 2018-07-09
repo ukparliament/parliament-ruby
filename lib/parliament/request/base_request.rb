@@ -1,3 +1,5 @@
+require 'typhoeus'
+
 module Parliament
   module Request
     # Base request object, allowing the user to make a request to an API.
@@ -7,6 +9,9 @@ module Parliament
     # @attr_reader [String] base_url the base url of our api. (expected: http://example.com - without the trailing slash).
     # @attr_reader [Hash] headers the headers being sent in the request.
     class BaseRequest
+      TIMEOUT        = 40.freeze
+      CONNECTTIMEOUT = 5.freeze
+
       attr_reader :base_url, :headers, :query_params
       # Creates a new instance of Parliament::Request::BaseRequest.
       #
@@ -55,10 +60,10 @@ module Parliament
       # @param [Parliament::Builder] builder the builder to use in order to build a response.
       # @params [Module] decorators the decorator module to use in order to provide possible alias methods for any objects created by the builder.
       def initialize(base_url: nil, headers: nil, builder: nil, decorators: nil)
-        @base_url = base_url || self.class.base_url
-        @headers = headers || self.class.headers || {}
-        @builder = builder || Parliament::Builder::BaseResponseBuilder
-        @decorators = decorators
+        @base_url     = base_url || self.class.base_url
+        @headers      = headers || self.class.headers || {}
+        @builder      = builder || Parliament::Builder::BaseResponseBuilder
+        @decorators   = decorators
         @query_params = {}
       end
 
@@ -85,25 +90,26 @@ module Parliament
       # @param [Hash] params (optional) additional URI encoded form values to be added to the URI.
       #
       # @return [Parliament::Response::BaseResponse] a Parliament::Response::BaseResponse object containing all of the data returned from the URL.
-      def get(params: nil)
-        @query_params = @query_params.merge(params) unless params.nil?
+      def get(params: nil, timeout: TIMEOUT, connecttimeout: CONNECTTIMEOUT)
+        Typhoeus::Config.user_agent = 'Ruby'
 
-        endpoint_uri = URI.parse(query_url)
-        endpoint_uri.query = URI.encode_www_form(@query_params.to_a) unless @query_params.empty?
+        uri_hash = separate_uri(query_url, @query_params, params)
 
-        http = Net::HTTP.new(endpoint_uri.host, endpoint_uri.port)
-        http.use_ssl = true if endpoint_uri.scheme == 'https'
+        typhoeus_request = Typhoeus::Request.new(
+          uri_hash[:endpoint],
+          method:          :get,
+          params:          uri_hash[:params],
+          headers:         headers,
+          timeout:         timeout,
+          connecttimeout:  connecttimeout,
+          accept_encoding: 'gzip'
+        )
 
-        net_response = http.start do |h|
-          api_request = Net::HTTP::Get.new(endpoint_uri.request_uri)
-          add_headers(api_request)
+        response = typhoeus_request.run
 
-          h.request api_request
-        end
+        handle_errors(response)
 
-        handle_errors(net_response)
-
-        build_response(net_response)
+        build_response(response)
       end
 
       # Makes an HTTP POST request and process results into a response.
@@ -131,30 +137,27 @@ module Parliament
       # @param [Integer] timeout (optional) a Net::HTTP.read_timeout value passed suring the post.
       #
       # @return [Parliament::Response::BaseResponse] a Parliament::Response::BaseResponse object containing all of the data returned from the URL.
-      def post(params: nil, body: nil, timeout: 60)
-        @query_params = @query_params.merge(params) unless params.nil?
+      def post(params: nil, body: nil, timeout: TIMEOUT, connecttimeout: CONNECTTIMEOUT)
+        Typhoeus::Config.user_agent = 'Ruby'
 
-        endpoint_uri = URI.parse(query_url)
-        endpoint_uri.query = URI.encode_www_form(@query_params.to_a) unless @query_params.empty?
+        uri_hash = separate_uri(query_url, @query_params, params)
 
-        http = Net::HTTP.new(endpoint_uri.host, endpoint_uri.port)
-        http.use_ssl = true if endpoint_uri.scheme == 'https'
-        http.read_timeout = timeout
-
-        request = Net::HTTP::Post.new(
-          endpoint_uri.request_uri,
-          'Content-Type' => 'application/json'
+        typhoeus_request = Typhoeus::Request.new(
+          uri_hash[:endpoint],
+          method:          :post,
+          params:          uri_hash[:params],
+          headers:         headers.merge({ 'Content-Type' => 'application/json' }),
+          accept_encoding: 'gzip',
+          timeout:         timeout,
+          connecttimeout:  connecttimeout,
+          body:            body
         )
 
-        add_headers(request)
+        response = typhoeus_request.run
 
-        request.body = body unless body.nil?
+        handle_errors(response)
 
-        net_response = http.request(request)
-
-        handle_errors(net_response)
-
-        build_response(net_response)
+        build_response(response)
       end
 
       private
@@ -165,8 +168,8 @@ module Parliament
         attr_accessor :base_url, :headers
       end
 
-      def build_response(net_response)
-        @builder.new(response: net_response, decorators: @decorators).build
+      def build_response(response)
+        @builder.new(response: response, decorators: @decorators).build
       end
 
       def query_url
@@ -174,28 +177,46 @@ module Parliament
       end
 
       def default_headers
-        { 'Accept' => 'application/n-triples' }
+        { 'Accept' => ['*/*', 'application/n-triples'] }
       end
 
-      def add_headers(request)
-        headers = default_headers.merge(@headers)
-        headers.each do |key, value|
-          request.add_field(key, value)
-        end
+      def headers
+        default_headers.merge(@headers)
       end
 
-      def handle_errors(net_response)
-        case net_response
-        when Net::HTTPOK # 2xx Status
-          exception_class = Parliament::NoContentResponseError if net_response['Content-Length'] == '0' || (net_response['Content-Length'].nil? && net_response.body.nil?)
-        when Net::HTTPClientError # 4xx Status
-          exception_class = Parliament::ClientError
-        when Net::HTTPServerError # 5xx Status
-          exception_class = Parliament::ServerError
+      def handle_errors(response)
+        exception_class = if response.success? # 2xx Status
+                            Parliament::NoContentResponseError if response.headers&.[]('Content-Length') == '0' ||
+                              (response.headers&.[]('Content-Length').nil? && response.body.empty?)
+                          elsif /\A4\w{2}/.match(response.code.to_s) # 4xx Status
+                            Parliament::ClientError
+                          elsif /\A5\w{2}/.match(response.code.to_s) # 5xx Status
+                            Parliament::ServerError
+                          end
+
+        raise exception_class.new(query_url, response) if exception_class
+      end
+
+      def separate_uri(query_url, query_params, additional_params)
+        endpoint = URI.parse(query_url)
+
+        temp_params = {}
+
+        if endpoint.query
+          # Returns [ ["key", "value"], ["key", "value"] ]
+          key_value_array = URI.decode_www_form(endpoint.query)
+          key_value_array.map! { |key_value_pair| [ key_value_pair[0].to_sym, key_value_pair[1] ] }
+          temp_params = key_value_array.to_h
         end
 
-        raise exception_class.new(query_url, net_response) if exception_class
+        temp_params = temp_params.merge(query_params)
+        temp_params = temp_params.merge(additional_params) unless additional_params.nil?
+
+        endpoint.query = nil
+
+        { endpoint: endpoint, params: temp_params }
       end
     end
   end
 end
+

@@ -69,17 +69,16 @@ describe Parliament::Request::BaseRequest, vcr: true do
         Parliament::Request::BaseRequest.new(base_url: 'http://localhost:3030/people/lookup').get(params: { source: 'mnisId', id: '3898' })
 
         expect(WebMock).to have_requested(:get, 'http://localhost:3030/people/lookup?id=3898&source=mnisId').
-            with(:headers => {'Accept'=>['*/*', 'application/n-triples'], 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'User-Agent'=>'Ruby'}).once
+            with(:headers => {'Accept'=>['*/*', 'application/n-triples'], 'User-Agent'=>'Ruby'}).once
       end
 
       it 'merges passed in params with @query_params' do
-
         request = Parliament::Request::BaseRequest.new(base_url: 'http://localhost:3030/people/lookup')
         request.instance_variable_set(:@query_params, { test: true })
         request.get(params: { source: 'mnisId', id: '3898' })
 
         expect(WebMock).to have_requested(:get, 'http://localhost:3030/people/lookup?test=true&id=3898&source=mnisId').
-            with(:headers => {'Accept'=>['*/*', 'application/n-triples'], 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'User-Agent'=>'Ruby'}).once
+            with(:headers => {'Accept'=>['*/*', 'application/n-triples'], 'User-Agent'=>'Ruby'}).once
       end
     end
 
@@ -89,14 +88,14 @@ describe Parliament::Request::BaseRequest, vcr: true do
         Parliament::Request::BaseRequest.new(base_url: 'http://localhost:3030/people').get
 
         expect(WebMock).to have_requested(:get, 'http://localhost:3030/people').
-            with(:headers => {'Accept'=>['*/*', 'application/n-triples'], 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Access-Token'=>'Test-Token', 'User-Agent'=>'Ruby'}).once
+            with(:headers => {'Accept'=>['*/*', 'application/n-triples'], 'Access-Token'=>'Test-Token', 'User-Agent'=>'Ruby'}).once
       end
 
       it 'sets the default headers only when no additional headers passed' do
         Parliament::Request::BaseRequest.new(base_url: 'http://localhost:3030/people').get
 
         expect(WebMock).to have_requested(:get, 'http://localhost:3030/people').
-            with(:headers => {'Accept'=>['*/*', 'application/n-triples'], 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'User-Agent'=>'Ruby'}).once
+            with(:headers => {'Accept'=>['*/*', 'application/n-triples'], 'User-Agent'=>'Ruby'}).once
       end
     end
   end
@@ -153,7 +152,7 @@ describe Parliament::Request::BaseRequest, vcr: true do
         Parliament::Request::BaseRequest.new(base_url: 'http://localhost:3030/people/lookup').post(params: { source: 'mnisId', id: '3898' })
 
         expect(WebMock).to have_requested(:post, 'http://localhost:3030/people/lookup?id=3898&source=mnisId').
-            with(:headers => {'Accept'=>['*/*', 'application/n-triples'], 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'User-Agent'=>'Ruby'}).once
+            with(:headers => {'Accept'=>['*/*', 'application/n-triples'], 'User-Agent'=>'Ruby'}).once
       end
 
       it 'merges passed in params with @query_params' do
@@ -164,7 +163,7 @@ describe Parliament::Request::BaseRequest, vcr: true do
         request.post(params: { source: 'mnisId', id: '3898' })
 
         expect(WebMock).to have_requested(:post, 'http://localhost:3030/people/lookup?test=true&id=3898&source=mnisId').
-            with(:headers => {'Accept'=>['*/*', 'application/n-triples'], 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'User-Agent'=>'Ruby'}).once
+            with(:headers => {'Accept'=>['*/*', 'application/n-triples'], 'User-Agent'=>'Ruby'}).once
       end
     end
 
@@ -178,14 +177,14 @@ describe Parliament::Request::BaseRequest, vcr: true do
         Parliament::Request::BaseRequest.new(base_url: 'http://localhost:3030/people').post
 
         expect(WebMock).to have_requested(:post, 'http://localhost:3030/people').
-            with(:headers => {'Accept'=>['*/*', 'application/n-triples'], 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Access-Token'=>'Test-Token', 'User-Agent'=>'Ruby'}).once
+            with(:headers => {'Accept'=>['*/*', 'application/n-triples'], 'Access-Token'=>'Test-Token', 'User-Agent'=>'Ruby'}).once
       end
 
       it 'sets the default headers only when no additional headers passed' do
         Parliament::Request::BaseRequest.new(base_url: 'http://localhost:3030/people').post
 
         expect(WebMock).to have_requested(:post, 'http://localhost:3030/people').
-            with(:headers => {'Accept'=>['*/*', 'application/n-triples'], 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'User-Agent'=>'Ruby'}).once
+            with(:headers => {'Accept'=>['*/*', 'application/n-triples'], 'User-Agent'=>'Ruby'}).once
       end
     end
 

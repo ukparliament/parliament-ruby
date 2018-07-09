@@ -7,42 +7,29 @@ http_interactions:
       encoding: US-ASCII
       string: ''
     headers:
-      Accept-Encoding:
-      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      User-Agent:
+      - Ruby
       Accept:
       - "*/*"
       - application/n-triples
-      User-Agent:
-      - Ruby
+      Expect:
+      - ''
   response:
     status:
       code: 200
       message: OK
     headers:
-      X-Frame-Options:
-      - SAMEORIGIN
-      X-Xss-Protection:
-      - 1; mode=block
-      X-Content-Type-Options:
-      - nosniff
       Content-Type:
-      - application/n-triples; charset=utf-8
-      Content-Length:
-      - 30
-      Etag:
-      - W/"cef63e03e8318b86a5ac9edfcea4cec2"
-      Cache-Control:
-      - max-age=0, private, must-revalidate
-      X-Request-Id:
-      - 77ad78fd-da62-4ec7-9314-10dce39a01bc
-      X-Runtime:
-      - '0.094125'
+      - text/plain
+      X-Cascade:
+      - pass
       Transfer-Encoding:
       - chunked
+      Content-Length:
+      - '23'
     body:
       encoding: UTF-8
-      string: "<http://id.ukpds.org/f5812d52-e221-4a51-a167-e74c84995ecb> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>
-        <http://id.ukpds.org/schema/Person> .\n"
-    http_version:
-  recorded_at: Thu, 20 Apr 2017 11:13:03 GMT
+      string: 'Not Found: /people/lookup'
+    http_version: 
+  recorded_at: Wed, 14 Feb 2018 15:48:21 GMT
 recorded_with: VCR 3.0.3
