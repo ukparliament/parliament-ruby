@@ -59,7 +59,7 @@ pipelines:
                       - test
 
 environments:
-  Web.DEVCI:
+  WebDEVCI:
     pipelines:
       - GEM-parliament-ruby
       - GEM-parliament-ruby-PR
