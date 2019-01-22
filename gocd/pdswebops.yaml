@@ -53,7 +53,7 @@ pipelines:
                       - test
 
 environments:
-  Web.DEVCI:
+  WebDEVCI:
     pipelines:
       - parliament-ruby
       - parliament-ruby-PR
