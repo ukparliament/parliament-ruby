@@ -6,8 +6,8 @@ require 'parliament/version'
 Gem::Specification.new do |spec|
   spec.name          = 'parliament-ruby'
   spec.version       = Parliament::VERSION
-  spec.authors       = ['Matt Rayner']
-  spec.email         = ['mattrayner1@gmail.com']
+  spec.authors       = ['Matt Rayner', 'Rebecca Appleyard', 'Giuseppe De Santis']
+  spec.email         = ['mattrayner1@gmail.com', 'rklappleyard@gmail.com']
   spec.summary       = %q{Internal parliamentary API wrapper}
   spec.description   = %q{Internal parliamentary data API wrapper for ruby}
   spec.homepage      = 'http://github.com/ukparliament/parliament_ruby'

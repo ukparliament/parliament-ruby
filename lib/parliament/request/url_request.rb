@@ -4,8 +4,6 @@ module Parliament
     #
     # @since 0.7.5
     #
-    # @attr_reader [String] base_url the endpoint for our API which we will build our requests on. (expected: http://example.com - without the trailing slash).
-    # @attr_reader [Hash] headers the headers being sent in the request.
     class UrlRequest < Parliament::Request::BaseRequest
       # Creates a new instance of Parliament::Request::UrlRequest.
       #
@@ -26,7 +24,7 @@ module Parliament
         super
       end
 
-      # Overrides ruby's method_missing to allow creation of URLs through method calls.
+      # Overrides Ruby's method_missing to allow creation of URLs through method calls.
       #
       # @example Adding a simple URL part
       #   request = Parliament::Request::UrlRequest.new(base_url: 'http://example.com')
@@ -48,7 +46,7 @@ module Parliament
       #
       # @param [Symbol] method the 'method' (url part) we are processing.
       # @param [Array<Object>] params parameters passed to the specified method (url part).
-      # @param [Block] block additional block (kept for compatibility with method_missing API).
+      # @param [Block] block additional block (kept for compatibility with method_missing interface).
       #
       # @return [Parliament::Request::UrlRequest] self (this is to allow method chaining).
       def method_missing(method, *params, &block)

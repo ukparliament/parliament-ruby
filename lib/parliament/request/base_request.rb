@@ -6,8 +6,9 @@ module Parliament
     #
     # @since 0.7.5
     #
-    # @attr_reader [String] base_url the base url of our api. (expected: http://example.com - without the trailing slash).
+    # @attr_reader [String] base_url the base url of our api. (eg: http://example.com - without the trailing slash).
     # @attr_reader [Hash] headers the headers being sent in the request.
+    # @attr_reader [Hash] query_params any query parameters to be sent in the request.
     class BaseRequest
       TIMEOUT        = 40.freeze
       CONNECTTIMEOUT = 5.freeze
@@ -17,7 +18,7 @@ module Parliament
       #
       # An interesting note for #initialize is that setting base_url on the class, or using the environment variable
       # PARLIAMENT_BASE_URL means you don't need to pass in a base_url. You can pass one anyway to override the
-      # environment variable or class parameter.  Similarly, headers can be set by either settings the headers on the class, or passing headers in.
+      # environment variable or class parameter.  Similarly, headers can be set by either setting the headers on the class, or passing headers in.
       #
       # @example Setting the base_url on the class
       #   Parliament::Request::BaseRequest.base_url = 'http://example.com'
@@ -58,7 +59,7 @@ module Parliament
       # @param [String] base_url the base url of our api. (expected: http://example.com - without the trailing slash).
       # @param [Hash] headers the headers being sent in the request.
       # @param [Parliament::Builder] builder the builder to use in order to build a response.
-      # @params [Module] decorators the decorator module to use in order to provide possible alias methods for any objects created by the builder.
+      # @param [Module] decorators the decorator modules to use in order to provide possible alias methods for any objects created by the builder.
       def initialize(base_url: nil, headers: nil, builder: nil, decorators: nil)
         @base_url     = base_url || self.class.base_url
         @headers      = headers || self.class.headers || {}
@@ -70,7 +71,7 @@ module Parliament
       # Makes an HTTP GET request and process results into a response.
       #
       # @example HTTP GET request
-      #   request = Parliament::Request::BaseRequest.new(base_url: 'http://example.com/people/123'
+      #   request = Parliament::Request::BaseRequest.new(base_url: 'http://example.com/people/123')
       #
       #   # url: http://example.com/people/123
       #
@@ -88,6 +89,8 @@ module Parliament
       # @raise [Parliament::NoContentResponseError] when the response body is empty.
       #
       # @param [Hash] params (optional) additional URI encoded form values to be added to the URI.
+      # @param [Integer] timeout (optional) time limit for the entire request in seconds.
+      # @param [Integer] connecttimeout (optional) time limit for just the connection in seconds.
       #
       # @return [Parliament::Response::BaseResponse] a Parliament::Response::BaseResponse object containing all of the data returned from the URL.
       def get(params: nil, timeout: TIMEOUT, connecttimeout: CONNECTTIMEOUT)
@@ -134,7 +137,8 @@ module Parliament
       #
       # @param [Hash] params (optional) additional URI encoded form values to be added to the URI.
       # @param [String] body (optional) body of the post request.
-      # @param [Integer] timeout (optional) a Net::HTTP.read_timeout value passed suring the post.
+      # @param [Integer] timeout (optional) time limit for the entire request in seconds.
+      # @param [Integer] connecttimeout (optional) time limit for just the connection in seconds.
       #
       # @return [Parliament::Response::BaseResponse] a Parliament::Response::BaseResponse object containing all of the data returned from the URL.
       def post(params: nil, body: nil, timeout: TIMEOUT, connecttimeout: CONNECTTIMEOUT)
@@ -162,7 +166,7 @@ module Parliament
 
       private
 
-      # @attr [String] base_url the base url of our api. (expected: http://example.com - without the trailing slash).
+      # @attr [String] base_url the base url of our api. (eg: http://example.com - without the trailing slash).
       # @attr [Hash] headers the headers being sent in the request.
       class << self
         attr_accessor :base_url, :headers
@@ -187,7 +191,7 @@ module Parliament
       def handle_errors(response)
         exception_class = if response.success? # 2xx Status
                             Parliament::NoContentResponseError if response.headers&.[]('Content-Length') == '0' ||
-                              (response.headers&.[]('Content-Length').nil? && response.body.empty?)
+                                                                  (response.headers&.[]('Content-Length').nil? && response.body.empty?)
                           elsif /\A4\w{2}/.match(response.code.to_s) # 4xx Status
                             Parliament::ClientError
                           elsif /\A5\w{2}/.match(response.code.to_s) # 5xx Status
@@ -205,7 +209,7 @@ module Parliament
         if endpoint.query
           # Returns [ ["key", "value"], ["key", "value"] ]
           key_value_array = URI.decode_www_form(endpoint.query)
-          key_value_array.map! { |key_value_pair| [ key_value_pair[0].to_sym, key_value_pair[1] ] }
+          key_value_array.map! { |key_value_pair| [key_value_pair[0].to_sym, key_value_pair[1]] }
           temp_params = key_value_array.to_h
         end
 
@@ -219,4 +223,3 @@ module Parliament
     end
   end
 end
-
